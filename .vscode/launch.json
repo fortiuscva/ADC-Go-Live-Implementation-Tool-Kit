@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Hammon Plating Sandbox",
+            "request": "launch",
+            "type": "al",
+            "tenant": "96d3c8ab-5439-4d1e-add6-edb58e1b26d9",
+            "environmentType": "Sandbox",
+            "environmentName": "HPSandbox",
+            "startupObjectId": 22,
+            "startupObjectType": "Page",
+            "breakOnError": "All",
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true
+        },
+        {
+            "name": "Davis Medical Sandbox",
+            "request": "launch",
+            "type": "al",
+            "tenant": "4fe1578c-02be-4bed-b567-99e8e4569b32",
+            "environmentType": "Sandbox",
+            "environmentName": "DavisMed_Sandbox",
+            "startupObjectId": 143,
+            "startupObjectType": "Page",
+            "breakOnError": true,
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "Synchronize"
+        },
+        {
+            "name": "SMB",
+            "request": "launch",
+            "type": "al",
+            "tenant": "55628bbe-44d0-472f-803c-668912f9c1f8",
+            "environmentType": "Sandbox",
+            "environmentName": "Sandbox112522",
+            "startupObjectId": 143,
+            "startupObjectType": "Page",
+            "breakOnError": true,
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "Synchronize"
+        }
+    ]
+}
