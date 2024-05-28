@@ -2,6 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Snapshot",
+            "request": "snapshotInitialize",
+            "type": "al",
+            "tenant": "67dd48ec-cb29-4357-ad18-15f36fa85a0a",
+            "environmentType": "Production",
+            "environmentName": "Production",
+            "breakOnNext": "WebClient",
+            "executionContext": "Debug",
+            "snapshotVerbosity": "Full",
+            "userId": "USER_187C2DF13C3F4B368CA43A2DFF391C78"
+        },
+        {
+            "name": "Elite RF GoLiveSandbox",
+            "request": "launch",
+            "type": "al",
+            "tenant": "67dd48ec-cb29-4357-ad18-15f36fa85a0a",
+            "environmentType": "Sandbox",
+            "environmentName": "GoLiveSandbox",
+            "startupObjectId": 22,
+            "startupObjectType": "Page",
+            "breakOnError": "All",
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "Synchronize"
+        },        
+        {
             "name": "Hammon Plating Sandbox",
             "request": "launch",
             "type": "al",
