@@ -1,0 +1,27 @@
+[
+  {
+    "debuggingContext": "48664486-8b4b-4b35-a8ff-8cd7124d377f",
+    "snapshotContext": {
+      "debugConfig": {
+        "type": "al",
+        "request": "snapshotInitialize",
+        "name": "Snapshot",
+        "configuration": {
+          "port": 7083,
+          "tenant": "67dd48ec-cb29-4357-ad18-15f36fa85a0a",
+          "name": "Snapshot",
+          "request": "snapshotInitialize",
+          "environmentType": "Production",
+          "environmentName": "Production"
+        },
+        "userId": "USER_187C2DF13C3F4B368CA43A2DFF391C78",
+        "sessionId": -1
+      },
+      "workspacePath": "d:\\ShivaTeja Bandaru\\OneDrive\\AL\\SMB_ERP SOL\\Github\\Adcirrus\\ADC-Go-Live-Implementation-Tool-Kit",
+      "createdTime": "2024-05-27T22:57:19.000Z",
+      "affinityCookie": "SzysOQxx",
+      "status": 4,
+      "attachKind": 2
+    }
+  }
+]
