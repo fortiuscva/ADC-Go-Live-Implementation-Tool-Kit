@@ -75,7 +75,33 @@ page 77251 "ADC Item Journal Lines Stating"
                 ToolTip = 'This action will create item journals in the selected tempalte and batch';
                 RunObject = report "ADC Create Journal Lines";
             }
+            action(UnflagProcessedFlag)
+            {
+                Caption = 'Unflag Processed Lines';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = Process;
+                ToolTip = 'This action will unflag processed flag value on Staging Journal Lines';
+                trigger OnAction()
+
+                begin
+                    if not Confirm(UnProcessedConfirmFlagMsg, false) then
+                        Error(ProcessInterruptedMsg);
+
+                    ADCItemJnlLineStagingRecGbl.RESET;
+                    ADCItemJnlLineStagingRecGbl.ModifyAll(Processed, false);
+                    ADCItemJnlLineStagingRecGbl.ModifyAll("Error Text", '');
+                end;
+
+            }
+
         }
 
     }
+    var
+        UnProcessedConfirmFlagMsg: Label 'Do you want to unflag all processed lines?';
+        ProcessInterruptedMsg: Label 'Processed Interrupted to respect the Warning';
+        ADCItemJnlLineStagingRecGbl: Record "ADC Item Journal Line Stage";
 }
