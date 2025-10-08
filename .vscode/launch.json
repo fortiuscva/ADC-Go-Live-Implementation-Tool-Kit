@@ -14,6 +14,21 @@
             "userId": "USER_187C2DF13C3F4B368CA43A2DFF391C78"
         },
         {
+            "name": "Nexxtspine",
+            "request": "launch",
+            "type": "al",
+            "tenant": "d2d6e7c4-f146-4110-9f5d-619e5c984289",
+            "environmentType": "Sandbox",
+            "environmentName": "Dev",
+            "startupObjectId": 22,
+            "startupObjectType": "Page",
+            "breakOnError": "All",
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "Synchronize"
+        },        
+        {
             "name": "Elite RF GoLiveSandbox",
             "request": "launch",
             "type": "al",

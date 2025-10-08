@@ -1,7 +1,7 @@
 {
   "id": "0b628426-0019-45a5-8dc4-c5978a819764",
   "name": "GoLiveImplementation Tool Kit",
-  "publisher": "Adcirrus",
+  "publisher": "Panacea",
   "version": "1.0.0.6",
   "brief": "",
   "description": "SMB Go Live Implementation Tool Kit",
@@ -12,8 +12,8 @@
   "logo": "",
   "dependencies": [],
   "screenshots": [],
-  "platform": "1.0.0.0",
-  "application": "24.0.0.0",
+  "platform": "26.0.0.0",
+  "application": "26.0.0.0",
   "idRanges": [
     {
       "from": 77250,
@@ -25,7 +25,7 @@
     "allowDownloadingSource": false,
     "includeSourceInSymbolFile": false
   },
-  "runtime": "13.0",
+  "runtime": "14.0",
   "features": [
     "NoImplicitWith"
   ]
