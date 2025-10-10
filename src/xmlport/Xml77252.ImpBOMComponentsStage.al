@@ -15,7 +15,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
                 AutoSave = false;
                 AutoUpdate = false;
                 textelement(ParentItemNoGbl) { }
-                //textelement(LineNoGbl) { }
+                textelement(LineNoGbl) { }
                 textelement(TypeGbl) { }
                 textelement(NoGbl) { }
                 textelement(DescriptionGbl) { }
@@ -25,7 +25,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
                 trigger OnAfterInitRecord()
                 begin
                     ParentItemNoGbl := '';
-                    //LineNoGbl := '';
+                    LineNoGbl := '';
                     TypeGbl := '';
                     DescriptionGbl := '';
                     QuantityPerGbl := '';
@@ -65,6 +65,11 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
             }
         }
     }
+    trigger OnInitXmlPort()
+    begin
+        HeaderVarGbl := true;
+    end;
+
     trigger OnPreXmlPort()
 
     begin
