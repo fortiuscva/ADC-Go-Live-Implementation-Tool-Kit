@@ -23,6 +23,7 @@ page 77252 "ADC BOM Component Stage"
                 field("Line No."; Rec."Line No.")
                 {
                     ToolTip = 'Specifies the value of the Line No. field.', Comment = '%';
+                    Visible = false;
                 }
                 field(Type; Rec."Type")
                 {
@@ -71,7 +72,7 @@ page 77252 "ADC BOM Component Stage"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 Image = Process;
-                ToolTip = 'This action will create item journals in the selected tempalte and batch';
+                ToolTip = 'This action will create Assembly BOM';
                 RunObject = report "ADC Create BOM Components";
             }
             action(UnflagProcessedFlag)
@@ -82,7 +83,7 @@ page 77252 "ADC BOM Component Stage"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 Image = Process;
-                ToolTip = 'This action will unflag processed flag value on Staging Journal Lines';
+                ToolTip = 'This action will unflag processed flag value on Staging Assembly BOM Lines';
                 trigger OnAction()
 
                 begin

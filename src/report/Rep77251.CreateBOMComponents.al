@@ -6,32 +6,33 @@ report 77251 "ADC Create BOM Components"
     ProcessingOnly = true;
     dataset
     {
-        dataitem(ADCBOMComponentStage; "ADC BOM Component Stage")
-        {
-            DataItemTableView = sorting("Entry No.") where(Processed = const(false));
-            trigger OnPreDataItem()
-            begin
-                Window.Open('Processing Parent Item No. #####1##########');
-            end;
 
+        dataitem(Integer; Integer)
+        {
+            DataItemTableView = sorting(Number) where(Number = const(1));
             trigger OnAfterGetRecord()
-            var
-                ErrorTxtLcl: Text;
             begin
-                Window.Update(1, ADCBOMComponentStage."Parent Item No.");
-                Clear(ProcessBOMComponents);
-                ClearLastError();
-                if not ProcessBOMComponents.Run(ADCBOMComponentStage) then begin
-                    ADCBOMComponentStage.Processed := false;
-                    ErrorTxtLcl := GetLastErrorText();
-                    ADCBOMComponentStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));
-                    ADCBOMComponentStage.Modify();
-                end else begin
-                    ADCBOMComponentStage.Processed := true;
-                    ADCBOMComponentStage."Error Text" := '';
-                    ADCBOMComponentStage.Modify();
+
+                BOMCompByParentItem.Open();
+                while BOMCompByParentItem.Read() do begin
+                    Window.Update(1, BOMCompByParentItem.ParentItemNo);
+                    BOMCompStagingRec.Reset();
+                    BOMCompStagingRec.SetRange("Parent Item No.", BOMCompByParentItem.ParentItemNo);
+                    BOMCompStagingRec.SetRange(Processed, false);
+                    Clear(ProcessBOMComponents);
+                    ClearLastError();
+                    if not ProcessBOMComponents.Run(BOMCompStagingRec) then begin
+                        ErrorTxtGbl := GetLastErrorText();
+                        BOMCompStagingRec.ModifyAll(Processed, false);
+                        BOMCompStagingRec.ModifyAll("Error Text", ErrorTxtGbl);
+                        BOMCompStagingRec.Modify();
+                    end else begin
+                        BOMCompStagingRec.ModifyAll(Processed, true);
+                        BOMCompStagingRec.ModifyAll("Error Text", '');
+                        BOMCompStagingRec.Modify();
+                    end;
+                    Commit();
                 end;
-                Commit();
             end;
 
             trigger OnPostDataItem()
@@ -43,4 +44,7 @@ report 77251 "ADC Create BOM Components"
     var
         Window: Dialog;
         ProcessBOMComponents: Codeunit "ADC Process BOM Components";
+        BOMCompByParentItem: Query "ADC BOM Components By Parent";
+        BOMCompStagingRec: Record "ADC BOM Component Stage";
+        ErrorTxtGbl: Text;
 }

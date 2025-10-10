@@ -3,36 +3,39 @@ codeunit 77251 "ADC Process BOM Components"
     Tableno = "ADC BOM Component Stage";
     trigger OnRun()
     var
-        BOMComponentRecLcl: Record "BOM Component";
-        ItemGbl: Record Item;
     begin
-        Rec.TestField("Quantity Per");
-        // ItemGbl.Get(Rec."No.");
-        BOMComponentRecLcl.Reset();
-        BOMComponentRecLcl.SetRange("Parent Item No.", Rec."Parent Item No.");
-        if BOMComponentRecLcl.FindLast() then
-            LineNoGbl := BOMComponentRecLcl."Line No." + 10000
-        else
-            LineNoGbl := 10000;
+        BOMCompStatingRecGbl.Reset();
+        BOMCompStatingRecGbl.CopyFilters(Rec);
+        if BOMCompStatingRecGbl.FindSet() then
+            repeat
+                LineNoGbl := 10000;
+                BOMComponentRecGbl.Reset();
+                BOMComponentRecGbl.SetRange("Parent Item No.", BOMCompStatingRecGbl."Parent Item No.");
+                if BOMComponentRecGbl.FindLast() then
+                    LineNoGbl := BOMComponentRecGbl."Line No." + 10000;
 
-        BOMComponentRecLcl.Init();
-        BOMComponentRecLcl.Validate("Parent Item No.", Rec."Parent Item No.");
-        BOMComponentRecLcl.Validate("Line No.", LineNoGbl);
-        BOMComponentRecLcl.Insert(true);
+                BOMComponentRecGbl.Init();
+                BOMComponentRecGbl.Validate("Parent Item No.", BOMCompStatingRecGbl."Parent Item No.");
+                BOMComponentRecGbl.Validate("Line No.", LineNoGbl);
+                BOMComponentRecGbl.Insert(true);
 
-        BOMComponentRecLcl.Validate(Type, Rec.Type);
-        BOMComponentRecLcl.Validate("No.", Rec."No.");
-        BOMComponentRecLcl.Validate(Description, Rec.Description);
-        BOMComponentRecLcl.Validate("Quantity per", Rec."Quantity Per");
-
-        if Rec."Unit of Measure Code" <> '' then
-            BOMComponentRecLcl.Validate("Unit of Measure Code", Rec."Unit of Measure Code");
-        if rec."Installed in Item No." <> '' then
-            BOMComponentRecLcl.Validate("Installed in Item No.", Rec."Installed in Item No.");
-        BOMComponentRecLcl.Modify(true);
-
+                BOMComponentRecGbl.Validate(Type, BOMCompStatingRecGbl.Type);
+                BOMComponentRecGbl.Validate("No.", BOMCompStatingRecGbl."No.");
+                BOMComponentRecGbl.Validate(Description, BOMCompStatingRecGbl.Description);
+                BOMComponentRecGbl.Validate("Quantity per", BOMCompStatingRecGbl."Quantity Per");
+                if BOMCompStatingRecGbl."Unit of Measure Code" <> '' then
+                    BOMComponentRecGbl.Validate("Unit of Measure Code", BOMCompStatingRecGbl."Unit of Measure Code");
+                if rec."Installed in Item No." <> '' then
+                    BOMComponentRecGbl.Validate("Installed in Item No.", BOMCompStatingRecGbl."Installed in Item No.");
+                BOMComponentRecGbl.Modify(true);
+                LineNoGbl += 10000;
+            until BOMComponentRecGbl.Next() = 0;
     end;
 
     var
         LineNoGbl: Integer;
+        BOMCompStatingRecGbl: Record "ADC BOM Component Stage";
+        BOMComponentRecGbl: Record "BOM Component";
+        ItemGbl: Record Item;
+
 }
