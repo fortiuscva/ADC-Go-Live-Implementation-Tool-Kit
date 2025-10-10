@@ -41,6 +41,10 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
                     //     NextLineNoGbl := BOMComponentStagingRecGbl."Line No." + 10000
                     // else
                     //     NextLineNoGbl := 10000;
+                    if HeaderVarGbl then begin
+                        HeaderVarGbl := false;
+                        currXMLport.Skip();
+                    end;
                     Evaluate(LineType, TypeGbl);
                     Evaluate(QuantityGbl, QuantityPerGbl);
 
@@ -77,6 +81,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
     var
         BOMComponentStagingRecGbl: Record "ADC BOM Component Stage";
         NextLineNoGbl: Integer;
+        HeaderVarGbl: Boolean;
         EntryNo: Integer;
         QuantityGbl: Decimal;
         LineType: Enum "BOM Component Type";

@@ -25,7 +25,7 @@ codeunit 77251 "ADC Process BOM Components"
                 BOMComponentRecGbl.Validate("Quantity per", BOMCompStatingRecGbl."Quantity Per");
                 if BOMCompStatingRecGbl."Unit of Measure Code" <> '' then
                     BOMComponentRecGbl.Validate("Unit of Measure Code", BOMCompStatingRecGbl."Unit of Measure Code");
-                if rec."Installed in Item No." <> '' then
+                if BOMCompStatingRecGbl."Installed in Item No." <> '' then
                     BOMComponentRecGbl.Validate("Installed in Item No.", BOMCompStatingRecGbl."Installed in Item No.");
                 BOMComponentRecGbl.Modify(true);
                 LineNoGbl += 10000;
