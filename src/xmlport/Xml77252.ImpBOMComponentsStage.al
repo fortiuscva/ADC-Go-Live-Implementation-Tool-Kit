@@ -15,7 +15,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
                 AutoSave = false;
                 AutoUpdate = false;
                 textelement(ParentItemNoGbl) { }
-                textelement(LineNoGbl) { }
+                //textelement(LineNoGbl) { }
                 textelement(TypeGbl) { }
                 textelement(NoGbl) { }
                 textelement(DescriptionGbl) { }
@@ -25,7 +25,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
                 trigger OnAfterInitRecord()
                 begin
                     ParentItemNoGbl := '';
-                    LineNoGbl := '';
+                    //LineNoGbl := '';
                     TypeGbl := '';
                     DescriptionGbl := '';
                     QuantityPerGbl := '';
@@ -35,19 +35,23 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
 
                 trigger OnBeforeInsertRecord()
                 begin
-                    BOMComponentStagingRecGbl.Reset();
-                    BOMComponentStagingRecGbl.SetRange("Parent Item No.", ParentItemNoGbl);
-                    if BOMComponentStagingRecGbl.FindLast() then
-                        NextLineNoGbl := BOMComponentStagingRecGbl."Line No." + 10000
-                    else
-                        NextLineNoGbl := 10000;
+                    // BOMComponentStagingRecGbl.Reset();
+                    // BOMComponentStagingRecGbl.SetRange("Parent Item No.", ParentItemNoGbl);
+                    // if BOMComponentStagingRecGbl.FindLast() then
+                    //     NextLineNoGbl := BOMComponentStagingRecGbl."Line No." + 10000
+                    // else
+                    //     NextLineNoGbl := 10000;
+                    if HeaderVarGbl then begin
+                        HeaderVarGbl := false;
+                        currXMLport.Skip();
+                    end;
                     Evaluate(LineType, TypeGbl);
                     Evaluate(QuantityGbl, QuantityPerGbl);
 
                     BOMComponentStagingRecGbl.Init();
                     BOMComponentStagingRecGbl."Entry No." := EntryNo;
                     BOMComponentStagingRecGbl.Validate("Parent Item No.", ParentItemNoGbl);
-                    BOMComponentStagingRecGbl."Line No." := NextLineNoGbl;
+                    //BOMComponentStagingRecGbl."Line No." := NextLineNoGbl;
                     BOMComponentStagingRecGbl.Validate(Type, LineType);
                     BOMComponentStagingRecGbl.Validate("No.", NoGbl);
                     BOMComponentStagingRecGbl.Validate(Description, DescriptionGbl);
@@ -77,6 +81,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
     var
         BOMComponentStagingRecGbl: Record "ADC BOM Component Stage";
         NextLineNoGbl: Integer;
+        HeaderVarGbl: Boolean;
         EntryNo: Integer;
         QuantityGbl: Decimal;
         LineType: Enum "BOM Component Type";
