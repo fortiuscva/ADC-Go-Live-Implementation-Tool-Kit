@@ -6,7 +6,7 @@ query 77250 "ADC BOM Components By Parent"
 
     elements
     {
-        dataitem(ADCBOMComponentStage; "ADC BOM Component Stage")
+        dataitem(ADCBOMComponentStage; "ADC Assembly BOM Import Stage")
         {
             DataItemTableFilter = Processed = const(false);
             column(ParentItemNo; "Parent Item No.")
