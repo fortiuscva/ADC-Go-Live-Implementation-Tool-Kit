@@ -10,6 +10,12 @@ report 77251 "ADC Create BOM Components"
         dataitem(Integer; Integer)
         {
             DataItemTableView = sorting(Number) where(Number = const(1));
+
+            trigger OnPreDataItem()
+            begin
+                Window.open('Processing Item No. ###1#############');
+            end;
+
             trigger OnAfterGetRecord()
             begin
 
@@ -19,17 +25,16 @@ report 77251 "ADC Create BOM Components"
                     BOMCompStagingRec.Reset();
                     BOMCompStagingRec.SetRange("Parent Item No.", BOMCompByParentItem.ParentItemNo);
                     BOMCompStagingRec.SetRange(Processed, false);
+                    if BOMCompStagingRec.FindFirst() then;
                     Clear(ProcessBOMComponents);
                     ClearLastError();
                     if not ProcessBOMComponents.Run(BOMCompStagingRec) then begin
                         ErrorTxtGbl := GetLastErrorText();
                         BOMCompStagingRec.ModifyAll(Processed, false);
                         BOMCompStagingRec.ModifyAll("Error Text", ErrorTxtGbl);
-                        BOMCompStagingRec.Modify();
                     end else begin
                         BOMCompStagingRec.ModifyAll(Processed, true);
-                        BOMCompStagingRec.ModifyAll("Error Text", '');
-                        BOMCompStagingRec.Modify();
+                        BOMCompStagingRec.ModifyAll("Error Text", '')
                     end;
                     Commit();
                 end;

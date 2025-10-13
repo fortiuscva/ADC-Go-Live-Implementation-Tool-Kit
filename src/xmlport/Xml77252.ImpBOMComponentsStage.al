@@ -60,6 +60,7 @@ xmlport 77252 "ADC Imp. BOMComponents Stage"
                     BOMComponentStagingRecGbl.Validate("Installed in Item No.", InstalledInItemNoGbl);
                     BOMComponentStagingRecGbl.Insert();
                     EntryNo += 1;
+                    Commit();
                 end;
 
             }
