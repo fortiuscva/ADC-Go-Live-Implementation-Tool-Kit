@@ -1,7 +1,7 @@
-page 77252 "ADC BOM Component Stage"
+page 77252 "ADC Assembly BOM Import Stage"
 {
     ApplicationArea = All;
-    Caption = 'BOM Component Stage';
+    Caption = 'Assembly BOM Import Stage';
     PageType = List;
     SourceTable = "ADC Assembly BOM Import Stage";
     UsageCategory = Lists;
