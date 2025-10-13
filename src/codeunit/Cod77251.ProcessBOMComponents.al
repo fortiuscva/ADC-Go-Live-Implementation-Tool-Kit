@@ -29,7 +29,7 @@ codeunit 77251 "ADC Process BOM Components"
                     BOMComponentRecGbl.Validate("Installed in Item No.", BOMCompStatingRecGbl."Installed in Item No.");
                 BOMComponentRecGbl.Modify(true);
                 LineNoGbl += 10000;
-            until BOMComponentRecGbl.Next() = 0;
+            until BOMCompStatingRecGbl.Next() = 0;
     end;
 
     var

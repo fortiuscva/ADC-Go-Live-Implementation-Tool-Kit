@@ -34,6 +34,8 @@ table 77251 "ADC Assembly BOM Import Stage"
         field(7; "Quantity Per"; Decimal)
         {
             Caption = 'Quantity Per';
+            DecimalPlaces = 0 : 5;
+            MinValue = 0;
         }
         field(8; "Unit of Measure Code"; Code[10])
         {
