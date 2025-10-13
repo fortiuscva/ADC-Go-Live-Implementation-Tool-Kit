@@ -1,6 +1,6 @@
-table 77251 "ADC BOM Component Stage"
+table 77251 "ADC Assembly BOM Import Stage"
 {
-    Caption = 'BOM Component Stage';
+    Caption = 'Assembly BOM Import Stage';
     DataClassification = ToBeClassified;
 
     fields
@@ -59,4 +59,13 @@ table 77251 "ADC BOM Component Stage"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    var
+        AssBOMImpStageRecLcl: Record "ADC Assembly BOM Import Stage";
+    begin
+        if AssBOMImpStageRecLcl.FindLast() then
+            "Entry No." := AssBOMImpStageRecLcl."Entry No." + 1
+        else
+            "Entry No." := 1;
+    end;
 }

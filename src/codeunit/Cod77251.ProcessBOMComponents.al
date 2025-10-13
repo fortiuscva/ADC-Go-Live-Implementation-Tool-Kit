@@ -1,6 +1,6 @@
 codeunit 77251 "ADC Process BOM Components"
 {
-    Tableno = "ADC BOM Component Stage";
+    Tableno = "ADC Assembly BOM Import Stage";
     trigger OnRun()
     var
     begin
@@ -34,7 +34,7 @@ codeunit 77251 "ADC Process BOM Components"
 
     var
         LineNoGbl: Integer;
-        BOMCompStatingRecGbl: Record "ADC BOM Component Stage";
+        BOMCompStatingRecGbl: Record "ADC Assembly BOM Import Stage";
         BOMComponentRecGbl: Record "BOM Component";
         ItemGbl: Record Item;
 

@@ -50,6 +50,6 @@ report 77251 "ADC Create BOM Components"
         Window: Dialog;
         ProcessBOMComponents: Codeunit "ADC Process BOM Components";
         BOMCompByParentItem: Query "ADC BOM Components By Parent";
-        BOMCompStagingRec: Record "ADC BOM Component Stage";
+        BOMCompStagingRec: Record "ADC Assembly BOM Import Stage";
         ErrorTxtGbl: Text;
 }
