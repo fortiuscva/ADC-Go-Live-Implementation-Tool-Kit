@@ -18,30 +18,15 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                 AutoSave = false;
                 AutoUpdate = false;
                 XmlName = 'ItemJnlLineGbl';
-                textelement(ItemNoGbl)
-                {
-                }
-                textelement(QuantityGbl)
-                {
-                }
-                textelement(UOMGbl)
-                {
-                }
-                textelement(UnitCostGbl)
-                {
-                }
-                textelement(LocationCodeGbl)
-                {
-                }
-                textelement(LotNoGbl)
-                {
-                }
-                textelement(SerialNoGbl)
-                {
-                }
-                textelement(BinCodeGbl)
-                {
-                }
+                textelement(ItemNoGbl) { }
+                textelement(QuantityGbl) { }
+                textelement(UOMGbl) { }
+                textelement(UnitCostGbl) { }
+                textelement(LocationCodeGbl) { }
+                textelement(LotNoGbl) { }
+                textelement(SerialNoGbl) { }
+                textelement(BinCodeGbl) { }
+                textelement(ExpirationDateGbl) { }
 
                 trigger OnAfterInitRecord()
                 begin
@@ -52,6 +37,12 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                     LocationCodeGbl := '';
                     LotNoGbl := '';
                     SerialNoGbl := '';
+                    ExpirationDateGbl := '';
+                end;
+
+                trigger OnPreXmlItem()
+                begin
+                    HeaderVarGbl := true;
                 end;
 
                 trigger OnBeforeInsertRecord()
@@ -59,6 +50,7 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                     LotNoInfoLcl: Record "Lot No. Information";
                     QuantityLcl: Decimal;
                     UnitCostLcl: Decimal;
+                    ExpDateLcl: Date;
                 begin
                     if HeaderVarGbl then begin
                         HeaderVarGbl := false;
@@ -67,6 +59,7 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
 
                     Evaluate(QuantityLcl, QuantityGbl);
                     Evaluate(UnitCostLcl, UnitCostGbl);
+                    Evaluate(ExpDateLcl, ExpirationDateGbl);
 
                     ItemJnlLineStagingRecGbl.Init();
                     ItemJnlLineStagingRecGbl."Entry No." := EntryNo;
@@ -78,6 +71,7 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                     ItemJnlLineStagingRecGbl.Validate("Bin Code", BinCodeGbl);
                     ItemJnlLineStagingRecGbl."Lot No." := LotNoGbl;
                     ItemJnlLineStagingRecGbl."Serial No." := SerialNoGbl;
+                    ItemJnlLineStagingRecGbl."Expiration Date" := ExpDateLcl;
                     ItemJnlLineStagingRecGbl.Insert();
                     EntryNo += 1;
                 end;
