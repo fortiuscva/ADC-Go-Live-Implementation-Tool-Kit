@@ -40,11 +40,6 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                     ExpirationDateGbl := '';
                 end;
 
-                trigger OnPreXmlItem()
-                begin
-                    HeaderVarGbl := true;
-                end;
-
                 trigger OnBeforeInsertRecord()
                 var
                     LotNoInfoLcl: Record "Lot No. Information";
@@ -88,6 +83,7 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
             if not Confirm(LinesExistsMsgLbl) then
                 error('Process interrupted to respect the Warning');
 
+        HeaderVarGbl := true;
     end;
 
     var

@@ -44,6 +44,10 @@ page 77251 "ADC Item Journal Lines Stating"
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
                 }
+                field("Expiration Date"; Rec."Expiration Date")
+                {
+                    ToolTip = 'Specifies the value of the Expiration Date field.', Comment = '%';
+                }
                 field("Bin Code"; Rec."Bin Code")
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
