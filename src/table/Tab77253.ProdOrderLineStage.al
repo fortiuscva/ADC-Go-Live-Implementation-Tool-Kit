@@ -5,25 +5,26 @@ table 77253 "ADC Prod. Order Line Stage"
 
     fields
     {
-        field(1; "Entry No."; Integer)
-        {
-            Caption = 'Entry No.';
-        }
-        field(2; Status; Enum "Production Order Status")
+        field(1; Status; Enum "Production Order Status")
         {
             Caption = 'Status';
         }
-        field(3; "Prod. Order No."; Code[20])
+        field(2; "Prod. Order No."; Code[20])
         {
             Caption = 'Prod. Order No.';
         }
-        field(4; "Line No."; Integer)
+        field(3; "Prod. Order Line No."; Integer)
         {
-            Caption = 'Line No.';
+            Caption = 'Prod. Order Line No.';
         }
+        field(4; "Entry No."; Integer)
+        {
+            Caption = 'Entry No.';
+        }
+
         field(5; "Item No."; Code[20])
         {
-            Caption = 'Item No.';
+            Caption = ' Item No.';
         }
         field(6; "Variant Code"; Code[10])
         {
@@ -37,23 +38,38 @@ table 77253 "ADC Prod. Order Line Stage"
         {
             Caption = 'Location Code';
         }
-        field(9; "Unit of Measure Code"; Code[10])
+        field(9; Quantity; Decimal)
+        {
+            Caption = 'Quantity';
+            DecimalPlaces = 0 : 5;
+            MinValue = 0;
+        }
+        field(10; "Unit of Measure Code"; Code[10])
         {
             Caption = 'Unit of Measure Code';
         }
-        field(10; "Due Date"; Date)
+        field(11; "Production BOM No."; Code[20])
         {
-            Caption = 'Due Date';
+            Caption = 'Production BOM No.';
         }
-        field(11; "Routing No."; Code[20])
+        field(12; "Production BOM Version Code"; Code[20])
+        {
+            Caption = 'Production BOM Version Code';
+        }
+
+        field(13; "Routing No."; Code[20])
         {
             Caption = 'Routing No.';
         }
-        field(12; Processed; Boolean)
+        field(15; "Routing Version Code"; Code[20])
+        {
+            Caption = 'Routing Version Code';
+        }
+        field(14; Processed; Boolean)
         {
             Caption = 'Processed';
         }
-        field(13; "Error Text"; Text[250])
+        field(16; "Error Text"; Text[250])
         {
             Caption = 'Error Text';
         }

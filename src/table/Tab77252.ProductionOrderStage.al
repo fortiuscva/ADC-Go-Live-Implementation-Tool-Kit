@@ -5,57 +5,59 @@ table 77252 "ADC Production Order Stage"
 
     fields
     {
-        field(1; "Entry No."; Integer)
-        {
-            Caption = 'Entry No.';
-        }
-        field(2; "No."; Code[20])
-        {
-            Caption = 'No.';
-        }
-        field(7; Description; Text[100])
-        {
-            Caption = 'Description';
-        }
-        field(3; Status; Enum "Production Order Status")
+        field(1; Status; Enum "Production Order Status")
         {
             Caption = 'Status';
         }
-        field(4; "Source Type"; Enum "Prod. Order Source Type")
+        field(2; "Prod. Order No."; Code[20])
+        {
+            Caption = 'No.';
+        }
+        field(3; "Entry No."; Integer)
+        {
+            Caption = 'Entry No.';
+        }
+
+        field(4; Description; Text[100])
+        {
+            Caption = 'Description';
+        }
+
+        field(5; "Source Type"; Enum "Prod. Order Source Type")
         {
             Caption = 'Source Type';
         }
-        field(5; "Source No."; Code[20])
+        field(6; "Source No."; Code[20])
         {
             Caption = 'Source No.';
         }
-        field(6; Quantity; Decimal)
+        field(7; "Variant Code"; Code[10])
+        {
+            Caption = 'Variant Code';
+        }
+        field(8; Quantity; Decimal)
         {
             Caption = 'Quantity';
             DecimalPlaces = 0 : 5;
             MinValue = 0;
         }
-        field(8; "Location Code"; Code[10])
+        field(9; "Due Date"; Date)
+        {
+            Caption = 'Due Date';
+        }
+        field(10; "Location Code"; Code[10])
         {
             Caption = 'Location Code';
         }
-        field(11; "Routing No."; Code[20])
+        field(11; "Bin Code"; Code[20])
         {
-            Caption = 'Routing No.';
+            Caption = 'Bin Code';
         }
-        field(20; "Starting Time"; Time)
-        {
-            Caption = 'Starting Time';
-        }
-        field(21; "Starting Date"; Date)
-        {
-            Caption = 'Starting Date';
-        }
-        field(12; Processed; Boolean)
+        field(13; Processed; Boolean)
         {
             Caption = 'Processed';
         }
-        field(13; "Error Text"; Text[250])
+        field(14; "Error Text"; Text[250])
         {
             Caption = 'Error Text';
         }

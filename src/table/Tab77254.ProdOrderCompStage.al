@@ -5,55 +5,69 @@ table 77254 "ADC Prod. Order Comp. Stage"
 
     fields
     {
-        field(1; "Entry No."; Integer)
-        {
-            Caption = 'Entry No.';
-        }
-        field(2; Status; Enum "Production Order Status")
+
+        field(1; Status; Enum "Production Order Status")
         {
             Caption = 'Status';
         }
-        field(3; "Prod. Order No."; Code[20])
+        field(2; "Prod. Order No."; Code[20])
         {
             Caption = 'Prod. Order No.';
         }
-        field(4; "Prod. Order Line No."; Integer)
+        field(3; "Prod. Order Line No."; Integer)
         {
             Caption = 'Prod. Order Line No.';
         }
-        field(5; "Line No."; Integer)
+        field(4; "Prod. Order Comp. Line No."; Integer)
         {
-            Caption = 'Line No.';
+            Caption = 'Prod. Order Comp. Line No.';
         }
-        field(6; "Item No."; Code[20])
+        field(5; "Entry No."; Integer)
         {
-            Caption = 'Item No.';
+            Caption = 'Entry No.';
         }
-        field(7; Description; Text[100])
+        field(10; "Prod. Order Line Item No."; Code[20])
         {
-            Caption = 'Description';
+            Caption = 'Prod. Order Line Item No.';
         }
-        field(8; "Quantity Per"; Decimal)
+        field(11; "Comp. Item No."; Code[20])
+        {
+            Caption = 'Comp. Item No.';
+        }
+        field(12; "Quantity Per"; Decimal)
         {
             Caption = 'Quantity Per';
         }
-        field(9; "Unit of Measure Code"; Code[10])
+        field(13; "Unit of Measure Code"; Code[10])
         {
             Caption = 'Unit of Measure Code';
         }
-        field(10; "Location Code"; Code[10])
+        field(14; "Flushing Method"; Enum "Flushing Method")
+        {
+            Caption = 'Flushing Method';
+        }
+        field(15; "Expected Quantity"; Decimal)
+        {
+            Caption = 'Expected Quantity';
+            DecimalPlaces = 0 : 5;
+        }
+        field(16; "Routing Link Code"; Code[10])
+        {
+            Caption = 'Routing Link Code';
+        }
+        field(17; "Location Code"; Code[10])
         {
             Caption = 'Location Code';
         }
-        field(11; "Bin Code"; Code[20])
+        field(18; "Bin Code"; Code[20])
         {
             Caption = 'Bin Code';
         }
-        field(12; Processed; Boolean)
+        field(19; Processed; Boolean)
         {
             Caption = 'Processed';
         }
-        field(13; "Error Text"; Text[250])
+        field(20; "Error Text"; Text[250])
         {
             Caption = 'Error Text';
         }

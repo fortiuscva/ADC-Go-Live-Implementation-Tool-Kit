@@ -12,7 +12,16 @@ page 77253 "ADC Production Order Stage"
         {
             repeater(General)
             {
-                field("No."; Rec."No.")
+
+                field("Entry No."; Rec."Entry No.")
+                {
+                    ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
+                }
+                field(Status; Rec.Status)
+                {
+                    ToolTip = 'Specifies the value of the Status field.', Comment = '%';
+                }
+                field("Prod. Order No."; Rec."Prod. Order No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.', Comment = '%';
                 }
@@ -20,37 +29,33 @@ page 77253 "ADC Production Order Stage"
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
-                field(Quantity; Rec.Quantity)
+                field("Source Type"; Rec."Source Type")
                 {
-                    ToolTip = 'Specifies the value of the Quantity field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Source Type field.', Comment = '%';
                 }
                 field("Source No."; Rec."Source No.")
                 {
                     ToolTip = 'Specifies the value of the Source No. field.', Comment = '%';
                 }
-                field("Source Type"; Rec."Source Type")
+                field("Variant Code"; Rec."Variant Code")
                 {
-                    ToolTip = 'Specifies the value of the Source Type field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Variant Code field.', Comment = '%';
                 }
-                field("Routing No."; Rec."Routing No.")
+                field(Quantity; Rec.Quantity)
                 {
-                    ToolTip = 'Specifies the value of the Routing No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Quantity field.', Comment = '%';
                 }
-                field(Status; Rec.Status)
+                field("Due Date"; Rec."Due Date")
                 {
-                    ToolTip = 'Specifies the value of the Status field.', Comment = '%';
-                }
-                field("Starting Date"; Rec."Starting Date")
-                {
-                    ToolTip = 'Specifies the value of the Starting Date field.', Comment = '%';
-                }
-                field("Starting Time"; Rec."Starting Time")
-                {
-                    ToolTip = 'Specifies the value of the Starting Time field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Due Date field.', Comment = '%';
                 }
                 field("Location Code"; Rec."Location Code")
                 {
                     ToolTip = 'Specifies the value of the Location Code field.', Comment = '%';
+                }
+                field("Bin Code"; Rec."Bin Code")
+                {
+                    ToolTip = 'Specifies the value of the Bin Code field.', Comment = '%';
                 }
                 field(Processed; Rec.Processed)
                 {
