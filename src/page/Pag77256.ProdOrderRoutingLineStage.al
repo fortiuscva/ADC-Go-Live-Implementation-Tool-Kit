@@ -1,9 +1,9 @@
-page 77255 "ADC Prod. Order Comp. Stage"
+page 77256 "Prod. Order Routing Line Stage"
 {
     ApplicationArea = All;
-    Caption = 'ADC Prod. Order Comp. Stage';
+    Caption = 'Prod. Order Routing Line Stage';
     PageType = List;
-    SourceTable = "ADC Prod. Order Comp. Stage";
+    SourceTable = "Prod. Order Routing Line Stage";
     UsageCategory = Lists;
 
     layout
@@ -12,7 +12,6 @@ page 77255 "ADC Prod. Order Comp. Stage"
         {
             repeater(General)
             {
-
                 field("Entry No."; Rec."Entry No.")
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
@@ -29,45 +28,45 @@ page 77255 "ADC Prod. Order Comp. Stage"
                 {
                     ToolTip = 'Specifies the value of the Prod. Order Line No. field.', Comment = '%';
                 }
-                field("Prod. Order Line Item No."; Rec."Prod. Order Line Item No.")
+                field("Routing No."; Rec."Routing No.")
                 {
-                    ToolTip = 'Specifies the value of the Prod. Order Line Item No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Routing No. field.', Comment = '%';
                 }
-                field("Prod. Order Comp. Line No."; Rec."Prod. Order Comp. Line No.")
+                field("Routing Reference No."; Rec."Routing Reference No.")
                 {
-                    ToolTip = 'Specifies the value of the Prod. Order Comp. Line No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Routing Reference No. field.', Comment = '%';
                 }
-                field("Comp. Item No."; Rec."Comp. Item No.")
+                field("Operation No."; Rec."Operation No.")
                 {
-                    ToolTip = 'Specifies the value of the Comp. Item No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Operation No. field.', Comment = '%';
                 }
-                field("Quantity Per"; Rec."Quantity Per")
+                field(Type; Rec."Type")
                 {
-                    ToolTip = 'Specifies the value of the Quantity Per field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
-                field("Unit of Measure Code"; Rec."Unit of Measure Code")
+                field("No."; Rec."No.")
                 {
-                    ToolTip = 'Specifies the value of the Unit of Measure Code field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the No. field.', Comment = '%';
                 }
-                field("Flushing Method"; Rec."Flushing Method")
+                field(Description; Rec.Description)
                 {
-                    ToolTip = 'Specifies the value of the Flushing Method field.', Comment = '%';
-                }
-                field("Expected Quantity"; Rec."Expected Quantity")
-                {
-                    ToolTip = 'Specifies the value of the Expected Quantity field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("Routing Link Code"; Rec."Routing Link Code")
                 {
                     ToolTip = 'Specifies the value of the Routing Link Code field.', Comment = '%';
                 }
-                field("Location Code"; Rec."Location Code")
+                field("Flushing Method"; Rec."Flushing Method")
                 {
-                    ToolTip = 'Specifies the value of the Location Code field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Flushing Method field.', Comment = '%';
                 }
-                field("Bin Code"; Rec."Bin Code")
+                field("Previous Operation No."; Rec."Previous Operation No.")
                 {
-                    ToolTip = 'Specifies the value of the Bin Code field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Previous Operation No. field.', Comment = '%';
+                }
+                field("Next Operation No."; Rec."Next Operation No.")
+                {
+                    ToolTip = 'Specifies the value of the Next Operation No. field.', Comment = '%';
                 }
                 field(Processed; Rec.Processed)
                 {
