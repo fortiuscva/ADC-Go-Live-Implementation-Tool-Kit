@@ -72,4 +72,136 @@ page 77254 "ADC Prod. Order Line Stage"
             }
         }
     }
+    actions
+    {
+        area(processing)
+        {
+
+            action("Import Prod. Order Lines")
+            {
+                ApplicationArea = All;
+                Caption = 'Import Prod. Order Lines';
+                Image = Import;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                trigger OnAction()
+                begin
+                    ReadExcelSheet();
+                    ImportProdOrderLineStaging();
+                end;
+            }
+        }
+        area(Navigation)
+        {
+            action(ShowComponents)
+            {
+                ApplicationArea = All;
+                Caption = 'Show Prod. Order Components';
+                Image = Navigate;
+                trigger OnAction()
+                var
+                    ProdOrderComponentStagingPage: Page "ADC Prod. Order Comp. Stage";
+                    ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
+                begin
+                    CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
+                    ProdOrderComponentStagingPage.SetTableView(ProdOrderLineStagingRecLcl);
+                    ProdOrderComponentStagingPage.Run();
+                end;
+            }
+            action(ShowRoutingLines)
+            {
+                ApplicationArea = All;
+                Caption = 'Show Prod. Order Routing Lines';
+                Image = Navigate;
+                trigger OnAction()
+                var
+                    RoutingLineStagingPage: Page "Prod. Order Routing Line Stage";
+                    ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
+                begin
+                    CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
+                    RoutingLineStagingPage.SetTableView(ProdOrderLineStagingRecLcl);
+                    RoutingLineStagingPage.Run();
+                end;
+            }
+        }
+    }
+    procedure ImportProdOrderLineStaging()
+    var
+        ProdOrderLineStageRecLcl: Record "ADC Prod. Order Line Stage";
+        RowNoVarLcl: Integer;
+        ColNoVarLcl: Integer;
+        MaxRowNoVarLcl: Integer;
+    begin
+
+        RowNoVarLcl := 0;
+        ColNoVarLcl := 0;
+        MaxRowNoVarLcl := 0;
+
+        TempExcelBufferRecGbl.Reset();
+        if TempExcelBufferRecGbl.FindLast() then begin
+            MaxRowNoVarLcl := TempExcelBufferRecGbl."Row No.";
+        end;
+        for RowNoVarLcl := 2 to MaxRowNoVarLcl do begin
+            Evaluate(QuantityGbl, GetValueAtCell(RowNoVarLcl, 5));
+            LineNoGbl := 10000;
+            ProdOrderLineStageRecLcl.Reset();
+            ProdOrderLineStageRecLcl.SetRange("Prod. Order No.", ProdOrderLineStageRecLcl."Prod. Order No.");
+            if ProdOrderLineStageRecLcl.FindLast() then
+                LineNoGbl := ProdOrderLineStageRecLcl."Prod. Order Line No." + 10000;
+            ProdOrderLineStageRecLcl.Init();
+            ProdOrderLineStageRecLcl.Validate(Status, ProdOrderLineStageRecLcl.Status::Released);
+            ProdOrderLineStageRecLcl.Validate("Prod. Order No.", GetValueAtCell(RowNoVarLcl, 2));
+            ProdOrderLineStageRecLcl.Validate("Prod. Order Line No.", LineNoGbl);
+            ProdOrderLineStageRecLcl.Validate("Item No.", GetValueAtCell(RowNoVarLcl, 1));
+            ProdOrderLineStageRecLcl.Validate("Variant Code", '');
+            ProdOrderLineStageRecLcl.Validate(Quantity, QuantityGbl);
+            ProdOrderLineStageRecLcl.Validate("Location Code", GetValueAtCell(RowNoVarLcl, 6));
+            ProdOrderLineStageRecLcl.Insert(true);
+            LineNoGbl += 10000;
+            Commit();
+        end;
+        Message(ExcelImportSucess);
+    end;
+
+    local procedure ReadExcelSheet()
+    var
+        FileMgtCULcl: Codeunit "File Management";
+        IStreamVarLcl: InStream;
+        FromFileVarLcl: Text[100];
+    begin
+        UploadIntoStream(UploadExcelMsg, '', '', FromFileVarLcl, IStreamVarLcl);
+        if FromFileVarLcl <> '' then begin
+            FileNameVarLcl := FileMgtCULcl.GetFileName(FromFileVarLcl);
+            SheetNameVarLcl := TempExcelBufferRecGbl.SelectSheetsNameStream(IStreamVarLcl);
+        end else
+            Error(NoFileFoundMsg);
+        TempExcelBufferRecGbl.Reset();
+        TempExcelBufferRecGbl.DeleteAll();
+        TempExcelBufferRecGbl.OpenBookStream(IStreamVarLcl, SheetNameVarLcl);
+        TempExcelBufferRecGbl.ReadSheet();
+    end;
+
+    local procedure GetValueAtCell(RowNoVarLcl: Integer; ColNoVarLcl: Integer): Text
+    begin
+
+        TempExcelBufferRecGbl.Reset();
+        If TempExcelBufferRecGbl.Get(RowNoVarLcl, ColNoVarLcl) then
+            exit(TempExcelBufferRecGbl."Cell Value as Text")
+        else
+            exit('');
+    end;
+
+    var
+        UnProcessedConfirmFlagMsg: Label 'Do you want to unflag all processed lines?';
+        ProcessInterruptedMsg: Label 'Processed Interrupted to respect the Warning';
+
+        TempExcelBufferRecGbl: Record "Excel Buffer" temporary;
+        QuantityGbl: Decimal;
+        LineNoGbl: Integer;
+        FileNameVarLcl: Text[100];
+        SheetNameVarLcl: Text[100];
+        UploadExcelMsg: Label 'Please Choose the Excel file.';
+        NoFileFoundMsg: Label 'No Excel file found!';
+        ExcelImportSucess: Label 'Excel is successfully imported.';
 }
