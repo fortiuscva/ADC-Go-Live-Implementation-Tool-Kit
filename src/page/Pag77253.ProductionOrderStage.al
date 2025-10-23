@@ -88,25 +88,66 @@ page 77253 "ADC Production Order Stage"
                     ImportProdOrderStaging();
                 end;
             }
-            action(UnflagProcessedFlag)
+            action(CreateProductionOrders)
             {
-                Caption = 'Unflag Processed Lines';
+                Caption = 'Process Production Orders';
                 ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 Image = Process;
-                ToolTip = 'This action will unflag processed flag value on Staging Production Orders';
+                ToolTip = 'This action will create Production Orders';
+                RunObject = report "ADC Create Production Order";
+            }
+            action(DeleteSourceAndUnflagSelected)
+            {
+                ApplicationArea = All;
+                Caption = 'Delete Source and Unflag Processed Lines';
+                Image = Delete;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
                 trigger OnAction()
-
+                var
+                    ProdOrderStageRecLcl: Record "ADC Production Order Stage";
+                    ProdOrderRecLcl: Record "Production Order";
                 begin
-                    if not Confirm(UnProcessedConfirmFlagMsg, false) then
-                        Error(ProcessInterruptedMsg);
-                    ProdOrderStageRecGbl.RESET;
-                    ProdOrderStageRecGbl.ModifyAll(Processed, false);
-                    ProdOrderStageRecGbl.ModifyAll("Error Text", '');
-                end;
+                    CurrPage.SetSelectionFilter(ProdOrderStageRecLcl);
+                    if ProdOrderStageRecLcl.FindSet() then begin
+                        repeat
+                            if ProdOrderStageRecLcl.Processed then begin
 
+                                ProdOrderRecLcl.Reset();
+                                ProdOrderRecLcl.SetRange("No.", ProdOrderStageRecLcl."Prod. Order No.");
+                                if ProdOrderRecLcl.FindFirst() then
+                                    ProdOrderRecLcl.Delete();
+                                ProdOrderStageRecLcl.Processed := false;
+                                ProdOrderStageRecLcl.Modify();
+                            end;
+                        until ProdOrderStageRecLcl.Next() = 0;
+                        Message('Selected processed lines unflagged and Production Order(s) are deleted.');
+                    end else
+                        Message('No records selected.');
+                end;
+            }
+
+        }
+        area(Navigation)
+        {
+            action(ShowProdOrderLines)
+            {
+                ApplicationArea = All;
+                Caption = 'Show Prod. Order Lines';
+                Image = Navigate;
+                trigger OnAction()
+                var
+                    ProdOrderLineStagingPage: Page "ADC Prod. Order Line Stage";
+                    ProductionOrderStageRecLcl: Record "ADC Production Order Stage";
+                begin
+                    CurrPage.SetSelectionFilter(ProductionOrderStageRecLcl);
+                    ProdOrderLineStagingPage.SetTableView(ProductionOrderStageRecLcl);
+                    ProdOrderLineStagingPage.Run();
+                end;
             }
         }
     }
@@ -131,7 +172,7 @@ page 77253 "ADC Production Order Stage"
             Evaluate(QuantityGbl, GetValueAtCell(RowNoVarLcl, 5));
 
             ProdOrderStageRecLcl.Init();
-            ProdOrderStageRecLcl.Validate(Status, ProdOrderStageRecLcl.Status::"Firm Planned");
+            ProdOrderStageRecLcl.Validate(Status, ProdOrderStageRecLcl.Status::Released);
             ProdOrderStageRecLcl.Validate("Prod. Order No.", GetValueAtCell(RowNoVarLcl, 2));
             ProdOrderStageRecLcl.Validate("Source Type", ProdOrderStageRecLcl."Source Type"::Item);
             ProdOrderStageRecLcl.Validate("Source No.", GetValueAtCell(RowNoVarLcl, 1));

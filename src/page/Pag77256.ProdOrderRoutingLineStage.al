@@ -98,26 +98,6 @@ page 77256 "Prod. Order Routing Line Stage"
                     ImportProdOrderRoutingLinesStaging();
                 end;
             }
-            action(UnflagProcessedFlag)
-            {
-                Caption = 'Unflag Processed Lines';
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = Process;
-                ToolTip = 'This action will unflag processed flag value on Staging Production Order Routing Lines';
-                trigger OnAction()
-
-                begin
-                    if not Confirm(UnProcessedConfirmFlagMsg, false) then
-                        Error(ProcessInterruptedMsg);
-                    ProdOrderRoutingLineStageRecGbl.RESET;
-                    ProdOrderRoutingLineStageRecGbl.ModifyAll(Processed, false);
-                    ProdOrderRoutingLineStageRecGbl.ModifyAll("Error Text", '');
-                end;
-
-            }
         }
     }
     procedure ImportProdOrderRoutingLinesStaging()

@@ -99,26 +99,6 @@ page 77255 "ADC Prod. Order Comp. Stage"
                     ImportProdOrderCompStaging();
                 end;
             }
-            action(UnflagProcessedFlag)
-            {
-                Caption = 'Unflag Processed Lines';
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = Process;
-                ToolTip = 'This action will unflag processed flag value on Staging Production Order Components';
-                trigger OnAction()
-
-                begin
-                    if not Confirm(UnProcessedConfirmFlagMsg, false) then
-                        Error(ProcessInterruptedMsg);
-                    ProdOrderCompStageRecGbl.RESET;
-                    ProdOrderCompStageRecGbl.ModifyAll(Processed, false);
-                    ProdOrderCompStageRecGbl.ModifyAll("Error Text", '');
-                end;
-            }
-
         }
     }
     procedure ImportProdOrderCompStaging()

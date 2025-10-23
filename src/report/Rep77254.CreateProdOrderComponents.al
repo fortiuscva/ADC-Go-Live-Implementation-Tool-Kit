@@ -18,12 +18,12 @@ report 77254 "Create Prod. Order Components"
             var
                 ErrorTxtLcl: Text;
             begin
-                ProdOrderBomsbyItem.Open();
+                ProdOrderBomsbyNo.Open();
 
-                while ProdOrderBomsbyItem.Read() do begin
-                    Window.Update(1, ProdOrderComponentStage."Prod. Order No.");
+                while ProdOrderBomsbyNo.Read() do begin
+                    Window.Update(1, ProdOrderComponentStage."Comp. Item No.");
                     ProdOrderComponentStage.Reset();
-                    ProdOrderComponentStage.SetRange("Prod. Order No.", ProdOrderBomsbyItem.ProdOrderNo);
+                    ProdOrderComponentStage.SetRange("Prod. Order No.", ProdOrderBomsbyNo.ProdOrderNo);
                     ProdOrderComponentStage.SetRange(Processed, false);
                     if ProdOrderComponentStage.FindFirst() then;
                     Clear(ProcessProdOrderComponents);
@@ -51,9 +51,20 @@ report 77254 "Create Prod. Order Components"
         }
     }
 
+    trigger OnInitReport()
+    begin
+        CurrReport.SetTableView(ProdorderComponentStageRecGbl);
+    end;
+
+    procedure SetProdOrderNoFilter(var ProdOrderComponentStageRec: Record "ADC Prod. Order Comp. Stage")
+    begin
+        ProdorderComponentStageRecGbl := ProdOrderComponentStageRec;
+    end;
+
     var
         Window: Dialog;
         ProcessProdOrderComponents: Codeunit "Process Prod. Order Components";
-        ProdOrderBomsbyItem: Query "ADC ProdOrder Boms by  No.";
+        ProdOrderBomsbyNo: Query "ADC ProdOrder Boms by  No.";
+        ProdorderComponentStageRecGbl: Record "ADC Prod. Order Comp. Stage";
 }
 

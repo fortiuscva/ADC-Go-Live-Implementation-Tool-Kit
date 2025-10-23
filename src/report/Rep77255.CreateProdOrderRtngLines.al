@@ -12,7 +12,7 @@ report 77255 "Create Prod. Order Rtng Lines"
 
             trigger OnPreDataItem()
             begin
-                Window.Open('Processing Prod. Order No. #####1##########');
+                Window.Open('Processing No. #####1##########');
             end;
 
             trigger OnAfterGetRecord()
@@ -21,7 +21,7 @@ report 77255 "Create Prod. Order Rtng Lines"
             begin
                 ProdOrderRoutingLinesByNo.Open();
                 while ProdOrderRoutingLinesByNo.Read() do begin
-                    Window.Update(1, ProdOrderRoutingLineStage."Prod. Order No.");
+                    Window.Update(1, ProdOrderRoutingLineStage."No.");
                     Clear(ProcessProdOrderRoutingLines);
                     ClearLastError();
 
@@ -46,9 +46,19 @@ report 77255 "Create Prod. Order Rtng Lines"
             end;
         }
     }
+    trigger OnInitReport()
+    begin
+        CurrReport.SetTableView(ProdorderRoutingLineStageRecGbl);
+    end;
+
+    procedure SetProdOrderNoFilter(var ProdOrderRoutingLineStageRec: Record "Prod. Order Routing Line Stage")
+    begin
+        ProdorderRoutingLineStageRecGbl := ProdOrderRoutingLineStageRec;
+    end;
 
     var
         Window: Dialog;
         ProcessProdOrderRoutingLines: Codeunit "Process Prod.  OrderRtng Lines";
         ProdOrderRoutingLinesByNo: Query "ADC ProdOrderRoutingLinesByNo.";
+        ProdorderRoutingLineStageRecGbl: Record "Prod. Order Routing Line Stage";
 }

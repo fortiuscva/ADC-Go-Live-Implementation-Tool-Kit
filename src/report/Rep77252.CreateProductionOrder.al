@@ -1,7 +1,7 @@
-report 77252 "ADC CreateProductionOrder"
+report 77252 "ADC Create Production Order"
 {
     ApplicationArea = All;
-    Caption = 'CreateProductionOrder';
+    Caption = 'Create Production Order';
     UsageCategory = ReportsAndAnalysis;
     ProcessingOnly = true;
     dataset
@@ -31,7 +31,6 @@ report 77252 "ADC CreateProductionOrder"
                     ProductionOrderStage.Processed := true;
                     ProductionOrderStage."Error Text" := '';
                     ProductionOrderStage.Modify();
-                    Report.RunModal(Report::"Refresh Production Order");
                 end;
                 Commit();
             end;
