@@ -40,18 +40,7 @@ report 77253 "Create Production Order Lines"
             end;
         }
     }
-    trigger OnInitReport()
-    begin
-        CurrReport.SetTableView(ProdorderLineStageRecGbl);
-    end;
-
-    procedure SetProdOrderNoFilter(var ProdOrderLineStageRec: Record "ADC Prod. Order Line Stage")
-    begin
-        ProdorderLineStageRecGbl := ProdOrderLineStageRec;
-    end;
-
     var
         Window: Dialog;
         ProcessProdOrderLineCU: Codeunit "ADC Process Prod. Order Line";
-        ProdorderLineStageRecGbl: Record "ADC Prod. Order Line Stage";
 }

@@ -37,31 +37,22 @@ codeunit 77252 "ADC Process Production Orders"
                 ProdOrderLineStageRecLcl.Reset();
                 ProdOrderLineStageRecLcl.SetRange("Prod. Order No.", ProdOrderStageRecLcl."Prod. Order No.");
                 if ProdOrderLineStageRecLcl.FindFirst() then begin
-                    CreateProdOrderLines.SetProdOrderNoFilter(ProdOrderLineStageRecLcl);
-                    Report.RunModal(Report::"Create Production Order Lines", false, false);
+                    Report.RunModal(Report::"Create Production Order Lines", false, false, ProdOrderLineStageRecLcl);
                 end;
 
                 //Process Prod Order Components
                 ProdOrderCompStageRecLcl.Reset();
                 ProdOrderCompStageRecLcl.SetRange("Prod. Order No.", ProdOrderStageRecLcl."Prod. Order No.");
                 if ProdOrderCompStageRecLcl.FindFirst() then begin
-                    CreateProdOrderComponents.SetProdOrderNoFilter(ProdOrderCompStageRecLcl);
-                    Report.RunModal(Report::"Create Prod. Order Components", false, false);
+                    Report.RunModal(Report::"Create Prod. Order Components", false, false, ProdOrderCompStageRecLcl);
                 end;
                 //Process Prod Order Routing Lines
                 ProdOrderRoutingStageRecLcl.Reset();
                 ProdOrderRoutingStageRecLcl.SetRange("Prod. Order No.", ProdOrderStageRecLcl."Prod. Order No.");
-                ProdOrderRoutingStageRecLcl.SetRange(Processed, false);
                 if ProdOrderRoutingStageRecLcl.FindFirst() then begin
-                    CreateProdOrderRoutingLines.SetProdOrderNoFilter(ProdOrderRoutingStageRecLcl);
-                    Report.RunModal(Report::"Create Prod. Order Rtng Lines", false, false);
+                    Report.RunModal(Report::"Create Prod. Order Rtng Lines", false, false, ProdOrderRoutingStageRecLcl);
                 end;
             until ProdOrderStageRecLcl.Next() = 0;
 
     end;
-
-    var
-        CreateProdOrderComponents: Report "Create Prod. Order Components";
-        CreateProdOrderRoutingLines: Report "Create Prod. Order Rtng Lines";
-        CreateProdOrderLines: Report "Create Production Order Lines";
 }

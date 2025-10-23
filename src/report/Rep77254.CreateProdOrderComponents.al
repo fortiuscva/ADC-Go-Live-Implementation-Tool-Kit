@@ -51,20 +51,9 @@ report 77254 "Create Prod. Order Components"
         }
     }
 
-    trigger OnInitReport()
-    begin
-        CurrReport.SetTableView(ProdorderComponentStageRecGbl);
-    end;
-
-    procedure SetProdOrderNoFilter(var ProdOrderComponentStageRec: Record "ADC Prod. Order Comp. Stage")
-    begin
-        ProdorderComponentStageRecGbl := ProdOrderComponentStageRec;
-    end;
-
     var
         Window: Dialog;
         ProcessProdOrderComponents: Codeunit "Process Prod. Order Components";
         ProdOrderBomsbyNo: Query "ADC ProdOrder Boms by  No.";
-        ProdorderComponentStageRecGbl: Record "ADC Prod. Order Comp. Stage";
 }
 
