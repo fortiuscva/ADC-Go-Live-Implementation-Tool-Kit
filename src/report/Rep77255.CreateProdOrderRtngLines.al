@@ -46,19 +46,9 @@ report 77255 "Create Prod. Order Rtng Lines"
             end;
         }
     }
-    trigger OnInitReport()
-    begin
-        CurrReport.SetTableView(ProdorderRoutingLineStageRecGbl);
-    end;
-
-    procedure SetProdOrderNoFilter(var ProdOrderRoutingLineStageRec: Record "Prod. Order Routing Line Stage")
-    begin
-        ProdorderRoutingLineStageRecGbl := ProdOrderRoutingLineStageRec;
-    end;
 
     var
         Window: Dialog;
         ProcessProdOrderRoutingLines: Codeunit "Process Prod.  OrderRtng Lines";
         ProdOrderRoutingLinesByNo: Query "ADC ProdOrderRoutingLinesByNo.";
-        ProdorderRoutingLineStageRecGbl: Record "Prod. Order Routing Line Stage";
 }
