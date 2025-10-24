@@ -3,6 +3,8 @@ codeunit 77254 "Process Prod.  OrderRtng Lines"
     TableNo = "Prod. Order Routing Line Stage";
 
     trigger OnRun()
+    var
+        ProdOrderLineRecLcl: Record "Prod. Order Line";
     begin
         ProdOrderRoutingLineStagingRecGbl.Reset();
         ProdOrderRoutingLineStagingRecGbl.CopyFilters(Rec);
@@ -12,8 +14,12 @@ codeunit 77254 "Process Prod.  OrderRtng Lines"
                 ProdOrderRoutingLineRecGbl.Validate(Status, ProdOrderRoutingLineStagingRecGbl.Status::Released);
                 ProdOrderRoutingLineRecGbl.Validate("Prod. Order No.", ProdOrderRoutingLineStagingRecGbl."Prod. Order No.");
                 ProdOrderRoutingLineRecGbl.Validate("Operation No.", ProdOrderRoutingLineStagingRecGbl."Operation No.");
-                ProdOrderRoutingLineRecGbl.Validate("Routing Reference No.", ProdOrderRoutingLineStagingRecGbl."Routing Reference No.");
-                ProdOrderRoutingLineRecGbl.Validate("Routing No.", ProdOrderRoutingLineStagingRecGbl."Routing No.");
+                ProdOrderLineRecLcl.Reset();
+                ProdOrderLineRecLcl.SetRange("Prod. Order No.", ProdOrderRoutingLineRecGbl."Prod. Order No.");
+                if ProdOrderLineRecLcl.FindFirst() then begin
+                    ProdOrderRoutingLineRecGbl.Validate("Routing No.", ProdOrderLineRecLcl."Routing No.");
+                    ProdOrderRoutingLineRecGbl.Validate("Routing Reference No.", ProdOrderLineRecLcl."Routing Reference No.");
+                end;
                 ProdOrderRoutingLineRecGbl.Insert(true);
 
                 ProdOrderRoutingLineRecGbl.Validate(Type, ProdOrderRoutingLineStagingRecGbl.Type::"Work Center");
