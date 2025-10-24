@@ -2,10 +2,13 @@ codeunit 77253 "Process Prod. Order Components"
 {
     TableNo = "ADC Prod. Order Comp. Stage";
 
-    trigger OnRun()
+    [TryFunction]
+    procedure ProcessOrderComponents(var ProdOrderCompStage: Record "ADC Prod. Order Comp. Stage")
+    var
+        ProdOrderLineRecLcl: Record "Prod. Order Line";
     begin
         ProdOrderCompStagingRecGbl.Reset();
-        ProdOrderCompStagingRecGbl.CopyFilters(Rec);
+        ProdOrderCompStagingRecGbl.CopyFilters(ProdOrderCompStage);
         if ProdOrderCompStagingRecGbl.FindSet() then
             repeat
                 LineNoGbl := 10000;
@@ -18,7 +21,10 @@ codeunit 77253 "Process Prod. Order Components"
                 ProdOrderComponentRecGbl.Init();
                 ProdOrderComponentRecGbl.Validate(Status, ProdOrderCompStagingRecGbl.Status::Released);
                 ProdOrderComponentRecGbl.Validate("Prod. Order No.", ProdOrderCompStagingRecGbl."Prod. Order No.");
-                ProdOrderComponentRecGbl.Validate("Prod. Order Line No.", ProdOrderCompStagingRecGbl."Prod. Order Line No.");
+                ProdOrderLineRecLcl.Reset();
+                ProdOrderLineRecLcl.SetRange("Prod. Order No.", ProdOrderCompStagingRecGbl."Prod. Order No.");
+                if ProdOrderLineRecLcl.FindFirst() then
+                    ProdOrderComponentRecGbl.Validate("Prod. Order Line No.", ProdOrderLineRecLcl."Line No.");
                 ProdOrderComponentRecGbl.Validate("Line No.", LineNoGbl);
                 ProdOrderComponentRecGbl.Insert(true);
 
