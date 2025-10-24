@@ -30,7 +30,7 @@ report 77254 "Create Prod. Order Components"
                     Clear(ProcessProdOrderComponents);
                     ClearLastError();
 
-                    if not ProcessProdOrderComponents.Run(ProdOrderComponentStage) then begin
+                    if not ProcessProdOrderComponents.ProcessOrderComponents(ProdOrderComponentStage) then begin
                         ProdOrderComponentStage.Processed := false;
                         ErrorTxtLcl := GetLastErrorText();
                         ProdOrderComponentStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));

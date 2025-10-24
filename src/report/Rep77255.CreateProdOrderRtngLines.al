@@ -25,7 +25,7 @@ report 77255 "Create Prod. Order Rtng Lines"
                     Clear(ProcessProdOrderRoutingLines);
                     ClearLastError();
 
-                    if not ProcessProdOrderRoutingLines.Run(ProdOrderRoutingLineStage) then begin
+                    if not ProcessProdOrderRoutingLines.ProcessProdOrderRoutingLines(ProdOrderRoutingLineStage) then begin
                         ProdOrderRoutingLineStage.Processed := false;
                         ErrorTxtLcl := GetLastErrorText();
                         ProdOrderRoutingLineStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));
