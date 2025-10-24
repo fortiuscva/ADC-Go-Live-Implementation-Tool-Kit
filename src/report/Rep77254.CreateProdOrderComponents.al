@@ -3,6 +3,7 @@ report 77254 "Create Prod. Order Components"
     ApplicationArea = All;
     Caption = 'Create Prod. Order Components';
     UsageCategory = ReportsAndAnalysis;
+    ProcessingOnly = true;
     dataset
     {
         dataitem(ProdOrderComponentStage; "ADC Prod. Order Comp. Stage")

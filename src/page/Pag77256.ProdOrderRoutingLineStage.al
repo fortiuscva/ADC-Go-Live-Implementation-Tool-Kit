@@ -118,14 +118,8 @@ page 77256 "Prod. Order Routing Line Stage"
             MaxRowNoVarLcl := TempExcelBufferRecGbl."Row No.";
         end;
         for RowNoVarLcl := 2 to MaxRowNoVarLcl do begin
-            ProdOrderLineRecLcl.Reset();
-            ProdOrderLineRecLcl.SetRange("Prod. Order No.", GetValueAtCell(RowNoVarLcl, 2));
-            ProdOrderLineRecLcl.SetRange("Item No.", GetValueAtCell(RowNoVarLcl, 1));
-            if ProdOrderLineRecLcl.FindFirst() then begin
-                ProdOrderRoutingLinesStageRecLcl.Validate("Routing No.", ProdOrderLineRecLcl."Routing No.");
-                ProdOrderRoutingLinesStageRecLcl.Validate("Routing Reference No.", ProdOrderLineRecLcl."Routing Reference No.");
-                ProdOrderRoutingLinesStageRecLcl.Validate("Prod. Order Line No.", ProdOrderLineRecLcl."Line No.");
-            end;
+
+            ProdOrderRoutingLinesStageRecLcl.Init();
             ProdOrderRoutingLinesStageRecLcl.Validate(Status, ProdOrderRoutingLinesStageRecLcl.Status::Released);
             ProdOrderRoutingLinesStageRecLcl.Validate("Prod. Order No.", GetValueAtCell(RowNoVarLcl, 2));
             ProdOrderRoutingLinesStageRecLcl.Validate("Operation No.", GetValueAtCell(RowNoVarLcl, 3));

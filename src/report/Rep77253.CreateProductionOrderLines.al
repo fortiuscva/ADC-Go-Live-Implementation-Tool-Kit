@@ -3,6 +3,7 @@ report 77253 "Create Production Order Lines"
     ApplicationArea = All;
     Caption = 'Create Production Order Lines';
     UsageCategory = ReportsAndAnalysis;
+    ProcessingOnly = true;
     dataset
     {
         dataitem(ADCProdOrderLineStage; "ADC Prod. Order Line Stage")
@@ -21,7 +22,7 @@ report 77253 "Create Production Order Lines"
                 Window.Update(1, "Item No.");
                 Clear(ProcessProdOrderLineCU);
                 ClearLastError();
-                if not ProcessProdOrderLineCU.Run(ADCProdOrderLineStage) then begin
+                if not ProcessProdOrderLineCU.ProcessProdOrderLines(ADCProdOrderLineStage) then begin
                     ADCProdOrderLineStage.Processed := false;
                     ErrorTxtLcl := GetLastErrorText();
                     ADCProdOrderLineStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));

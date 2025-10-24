@@ -99,14 +99,19 @@ page 77254 "ADC Prod. Order Line Stage"
                 ApplicationArea = All;
                 Caption = 'Show Prod. Order Components';
                 Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
                 trigger OnAction()
                 var
-                    ProdOrderComponentStagingPage: Page "ADC Prod. Order Comp. Stage";
+                    ProdOrderComponentRec: Record "ADC Prod. Order Comp. Stage";
                     ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
                 begin
                     CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
-                    ProdOrderComponentStagingPage.SetTableView(ProdOrderLineStagingRecLcl);
-                    ProdOrderComponentStagingPage.Run();
+                    if ProdOrderLineStagingRecLcl.FindFirst() then begin
+                        ProdOrderComponentRec.SetRange("Prod. Order No.", ProdOrderLineStagingRecLcl."Prod. Order No.");
+                        PAGE.Run(PAGE::"ADC Prod. Order Comp. Stage", ProdOrderComponentRec);
+                    end;
                 end;
             }
             action(ShowRoutingLines)
@@ -114,14 +119,19 @@ page 77254 "ADC Prod. Order Line Stage"
                 ApplicationArea = All;
                 Caption = 'Show Prod. Order Routing Lines';
                 Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
                 trigger OnAction()
                 var
-                    RoutingLineStagingPage: Page "Prod. Order Routing Line Stage";
+                    RoutingLineRec: Record "Prod. Order Routing Line Stage";
                     ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
                 begin
                     CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
-                    RoutingLineStagingPage.SetTableView(ProdOrderLineStagingRecLcl);
-                    RoutingLineStagingPage.Run();
+                    if ProdOrderLineStagingRecLcl.FindFirst() then begin
+                        RoutingLineRec.SetRange("Prod. Order No.", ProdOrderLineStagingRecLcl."Prod. Order No.");
+                        PAGE.Run(PAGE::"Prod. Order Routing Line Stage", RoutingLineRec);
+                    end;
                 end;
             }
         }

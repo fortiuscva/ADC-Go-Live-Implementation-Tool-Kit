@@ -139,14 +139,19 @@ page 77253 "ADC Production Order Stage"
                 ApplicationArea = All;
                 Caption = 'Show Prod. Order Lines';
                 Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
                 trigger OnAction()
                 var
-                    ProdOrderLineStagingPage: Page "ADC Prod. Order Line Stage";
+                    ProdOrderLineStageRecLcl: Record "ADC Prod. Order Line Stage";
                     ProductionOrderStageRecLcl: Record "ADC Production Order Stage";
                 begin
                     CurrPage.SetSelectionFilter(ProductionOrderStageRecLcl);
-                    ProdOrderLineStagingPage.SetTableView(ProductionOrderStageRecLcl);
-                    ProdOrderLineStagingPage.Run();
+                    if ProductionOrderStageRecLcl.FindFirst() then begin
+                        ProdOrderLineStageRecLcl.SetRange("Prod. Order No.", ProductionOrderStageRecLcl."Prod. Order No.");
+                        PAGE.Run(PAGE::"ADC Prod. Order Line Stage", ProdOrderLineStageRecLcl);
+                    end;
                 end;
             }
         }
