@@ -18,6 +18,9 @@ report 77252 "ADC Create Production Order"
             trigger OnAfterGetRecord()
             var
                 ErrorTxtLcl: Text;
+                ProdOrderLineStage: Record "ADC Prod. Order Line Stage";
+                ProdOrderCompStagingRecLcl: Record "ADC Prod. Order Comp. Stage";
+                ProdOrderRoutingLineStagingRecLcl: Record "Prod. Order Routing Line Stage";
             begin
                 Window.Update(1, "Prod. Order No.");
                 Clear(ProcessProdOrders);
@@ -27,10 +30,43 @@ report 77252 "ADC Create Production Order"
                     ErrorTxtLcl := GetLastErrorText();
                     ProductionOrderStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));
                     ProductionOrderStage.Modify();
+
+                    ProdOrderLineStage.Reset();
+                    ProdOrderLineStage.SetRange("Prod. Order No.", ProductionOrderStage."Prod. Order No.");
+                    ProdOrderLineStage.ModifyAll(Processed, false);
+                    ProdOrderLineStage.ModifyAll("Error Text", ProductionOrderStage."Error Text");
+
+
+                    ProdOrderCompStagingRecLcl.Reset();
+                    ProdOrderCompStagingRecLcl.SetRange("Prod. Order No.", ProductionOrderStage."Prod. Order No.");
+                    ProdOrderCompStagingRecLcl.ModifyAll(Processed, false);
+                    ProdOrderCompStagingRecLcl.ModifyAll("Error Text", ProductionOrderStage."Error Text");
+
+                    ProdOrderRoutingLineStagingRecLcl.Reset();
+                    ProdOrderRoutingLineStagingRecLcl.SetRange("Prod. Order No.", ProductionOrderStage."Prod. Order No.");
+                    ProdOrderRoutingLineStagingRecLcl.ModifyAll(Processed, false);
+                    ProdOrderRoutingLineStagingRecLcl.ModifyAll("Error Text", ProductionOrderStage."Error Text");
                 end else begin
                     ProductionOrderStage.Processed := true;
                     ProductionOrderStage."Error Text" := '';
                     ProductionOrderStage.Modify();
+
+                    ProdOrderLineStage.Reset();
+                    ProdOrderLineStage.SetRange("Prod. Order No.", ProductionOrderStage."Prod. Order No.");
+                    ProdOrderLineStage.ModifyAll(Processed, true);
+                    ProdOrderLineStage.ModifyAll("Error Text", '');
+
+
+                    ProdOrderCompStagingRecLcl.Reset();
+                    ProdOrderCompStagingRecLcl.SetRange("Prod. Order No.", ProductionOrderStage."Prod. Order No.");
+                    ProdOrderCompStagingRecLcl.ModifyAll(Processed, true);
+                    ProdOrderCompStagingRecLcl.ModifyAll("Error Text", '');
+
+                    ProdOrderRoutingLineStagingRecLcl.Reset();
+                    ProdOrderRoutingLineStagingRecLcl.SetRange("Prod. Order No.", ProductionOrderStage."Prod. Order No.");
+                    ProdOrderRoutingLineStagingRecLcl.ModifyAll(Processed, true);
+                    ProdOrderRoutingLineStagingRecLcl.ModifyAll("Error Text", '');
+
                 end;
                 Commit();
             end;

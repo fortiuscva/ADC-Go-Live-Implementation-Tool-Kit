@@ -7,8 +7,31 @@ codeunit 77255 "ADC Process Prod. Order Line"
         ItemGbl: Record Item;
         ProdOrderLineRecLcl: Record "Prod. Order Line";
     begin
-        // ProcessProdOrderLines(Rec);
+        ItemGbl.Get(Rec."Item No.");
+        ItemGbl.TestField("Routing No.");
+        ItemGbl.TestField("Production BOM No.");
+        LineNoGbl := 10000;
+
+        ProdOrderLineRecLcl.Reset();
+        ProdOrderLineRecLcl.SetRange("Prod. Order No.", Rec."Prod. Order No.");
+        if ProdOrderLineRecLcl.FindLast() then
+            LineNoGbl := ProdOrderLineRecLcl."Line No." + 10000;
+
+        ProdOrderLineRecLcl.Init();
+        ProdOrderLineRecLcl.Status := Rec.Status::Released;
+        ProdOrderLineRecLcl."Prod. Order No." := Rec."Prod. Order No.";
+        ProdOrderLineRecLcl."Line No." := LineNoGbl;
+        ProdOrderLineRecLcl.Insert(true);
+
+        ProdOrderLineRecLcl.Validate("Item No.", Rec."Item No.");
+        ProdOrderLineRecLcl.Validate(Quantity, Rec.Quantity);
+        ProdOrderLineRecLcl.Validate("Location Code", Rec."Location Code");
+        ProdOrderLineRecLcl.Validate("Variant Code", Rec."Variant Code");
+        LineNoGbl += 10000;
+        ProdOrderLineRecLcl.Modify(true);
     end;
+
+
 
     [TryFunction]
     procedure ProcessProdOrderLines(var ADCProdOrderLineStage: Record "ADC Prod. Order Line Stage")
