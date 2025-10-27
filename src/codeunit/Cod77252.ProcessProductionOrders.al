@@ -15,20 +15,20 @@ codeunit 77252 "ADC Process Production Orders"
         ItemGbl.TestField("Routing No.");
         ItemGbl.TestField("Production BOM No.");
 
+        if ProdOrderRecLcl.Get(Rec."Prod. Order No.") then begin
+            ProdOrderRecLcl.Init();
+            ProdOrderRecLcl.Validate("No.", Rec."Prod. Order No.");
+            ProdOrderRecLcl.Validate(Status, Rec.Status::Released);
+            ProdOrderRecLcl.Insert(true);
 
-        ProdOrderRecLcl.Init();
-        ProdOrderRecLcl.Validate("No.", Rec."Prod. Order No.");
-        ProdOrderRecLcl.Validate(Status, Rec.Status::Released);
-        ProdOrderRecLcl.Insert(true);
-
-        ProdOrderRecLcl.Validate("Source Type", Rec."Source Type"::Item);
-        ProdOrderRecLcl.Validate("Source No.", Rec."Source No.");
-        ProdOrderRecLcl.Validate(Quantity, Rec.Quantity);
-        ProdOrderRecLcl.Validate("Location Code", Rec."Location Code");
-        ProdOrderRecLcl.Validate("Bin Code", Rec."Bin Code");
-        ProdOrderRecLcl.Validate("Variant Code", Rec."Variant Code");
-        ProdOrderRecLcl.Modify(true);
-
+            ProdOrderRecLcl.Validate("Source Type", Rec."Source Type"::Item);
+            ProdOrderRecLcl.Validate("Source No.", Rec."Source No.");
+            ProdOrderRecLcl.Validate(Quantity, Rec.Quantity);
+            ProdOrderRecLcl.Validate("Location Code", Rec."Location Code");
+            ProdOrderRecLcl.Validate("Bin Code", Rec."Bin Code");
+            ProdOrderRecLcl.Validate("Variant Code", Rec."Variant Code");
+            ProdOrderRecLcl.Modify(true);
+        end;
         //Process Prod order Line
         ProdOrderLineStageRecLcl.Reset();
         ProdOrderLineStageRecLcl.SetRange("Prod. Order No.", Rec."Prod. Order No.");
