@@ -16,7 +16,6 @@ pageextension 77250 "ADC Item Journal" extends "Item Journal"
                     Xmlport.Run(Xmlport::"ADC Imp. Inv. With Item Track.");
                     CurrPage.Update(false);
                 end;
-
             }
             action("ADC ImportInventoryToStaging")
             {
@@ -56,7 +55,7 @@ pageextension 77250 "ADC Item Journal" extends "Item Journal"
                 trigger OnAction()
                 var
                     ItemJnlLine: Record "Item Journal Line";
-                    SuppressConfirmationCU: Codeunit "ADC Suppress Confirmation";
+                    GoLiveSingleInstance: Codeunit "ADC Go Live Single Instance";
                     DeletedCount: Integer;
                     LocationCode: Code[20];
                 begin
@@ -64,29 +63,33 @@ pageextension 77250 "ADC Item Journal" extends "Item Journal"
                     CurrPage.SetSelectionFilter(ItemJnlLine);
 
                     if ItemJnlLine.IsEmpty() then begin
-                        Message('No item journal lines selected.');
+                        Message(NothingToDeleteMsg);
                         exit;
                     end;
 
-                    if not Confirm('Do you want delete selected Item Journal Lines?', false) then
+                    if not Confirm(JnlLineDeleteConfirmMsg, false) then
                         exit;
 
-                    SuppressConfirmationCU.SetSuppress(true);
+                    GoLiveSingleInstance.SetHideDeleteItemTrackingConfirm(true);
                     if ItemJnlLine.FindSet() then
                         repeat
-                            if ItemJnlLine."Location Code" = '1000' then begin
-                                ItemJnlLine.Delete(true);
-                                DeletedCount += 1;
-                            end;
+                            ItemJnlLine.Delete(true);
+                            DeletedCount += 1;
                         until ItemJnlLine.Next() = 0;
-                    SuppressConfirmationCU.SetSuppress(false);
+                    GoLiveSingleInstance.SetHideDeleteItemTrackingConfirm(false);
 
                     if DeletedCount > 0 then
-                        Message('%1 Item Journal Line(s) deleted within the Location %2.', DeletedCount, LocationCode)
+                        Message(StrSubstNo(JnlLinesDeleteSuccessMsg, DeletedCount))
                     else
-                        Message('Selected Item Journal lines are not in the Location %1, so not deleted.', LocationCode);
+                        Message(NothingToDeleteMsg);
                 end;
             }
         }
     }
+
+    var
+        JnlLinesDeleteSuccessMsg: Label '%1 Item Journal Line(s) deleted successfully';
+        NothingToDeleteMsg: Label 'There is nothing to delete';
+        JnlLineDeleteConfirmMsg: Label 'Do you want to delete selected Item Journal Lines?';
+
 }
