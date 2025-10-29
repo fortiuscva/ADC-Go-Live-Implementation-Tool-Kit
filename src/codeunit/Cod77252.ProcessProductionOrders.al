@@ -13,26 +13,47 @@ codeunit 77252 "ADC Process Production Orders"
         ProcessProdOrderLineCU: Codeunit "ADC Process Prod. Order Line";
         ProcessProdOrderComponents: Codeunit "Process Prod. Order Components";
         ProcessProdOrderRoutingLines: Codeunit "Process Prod.  OrderRtng Lines";
+        ProdOrderLine: Record "Prod. Order Line";
+        ProdOrderComp: Record "Prod. Order Component";
+        ProdOrderRouting: Record "Prod. Order Routing Line";
     begin
         ItemGbl.Get(Rec."Source No.");
         ItemGbl.TestField("Routing No.");
         ItemGbl.TestField("Production BOM No.");
 
-        if not ProdOrderRecLcl.Get(Rec."Prod. Order No.") then begin
-            ProdOrderRecLcl.Init();
-            ProdOrderRecLcl.Validate("No.", Rec."Prod. Order No.");
-            ProdOrderRecLcl.Validate(Status, Rec.Status::Released);
-            ProdOrderRecLcl.Insert(true);
+        if ProdOrderRecLcl.Get(Rec."Prod. Order No.") then begin
 
-            ProdOrderRecLcl.Validate("Source Type", Rec."Source Type"::Item);
-            ProdOrderRecLcl.Validate("Source No.", Rec."Source No.");
-            ProdOrderRecLcl.Validate(Quantity, Rec.Quantity);
-            ProdOrderRecLcl.Validate("Location Code", Rec."Location Code");
-            ProdOrderRecLcl.Validate("Bin Code", Rec."Bin Code");
-            ProdOrderRecLcl.Validate("Variant Code", Rec."Variant Code");
-            ProdOrderRecLcl.Modify(true);
+            // Delete Components
+            ProdOrderComp.SetRange("Prod. Order No.", Rec."Prod. Order No.");
+            if ProdOrderComp.FindSet() then
+                ProdOrderComp.DeleteAll();
+
+            // Delete Routing Lines
+            ProdOrderRouting.SetRange("Prod. Order No.", Rec."Prod. Order No.");
+            if ProdOrderRouting.FindSet() then
+                ProdOrderRouting.DeleteAll();
+
+            // Delete Lines
+            ProdOrderLine.SetRange("Prod. Order No.", Rec."Prod. Order No.");
+            if ProdOrderLine.FindSet() then
+                ProdOrderLine.DeleteAll();
+
+            // Delete Header
+            ProdOrderRecLcl.Delete();
+
         end;
+        ProdOrderRecLcl.Init();
+        ProdOrderRecLcl.Validate("No.", Rec."Prod. Order No.");
+        ProdOrderRecLcl.Validate(Status, Rec.Status::Released);
+        ProdOrderRecLcl.Insert(true);
 
+        ProdOrderRecLcl.Validate("Source Type", Rec."Source Type"::Item);
+        ProdOrderRecLcl.Validate("Source No.", Rec."Source No.");
+        ProdOrderRecLcl.Validate(Quantity, Rec.Quantity);
+        ProdOrderRecLcl.Validate("Location Code", Rec."Location Code");
+        ProdOrderRecLcl.Validate("Bin Code", Rec."Bin Code");
+        ProdOrderRecLcl.Validate("Variant Code", Rec."Variant Code");
+        ProdOrderRecLcl.Modify(true);
         //Process Prod order Line
         ProdOrderLineStageRecLcl.Reset();
         ProdOrderLineStageRecLcl.SetRange("Prod. Order No.", Rec."Prod. Order No.");
