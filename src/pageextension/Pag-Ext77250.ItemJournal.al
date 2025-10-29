@@ -47,7 +47,7 @@ pageextension 77250 "ADC Item Journal" extends "Item Journal"
             }
             action("ADC Select and Delete Journal Lines")
             {
-                Caption = 'Delete Item Journal Lines';
+                Caption = 'Select and Delete Journal Lines';
                 ApplicationArea = All;
                 Image = Delete;
                 Promoted = true;
