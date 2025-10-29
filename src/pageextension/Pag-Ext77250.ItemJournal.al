@@ -45,6 +45,48 @@ pageextension 77250 "ADC Item Journal" extends "Item Journal"
                 end;
 
             }
+            action("ADC Select and Delete Journal Lines")
+            {
+                Caption = 'Select and Delete Journal Lines';
+                ApplicationArea = All;
+                Image = Delete;
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                var
+                    ItemJnlLine: Record "Item Journal Line";
+                    SuppressConfirmationCU: Codeunit "ADC Suppress Confirmation";
+                    DeletedCount: Integer;
+                    LocationCode: Code[20];
+                begin
+                    LocationCode := '1000';
+                    CurrPage.SetSelectionFilter(ItemJnlLine);
+
+                    if ItemJnlLine.IsEmpty() then begin
+                        Message('No item journal lines selected.');
+                        exit;
+                    end;
+
+                    if not Confirm('Do you want delete selected Item Journal Lines?', false) then
+                        exit;
+
+                    SuppressConfirmationCU.SetSuppress(true);
+                    if ItemJnlLine.FindSet() then
+                        repeat
+                            if ItemJnlLine."Location Code" = '1000' then begin
+                                ItemJnlLine.Delete(true);
+                                DeletedCount += 1;
+                            end;
+                        until ItemJnlLine.Next() = 0;
+                    SuppressConfirmationCU.SetSuppress(false);
+
+                    if DeletedCount > 0 then
+                        Message('%1 Item Journal Line(s) deleted within the Location %2.', DeletedCount, LocationCode)
+                    else
+                        Message('Selected Item Journal lines are not in the Location %1, so not deleted.', LocationCode);
+                end;
+            }
         }
     }
 }
