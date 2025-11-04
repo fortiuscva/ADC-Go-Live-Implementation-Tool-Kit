@@ -17,12 +17,29 @@ report 77250 "ADC Create Journal Lines"
             trigger OnAfterGetRecord()
             var
                 ErrorTxtLcl: Text;
+                ItemLedgEntry: Record "Item Ledger Entry";
             begin
                 Window.Update(1, ADCItemJournalLineStage."Entry No.");
                 LineNoGbl += 10000;
                 Clear(ProcessJnlLines);
                 ProcessJnlLines.SetValues(SelectedPostingDateGbl, SelectedJournalTemplateNameGbl, SelectedJournalBatchNameGbl, SelectedDocumentNoGbl, LineNoGbl);
                 ClearLastError();
+
+                if CheckDuplicateSerialNoGbl and (ADCItemJournalLineStage."Serial No." <> '') then begin
+                    ItemLedgEntry.Reset();
+                    ItemLedgEntry.SetRange("Item No.", ADCItemJournalLineStage."Item No.");
+                    ItemLedgEntry.SetRange("Serial No.", ADCItemJournalLineStage."Serial No.");
+                    if ItemLedgEntry.FindFirst() then begin
+                        ErrorTxtLcl := StrSubstNo(DuplicateSerialNoErrorMsgLbl, ADCItemJournalLineStage."Serial No.", ADCItemJournalLineStage."Item No.");
+
+                        ADCItemJournalLineStage.Processed := false;
+                        ADCItemJournalLineStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));
+                        ADCItemJournalLineStage.Modify();
+                        Commit();
+                        exit;
+                    end;
+                end;
+
                 if not ProcessJnlLines.Run(ADCItemJournalLineStage) then begin
                     ADCItemJournalLineStage.Processed := false;
                     ErrorTxtLcl := GetLastErrorText();
@@ -74,6 +91,11 @@ report 77250 "ADC Create Journal Lines"
                         ApplicationArea = All;
                         Caption = 'Document No.';
                     }
+                    field(CheckDuplicateSerialNoGbl; CheckDuplicateSerialNoGbl)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Check for Duplicate Serial No.';
+                    }
 
                 }
             }
@@ -106,5 +128,7 @@ report 77250 "ADC Create Journal Lines"
         LineNoGbl: Integer;
         ProcessJnlLines: Codeunit "ADC Process Item Jnl. Lines";
         Window: Dialog;
+        CheckDuplicateSerialNoGbl: Boolean;
+        DuplicateSerialNoErrorMsgLbl: Label 'Serial No. %1 already exists for Item %2.';
 
 }
