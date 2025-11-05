@@ -84,7 +84,26 @@ report 77250 "ADC Create Journal Lines"
                     {
                         ApplicationArea = All;
                         Caption = 'Journal Batch Name';
-                        TableRelation = "Item Journal Batch".Name;
+                        trigger OnLookup(var Text: Text): Boolean
+                        begin
+
+                            if SelectedJournalTemplateNameGbl = '' then
+                                error(SelectJnlTemplateErrMsg);
+                            ItemJnlBatch.Reset();
+                            ItemJnlBatch.SetRange("Journal Template Name", SelectedJournalTemplateNameGbl);
+                            if Page.RunModal(0, ItemJnlBatch) = Action::LookupOK then
+                                SelectedJournalBatchNameGbl := ItemJnlBatch.Name;
+                        end;
+
+                        trigger OnValidate()
+                        begin
+                            if SelectedJournalBatchNameGbl <> '' then begin
+                                ItemJnlBatch.Reset();
+                                ItemJnlBatch.SetRange("Journal Template Name", SelectedJournalTemplateNameGbl);
+                                ItemJnlBatch.SetRange(Name, SelectedJournalBatchNameGbl);
+                                ItemJnlBatch.FindFirst();
+                            end;
+                        end;
                     }
                     field(SelectedDocumentNoGbl; SelectedDocumentNoGbl)
                     {
@@ -130,5 +149,7 @@ report 77250 "ADC Create Journal Lines"
         Window: Dialog;
         CheckDuplicateSerialNoGbl: Boolean;
         DuplicateSerialNoErrorMsgLbl: Label 'Serial No. %1 already exists for Item %2.';
+        SelectJnlTemplateErrMsg: Label 'Please select template name';
+        ItemJnlBatch: Record "Item Journal Batch";
 
 }
