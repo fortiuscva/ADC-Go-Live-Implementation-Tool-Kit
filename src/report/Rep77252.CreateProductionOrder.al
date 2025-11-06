@@ -25,6 +25,7 @@ report 77252 "ADC Create Production Order"
                 Window.Update(1, "Prod. Order No.");
                 Clear(ProcessProdOrders);
                 ClearLastError();
+                ProcessProdOrders.SetValidationOptions(ValidateRoutingNo, ValidateProdBOMNo);
                 if not ProcessProdOrders.Run(ProductionOrderStage) then begin
                     ProductionOrderStage.Processed := false;
                     ErrorTxtLcl := GetLastErrorText();
@@ -77,8 +78,37 @@ report 77252 "ADC Create Production Order"
             end;
         }
     }
+    requestpage
+    {
+        layout
+        {
+            area(content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+                    field(ValidateRoutingNo; ValidateRoutingNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Validate Routing No.';
+                        ToolTip = 'Enable to validate Routing No. during production order creation.';
+                    }
+                    field(ValidateProdBOMNo; ValidateProdBOMNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Validate Production BOM No.';
+                        ToolTip = 'Enable to validate Production BOM No. during production order creation.';
+                    }
+                }
+            }
+        }
+    }
+
+
 
     var
         Window: Dialog;
         ProcessProdOrders: Codeunit "ADC Process Production Orders";
+        ValidateRoutingNo: Boolean;
+        ValidateProdBOMNo: Boolean;
 }
