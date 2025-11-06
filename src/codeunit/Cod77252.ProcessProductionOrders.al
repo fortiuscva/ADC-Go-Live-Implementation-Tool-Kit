@@ -18,8 +18,12 @@ codeunit 77252 "ADC Process Production Orders"
         ProdOrderRouting: Record "Prod. Order Routing Line";
     begin
         ItemGbl.Get(Rec."Source No.");
-        ItemGbl.TestField("Routing No.");
-        ItemGbl.TestField("Production BOM No.");
+
+        if ValidateRoutingNo then
+            ItemGbl.TestField("Routing No.");
+
+        if ValidateProdBOMNo then
+            ItemGbl.TestField("Production BOM No.");
 
         if ProdOrderRecLcl.Get(Rec."Prod. Order No.") then begin
 
@@ -60,6 +64,7 @@ codeunit 77252 "ADC Process Production Orders"
         ProdOrderLineStageRecLcl.SetRange(Processed, false);
         if ProdOrderLineStageRecLcl.FindSet() then begin
             repeat
+                ProcessProdOrderLineCU.SetValidationOptions(ValidateRoutingNo, ValidateProdBOMNo);
                 ProcessProdOrderLineCU.Run(ProdOrderLineStageRecLcl);
             until ProdOrderLineStageRecLcl.Next() = 0;
         end;
@@ -84,4 +89,14 @@ codeunit 77252 "ADC Process Production Orders"
             until ProdOrderRoutingStageRecLcl.Next() = 0;
         end;
     end;
+
+    procedure SetValidationOptions(ValidateRouting: Boolean; ValidateBOM: Boolean)
+    begin
+        ValidateRoutingNo := ValidateRouting;
+        ValidateProdBOMNo := ValidateBOM;
+    end;
+
+    var
+        ValidateRoutingNo: Boolean;
+        ValidateProdBOMNo: Boolean;
 }
