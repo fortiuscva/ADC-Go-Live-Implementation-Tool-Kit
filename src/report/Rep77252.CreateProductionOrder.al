@@ -103,7 +103,11 @@ report 77252 "ADC Create Production Order"
             }
         }
     }
-
+    trigger OnInitReport()
+    begin
+        ValidateProdBOMNo := true;
+        ValidateRoutingNo := true;
+    end;
 
 
     var
