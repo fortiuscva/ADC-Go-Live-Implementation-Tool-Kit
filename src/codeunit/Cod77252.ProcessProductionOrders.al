@@ -16,6 +16,7 @@ codeunit 77252 "ADC Process Production Orders"
         ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
         ProdOrderRouting: Record "Prod. Order Routing Line";
+        GoLiveSingleInstance: Codeunit "ADC Go Live Single Instance";
     begin
         ItemGbl.Get(Rec."Source No.");
 
@@ -24,6 +25,17 @@ codeunit 77252 "ADC Process Production Orders"
 
         if ValidateProdBOMNo then
             ItemGbl.TestField("Production BOM No.");
+
+        if not ValidateProdBOMNo then
+            GoLiveSingleInstance.SetHideProdBOMNoValidation(true)
+        else
+            GoLiveSingleInstance.SetHideProdBOMNoValidation(false);
+
+        if not ValidateRoutingNo then
+            GoLiveSingleInstance.SetHideRoutingNoValidation(true)
+        else
+            GoLiveSingleInstance.SetHideRoutingNoValidation(false);
+
 
         if ProdOrderRecLcl.Get(Rec."Prod. Order No.") then begin
 
