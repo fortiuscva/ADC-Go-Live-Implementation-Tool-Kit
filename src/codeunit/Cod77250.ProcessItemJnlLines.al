@@ -45,6 +45,7 @@ codeunit 77250 "ADC Process Item Jnl. Lines"
             ItemJnlLineRecLcl.SetReservationEntry(ForReservEntry);
             ForReservEntry."Lot No." := LotNoGbl;
             ForReservEntry."Serial No." := SerialNoGbl;
+            CreateReservEntry.SetDates(0D, Rec."Expiration Date");
             CreateReservEntry.CreateReservEntryFor(
               DATABASE::"Item Journal Line",
               ItemJnlLineRecLcl."Entry Type".AsInteger(), ItemJnlLineRecLcl."Journal Template Name",

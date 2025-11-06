@@ -51,6 +51,11 @@ table 77250 "ADC Item Journal Line Stage"
             Caption = 'Bin Code';
             DataClassification = CustomerContent;
         }
+        field(11; "Expiration Date"; Date)
+        {
+            Caption = 'Expiration Date';
+            DataClassification = CustomerContent;
+        }
         field(100; Processed; Boolean)
         {
             Caption = 'Processed';

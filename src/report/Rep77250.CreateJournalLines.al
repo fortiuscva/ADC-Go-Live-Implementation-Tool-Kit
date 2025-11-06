@@ -17,12 +17,29 @@ report 77250 "ADC Create Journal Lines"
             trigger OnAfterGetRecord()
             var
                 ErrorTxtLcl: Text;
+                ItemLedgEntry: Record "Item Ledger Entry";
             begin
                 Window.Update(1, ADCItemJournalLineStage."Entry No.");
                 LineNoGbl += 10000;
                 Clear(ProcessJnlLines);
                 ProcessJnlLines.SetValues(SelectedPostingDateGbl, SelectedJournalTemplateNameGbl, SelectedJournalBatchNameGbl, SelectedDocumentNoGbl, LineNoGbl);
                 ClearLastError();
+
+                if CheckDuplicateSerialNoGbl and (ADCItemJournalLineStage."Serial No." <> '') then begin
+                    ItemLedgEntry.Reset();
+                    ItemLedgEntry.SetRange("Item No.", ADCItemJournalLineStage."Item No.");
+                    ItemLedgEntry.SetRange("Serial No.", ADCItemJournalLineStage."Serial No.");
+                    if ItemLedgEntry.FindFirst() then begin
+                        ErrorTxtLcl := StrSubstNo(DuplicateSerialNoErrorMsgLbl, ADCItemJournalLineStage."Serial No.", ADCItemJournalLineStage."Item No.");
+
+                        ADCItemJournalLineStage.Processed := false;
+                        ADCItemJournalLineStage."Error Text" := CopyStr(ErrorTxtLcl, 1, StrLen(ErrorTxtLcl));
+                        ADCItemJournalLineStage.Modify();
+                        Commit();
+                        exit;
+                    end;
+                end;
+
                 if not ProcessJnlLines.Run(ADCItemJournalLineStage) then begin
                     ADCItemJournalLineStage.Processed := false;
                     ErrorTxtLcl := GetLastErrorText();
@@ -67,12 +84,36 @@ report 77250 "ADC Create Journal Lines"
                     {
                         ApplicationArea = All;
                         Caption = 'Journal Batch Name';
-                        TableRelation = "Item Journal Batch".Name;
+                        trigger OnLookup(var Text: Text): Boolean
+                        begin
+
+                            if SelectedJournalTemplateNameGbl = '' then
+                                error(SelectJnlTemplateErrMsg);
+                            ItemJnlBatch.Reset();
+                            ItemJnlBatch.SetRange("Journal Template Name", SelectedJournalTemplateNameGbl);
+                            if Page.RunModal(0, ItemJnlBatch) = Action::LookupOK then
+                                SelectedJournalBatchNameGbl := ItemJnlBatch.Name;
+                        end;
+
+                        trigger OnValidate()
+                        begin
+                            if SelectedJournalBatchNameGbl <> '' then begin
+                                ItemJnlBatch.Reset();
+                                ItemJnlBatch.SetRange("Journal Template Name", SelectedJournalTemplateNameGbl);
+                                ItemJnlBatch.SetRange(Name, SelectedJournalBatchNameGbl);
+                                ItemJnlBatch.FindFirst();
+                            end;
+                        end;
                     }
                     field(SelectedDocumentNoGbl; SelectedDocumentNoGbl)
                     {
                         ApplicationArea = All;
                         Caption = 'Document No.';
+                    }
+                    field(CheckDuplicateSerialNoGbl; CheckDuplicateSerialNoGbl)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Check for Duplicate Serial No.';
                     }
 
                 }
@@ -106,5 +147,9 @@ report 77250 "ADC Create Journal Lines"
         LineNoGbl: Integer;
         ProcessJnlLines: Codeunit "ADC Process Item Jnl. Lines";
         Window: Dialog;
+        CheckDuplicateSerialNoGbl: Boolean;
+        DuplicateSerialNoErrorMsgLbl: Label 'Serial No. %1 already exists for Item %2.';
+        SelectJnlTemplateErrMsg: Label 'Please select template name';
+        ItemJnlBatch: Record "Item Journal Batch";
 
 }

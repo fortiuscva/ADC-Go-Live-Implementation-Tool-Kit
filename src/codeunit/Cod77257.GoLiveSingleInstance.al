@@ -36,5 +36,5 @@ codeunit 77257 "ADC Go Live Single Instance"
         HideDeleteItemTrackingConfirm: Boolean;
         HideRoutingNoValidation: Boolean;
         HideProdBOMNoValidation: Boolean;
-
+   
 }
