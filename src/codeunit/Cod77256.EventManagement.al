@@ -24,6 +24,14 @@ codeunit 77256 "ADC Event Management"
             IsHandled := true;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Line", OnValidateProductionBOMNoOnBeforeTestStatus, '', false, false)]
+    local procedure "Prod. Order Line_OnValidateProductionBOMNoOnBeforeTestStatus"(var ProdOrderLine: Record "Prod. Order Line"; var IsHandled: Boolean)
+    begin
+        if GoLiveSingleInstance.GetHideProdBOMNoValidation() then
+            IsHandled := true;
+    end;
+
+
     var
         GoLiveSingleInstance: Codeunit "ADC Go Live Single Instance";
 
