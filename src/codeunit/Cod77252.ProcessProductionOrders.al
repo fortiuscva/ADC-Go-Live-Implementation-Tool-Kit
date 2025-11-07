@@ -20,21 +20,19 @@ codeunit 77252 "ADC Process Production Orders"
     begin
         ItemGbl.Get(Rec."Source No.");
 
-        if ValidateRoutingNo then
-            ItemGbl.TestField("Routing No.");
-
-        if ValidateProdBOMNo then
-            ItemGbl.TestField("Production BOM No.");
-
         if not ValidateProdBOMNo then
             GoLiveSingleInstance.SetHideProdBOMNoValidation(true)
-        else
+        else begin
             GoLiveSingleInstance.SetHideProdBOMNoValidation(false);
+            ItemGbl.TestField("Production BOM No.");
+        end;
 
         if not ValidateRoutingNo then
             GoLiveSingleInstance.SetHideRoutingNoValidation(true)
-        else
+        else begin
             GoLiveSingleInstance.SetHideRoutingNoValidation(false);
+            ItemGbl.TestField("Routing No.");
+        end;
 
 
         if ProdOrderRecLcl.Get(Rec."Prod. Order No.") then begin
