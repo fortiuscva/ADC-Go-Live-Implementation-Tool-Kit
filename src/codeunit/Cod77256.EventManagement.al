@@ -16,6 +16,14 @@ codeunit 77256 "ADC Event Management"
             IsHandled := true;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Routing Line", OnBeforeCheckRoutingNoNotBlank, '', false, false)]
+    local procedure "Prod. Order Routing Line_OnBeforeCheckRoutingNoNotBlank"(var ProdOrderRoutingLine: Record "Prod. Order Routing Line"; var IsHandled: Boolean)
+
+    begin
+        if GoLiveSingleInstance.GetHideRoutingNoValidation() then
+            IsHandled := true;
+    end;
+
     var
         GoLiveSingleInstance: Codeunit "ADC Go Live Single Instance";
 
