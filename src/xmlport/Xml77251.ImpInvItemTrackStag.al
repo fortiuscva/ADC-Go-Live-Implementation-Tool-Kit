@@ -54,7 +54,8 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
 
                     Evaluate(QuantityLcl, QuantityGbl);
                     Evaluate(UnitCostLcl, UnitCostGbl);
-                    Evaluate(ExpDateLcl, ExpirationDateGbl);
+                    if ExpirationDateGbl <> '' then
+                        Evaluate(ExpDateLcl, ExpirationDateGbl);
 
                     ItemJnlLineStagingRecGbl.Init();
                     ItemJnlLineStagingRecGbl."Entry No." := EntryNo;
@@ -66,7 +67,8 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                     ItemJnlLineStagingRecGbl.Validate("Bin Code", BinCodeGbl);
                     ItemJnlLineStagingRecGbl."Lot No." := LotNoGbl;
                     ItemJnlLineStagingRecGbl."Serial No." := SerialNoGbl;
-                    ItemJnlLineStagingRecGbl."Expiration Date" := ExpDateLcl;
+                    if ExpDateLcl <> 0D then
+                        ItemJnlLineStagingRecGbl."Expiration Date" := ExpDateLcl;
                     ItemJnlLineStagingRecGbl.Insert();
                     EntryNo += 1;
                 end;
