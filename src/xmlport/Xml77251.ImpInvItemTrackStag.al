@@ -54,7 +54,8 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
 
                     Evaluate(QuantityLcl, QuantityGbl);
                     Evaluate(UnitCostLcl, UnitCostGbl);
-                    Evaluate(ExpDateLcl, ExpirationDateGbl);
+                    if ExpirationDateGbl <> '' then
+                        Evaluate(ExpDateLcl, ExpirationDateGbl);
 
                     ItemJnlLineStagingRecGbl.Init();
                     ItemJnlLineStagingRecGbl."Entry No." := EntryNo;
