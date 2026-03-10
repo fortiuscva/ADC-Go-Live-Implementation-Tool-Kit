@@ -66,7 +66,8 @@ xmlport 77251 "ADC Imp. Inv. Item Track. Stag"
                     ItemJnlLineStagingRecGbl.Validate("Bin Code", BinCodeGbl);
                     ItemJnlLineStagingRecGbl."Lot No." := LotNoGbl;
                     ItemJnlLineStagingRecGbl."Serial No." := SerialNoGbl;
-                    ItemJnlLineStagingRecGbl."Expiration Date" := ExpDateLcl;
+                    if ExpDateLcl <> 0D then
+                        ItemJnlLineStagingRecGbl."Expiration Date" := ExpDateLcl;
                     ItemJnlLineStagingRecGbl.Insert();
                     EntryNo += 1;
                 end;
