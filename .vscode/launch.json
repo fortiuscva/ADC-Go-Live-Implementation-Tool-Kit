@@ -86,6 +86,20 @@
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
             "schemaUpdateMode": "Synchronize"
+        },
+        {
+            "name": "Demo",
+            "type": "al",
+            "request": "launch",
+            "environmentType": "Sandbox",
+            "environmentName": "Demo",
+            "tenant": "5520bf2a-e65c-4ca4-82c0-6169cccfd425",
+            "breakOnError": "All",
+            "breakOnRecordWrite": "None",
+            "launchBrowser": true,
+            "enableSqlInformationDebugger": true,
+            "enableLongRunningSqlStatements": true,
+            "schemaUpdateMode": "ForceSync"
         }
     ]
 }
