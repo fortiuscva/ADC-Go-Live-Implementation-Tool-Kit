@@ -85,7 +85,17 @@ page 77260 "ADC Test Case"
             part(Lines; "ADC Test Case Subform")
             {
                 Caption = 'Lines';
-                SubPageLink = "Test Case ID" = field("Test Case ID");
+                SubPageLink = "Document No." = field("Test Case ID");
+            }
+        }
+        area(FactBoxes)
+        {
+            part(TestSteps; "ADC Teststeps Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Teststeps';
+                Provider = Lines;
+                SubPageLink = "Document No." = field("Teststep ID");
             }
         }
     }
