@@ -20,7 +20,7 @@ table 77263 "ADC Test Step Line"
     }
     keys
     {
-        key(PK; "Document No.")
+        key(PK; "Document No.", "Line No.")
         {
             Clustered = true;
         }

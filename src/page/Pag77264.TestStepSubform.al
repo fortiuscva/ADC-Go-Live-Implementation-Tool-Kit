@@ -5,6 +5,7 @@ page 77264 "ADC Test Step Subform"
     PageType = ListPart;
     SourceTable = "ADC Test Step Line";
     UsageCategory = None;
+    AutoSplitKey = true;
 
     layout
     {
