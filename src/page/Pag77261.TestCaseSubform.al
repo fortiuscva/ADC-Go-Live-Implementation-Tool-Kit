@@ -47,6 +47,10 @@ page 77261 "ADC Test Case Subform"
                 {
                     ToolTip = 'Specifies the value of the Actual Result field.', Comment = '%';
                 }
+                field("Defect ID"; Rec."Defect ID")
+                {
+                    ToolTip = 'Specifies the value of the Defect ID/Link field.', Comment = '%';
+                }
             }
         }
     }
