@@ -1,19 +1,18 @@
-table 77258 "ADC Category"
+table 77264 "ADC Subcategory"
 {
-    Caption = 'Category';
+    Caption = 'Subcategory';
     DataClassification = CustomerContent;
-    DataPerCompany = false;
-    LookupPageId = "ADC Categories";
-    DrillDownPageId = "ADC Categories";
+    LookupPageId = Subcategories;
+    DrillDownPageId = Subcategories;
 
     fields
     {
-        field(1; Category; text[100])
+        field(1; Subcategory; Text[100])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[250])
+        field(2; Description; Text[256])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
@@ -21,15 +20,16 @@ table 77258 "ADC Category"
     }
     keys
     {
-        key(PK; "Category")
+        key(PK; "Subcategory")
         {
             Clustered = true;
         }
     }
     fieldgroups
     {
-        fieldgroup(DropDown; Category, Description)
+        fieldgroup(DropDown; Subcategory, Description)
         {
         }
     }
+
 }

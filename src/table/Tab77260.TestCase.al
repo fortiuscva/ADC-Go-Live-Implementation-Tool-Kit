@@ -14,10 +14,12 @@ table 77260 "ADC Test Case"
         field(2; Category; Text[100])
         {
             Caption = 'Category';
+            TableRelation = "ADC Category";
         }
         field(3; "Sub Category"; Text[100])
         {
             Caption = 'Sub Category';
+            TableRelation = "ADC Subcategory";
         }
         field(4; "Business Process"; Text[100])
         {
