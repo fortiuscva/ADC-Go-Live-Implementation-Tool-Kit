@@ -69,14 +69,17 @@ page 77259 "ADC Test Cases"
                 field("Test Scenario"; Rec."Test Scenario")
                 {
                     ToolTip = 'Specifies the value of the Test Scenario field.', Comment = '%';
+                    Visible = false;
                 }
                 field("Test Case Description"; Rec."Test Case Description")
                 {
                     ToolTip = 'Specifies the value of the Test Case Description field.', Comment = '%';
+                    Visible = false;
                 }
                 field("Test Case Reference ID"; Rec."Test Case Reference ID")
                 {
                     ToolTip = 'Specifies the value of the Test Case Reference ID field.', Comment = '%';
+                    Visible = false;
                 }
             }
         }

@@ -20,9 +20,9 @@ table 77261 "ADC Test Case Line"
             Caption = 'Data Points/Test Data';
             DataClassification = CustomerContent;
         }
-        field(17; "Teststep ID"; Code[20])
+        field(17; "Step ID"; Code[20])
         {
-            Caption = 'Teststep ID/Link';
+            Caption = 'Step ID';
             TableRelation = "ADC Test Step Header";
             DataClassification = CustomerContent;
         }
