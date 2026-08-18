@@ -1,17 +1,18 @@
-table 77265 "ADC Business Process"
+table 77268 "ADC UAT Execution Status"
 {
-    Caption = 'Business Process';
-    LookupPageId = "ADC Business Processes";
-    DrillDownPageId = "ADC Business Processes";
+    Caption = 'UAT Execution Status';
+    LookupPageId = "ADC UAT Execution Status";
+    DrillDownPageId = "ADC UAT Execution Status";
     DataClassification = CustomerContent;
+
     fields
     {
-        field(1; "Code"; Text[100])
+        field(1; "Code"; Text[30])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[250])
+        field(2; Description; Text[100])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;

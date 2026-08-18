@@ -14,7 +14,8 @@ page 77265 "ADC Teststeps Factbox"
                 ShowCaption = false;
                 field("Test Step Description"; Rec."Test Step Description")
                 {
-                    ToolTip = 'Specifies the value of the Test Step Description field.', Comment = '%';
+                    Caption = 'Description';
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
             }
         }

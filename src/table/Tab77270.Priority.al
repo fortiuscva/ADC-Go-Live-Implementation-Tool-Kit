@@ -1,20 +1,19 @@
-table 77265 "ADC Business Process"
+table 77270 "ADC Priority"
 {
-    Caption = 'Business Process';
-    LookupPageId = "ADC Business Processes";
-    DrillDownPageId = "ADC Business Processes";
+    Caption = 'Priority';
+    LookupPageId = "ADC Priority Options";
+    DrillDownPageId = "ADC Priority Options";
     DataClassification = CustomerContent;
+
     fields
     {
-        field(1; "Code"; Text[100])
+        field(1; "Code"; Text[30])
         {
             Caption = 'Code';
-            DataClassification = CustomerContent;
         }
-        field(2; Description; Text[250])
+        field(2; Description; Text[100])
         {
             Caption = 'Description';
-            DataClassification = CustomerContent;
         }
     }
     keys
