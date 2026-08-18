@@ -4,14 +4,15 @@ table 77258 "ADC Category"
     LookupPageId = "ADC Categories";
     DrillDownPageId = "ADC Categories";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
     fields
     {
-        field(1; Category; text[100])
+        field(1; "Code"; Code[100])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[250])
+        field(2; Description; Text[2048])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
@@ -19,17 +20,17 @@ table 77258 "ADC Category"
     }
     keys
     {
-        key(PK; "Category")
+        key(PK; Code)
         {
             Clustered = true;
         }
     }
     fieldgroups
     {
-        fieldgroup(DropDown; Category, Description)
+        fieldgroup(DropDown; Code, Description)
         {
         }
-        fieldgroup(Brick; Category, Description)
+        fieldgroup(Brick; Code, Description)
         {
         }
     }

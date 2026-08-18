@@ -4,6 +4,7 @@ table 77259 "ADC Detailed Traning Plan"
     LookupPageId = "ADC Detailed Training Plan";
     DrillDownPageId = "ADC Detailed Training Plan";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {

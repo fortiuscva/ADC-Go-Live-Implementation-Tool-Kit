@@ -1,19 +1,20 @@
 table 77264 "ADC Subcategory"
 {
     Caption = 'Subcategory';
-    LookupPageId = Subcategories;
-    DrillDownPageId = Subcategories;
+    LookupPageId = "ADC Subcategories";
+    DrillDownPageId = "ADC Subcategories";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
 
     fields
     {
-        field(1; Subcategory; Text[100])
+        field(1; "Code"; Code[100])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[256])
+        field(2; Description; Text[2048])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
@@ -21,17 +22,17 @@ table 77264 "ADC Subcategory"
     }
     keys
     {
-        key(PK; "Subcategory")
+        key(PK; Code)
         {
             Clustered = true;
         }
     }
     fieldgroups
     {
-        fieldgroup(DropDown; Subcategory, Description)
+        fieldgroup(DropDown; Code, Description)
         {
         }
-        fieldgroup(Brick; Subcategory, Description)
+        fieldgroup(Brick; Code, Description)
         {
         }
     }

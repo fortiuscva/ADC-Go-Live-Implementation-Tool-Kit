@@ -3,7 +3,7 @@ page 77259 "ADC Test Cases"
     ApplicationArea = All;
     Caption = 'Test Cases';
     PageType = List;
-    SourceTable = "ADC Test Case";
+    SourceTable = "ADC Test Case Header";
     CardPageId = "ADC Test Case";
     UsageCategory = Lists;
     Editable = false;
@@ -14,9 +14,13 @@ page 77259 "ADC Test Cases"
         {
             repeater(General)
             {
-                field("Test Case ID"; Rec."Test Case ID")
+                field("Test Case ID"; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
+                }
+                field(Description; Rec.Description)
+                {
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field(Category; Rec.Category)
                 {
@@ -69,14 +73,17 @@ page 77259 "ADC Test Cases"
                 field("Test Scenario"; Rec."Test Scenario")
                 {
                     ToolTip = 'Specifies the value of the Test Scenario field.', Comment = '%';
+                    Visible = false;
                 }
                 field("Test Case Description"; Rec."Test Case Description")
                 {
                     ToolTip = 'Specifies the value of the Test Case Description field.', Comment = '%';
+                    Visible = false;
                 }
                 field("Test Case Reference ID"; Rec."Test Case Reference ID")
                 {
                     ToolTip = 'Specifies the value of the Test Case Reference ID field.', Comment = '%';
+                    Visible = false;
                 }
             }
         }

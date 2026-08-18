@@ -14,9 +14,14 @@ page 77263 "ADC Test Step"
             {
                 Caption = 'General';
 
-                field("Code"; Rec."Code")
+                field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit(xRec) then
+                            CurrPage.Update();
+                    end;
                 }
                 field(Description; Rec.Description)
                 {
@@ -27,7 +32,7 @@ page 77263 "ADC Test Step"
             part(Lines; "ADC Test Step Subform")
             {
                 Caption = 'Lines';
-                SubPageLink = "Document No." = field(Code);
+                SubPageLink = "Document No." = field("No.");
             }
         }
     }

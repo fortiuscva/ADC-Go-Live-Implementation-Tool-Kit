@@ -3,7 +3,7 @@ page 77260 "ADC Test Case"
     ApplicationArea = All;
     Caption = 'Test Case';
     PageType = Document;
-    SourceTable = "ADC Test Case";
+    SourceTable = "ADC Test Case Header";
     UsageCategory = None;
 
     layout
@@ -14,29 +14,19 @@ page 77260 "ADC Test Case"
             {
                 Caption = 'General';
 
-                field("Test Case ID"; Rec."Test Case ID")
+                field(No; Rec."No.")
                 {
-                    ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the No. field.', Comment = '%';
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit(xRec) then
+                            CurrPage.Update();
+                    end;
                 }
-                field(Category; Rec.Category)
+                field(Description; Rec.Description)
                 {
-                    ToolTip = 'Specifies the value of the Category field.', Comment = '%';
-                }
-                field("Sub Category"; Rec."Sub Category")
-                {
-                    ToolTip = 'Specifies the value of the Sub Category field.', Comment = '%';
-                }
-                field("Business Process"; Rec."Business Process")
-                {
-                    ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
-                }
-                field("Training Session Code"; Rec."Training Session Code")
-                {
-                    ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
-                }
-                field("UAT Owner"; Rec."UAT Owner")
-                {
-                    ToolTip = 'Specifies the value of the UAT Owner field.', Comment = '%';
+                    MultiLine = true;
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("Business SignOff Owner"; Rec."Business SignOff Owner")
                 {
@@ -46,79 +36,103 @@ page 77260 "ADC Test Case"
                 {
                     ToolTip = 'Specifies the value of the Go-Live Critical field.', Comment = '%';
                 }
-                field("UAT Execution Status"; Rec."UAT Execution Status")
-                {
-                    ToolTip = 'Specifies the value of the UAT Execution Status field.', Comment = '%';
-                }
-                field("Signoff Status"; Rec."Signoff Status")
-                {
-                    ToolTip = 'Specifies the value of the Signoff Status field.', Comment = '%';
-                }
-                field("Testing Type"; Rec."Testing Type")
-                {
-                    ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
-                }
-                field("Training Driven"; Rec."Training Driven")
-                {
-                    ToolTip = 'Specifies the value of the Training Driven field.', Comment = '%';
-                }
                 field(Priority; Rec.Priority)
                 {
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
-                group("Test Scenario")
+                field(TestScenario; TestScenario)
                 {
-                    Caption = 'Test Scenario';
-                    field(TestScenario; TestScenario)
+                    ApplicationArea = All;
+                    Importance = Additional;
+                    MultiLine = true;
+                    ShowCaption = false;
+                    ToolTip = 'Specifies the scenario of the test case.', Comment = '%';
+                    visible = false;
+                    trigger OnValidate()
+                    begin
+                        Rec.SetTestScenario(TestScenario);
+                    end;
+                }
+                field(TestCaseDescription; TestCaseDescription)
+                {
+                    ApplicationArea = All;
+                    Importance = Additional;
+                    MultiLine = true;
+                    ShowCaption = false;
+                    ToolTip = 'Specifies the description of the test case.';
+                    Visible = false;
+                    trigger OnValidate()
+                    begin
+                        Rec.SetTestCaseDescription(TestCaseDescription);
+                    end;
+                }
+                field(TestCaseReferenceID; TestCaseReferenceID)
+                {
+                    ApplicationArea = All;
+                    Importance = Additional;
+                    MultiLine = true;
+                    ShowCaption = false;
+                    ToolTip = 'Specifies the Reference ID/JIRA ID of the test case.';
+                    Visible = false;
+                    trigger OnValidate()
+                    begin
+                        Rec.SetTestCaseReferenceID(TestCaseReferenceID);
+                    end;
+                }
+                group(Categories)
+                {
+                    caption = 'Categories';
+                    field(Category; Rec.Category)
                     {
-                        ApplicationArea = All;
-                        Importance = Additional;
-                        MultiLine = true;
-                        ShowCaption = false;
-                        ToolTip = 'Specifies the scenario of the test case.', Comment = '%';
-                        trigger OnValidate()
-                        begin
-                            Rec.SetTestScenario(TestScenario);
-                        end;
+                        ToolTip = 'Specifies the value of the Category field.', Comment = '%';
+                    }
+                    field("Sub Category"; Rec."Sub Category")
+                    {
+                        ToolTip = 'Specifies the value of the Sub Category field.', Comment = '%';
+                    }
+                    field("Business Process"; Rec."Business Process")
+                    {
+                        ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
                     }
                 }
-                group("Test Case Description")
+                group(Testing)
                 {
-                    Caption = 'Test Case Description';
-                    field(TestCaseDescription; TestCaseDescription)
+                    caption = 'Testing';
+                    field("Testing Type"; Rec."Testing Type")
                     {
-                        ApplicationArea = All;
-                        Importance = Additional;
-                        MultiLine = true;
-                        ShowCaption = false;
-                        ToolTip = 'Specifies the description of the test case.';
-                        trigger OnValidate()
-                        begin
-                            Rec.SetTestCaseDescription(TestCaseDescription);
-                        end;
+                        ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
+                    }
+                    field("UAT Owner"; Rec."UAT Owner")
+                    {
+                        ToolTip = 'Specifies the value of the UAT Owner field.', Comment = '%';
+                    }
+                    field("UAT Execution Status"; Rec."UAT Execution Status")
+                    {
+                        ToolTip = 'Specifies the value of the UAT Execution Status field.', Comment = '%';
+                    }
+                    field("Signoff Status"; Rec."Signoff Status")
+                    {
+                        ToolTip = 'Specifies the value of the Signoff Status field.', Comment = '%';
+                    }
+
+                }
+                group(Training)
+                {
+                    caption = 'Training';
+                    field("Training Session Code"; Rec."Training Session Code")
+                    {
+                        ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
+                    }
+                    field("Training Driven"; Rec."Training Driven")
+                    {
+                        ToolTip = 'Specifies the value of the Training Driven field.', Comment = '%';
                     }
                 }
-                group("Test Case Reference ID")
-                {
-                    Caption = 'Test Case Reference ID';
-                    field(TestCaseReferenceID; TestCaseReferenceID)
-                    {
-                        ApplicationArea = All;
-                        Importance = Additional;
-                        MultiLine = true;
-                        ShowCaption = false;
-                        ToolTip = 'Specifies the Reference ID/JIRA ID of the test case.';
-                        trigger OnValidate()
-                        begin
-                            Rec.SetTestCaseReferenceID(TestCaseReferenceID);
-                        end;
-                    }
-                }
-                part(Lines; "ADC Test Case Subform")
-                {
-                    Caption = 'Lines';
-                    SubPageLink = "Document No." = field("Test Case ID");
-                }
+            }
+            part(Lines; "ADC Test Case Subform")
+            {
+                Caption = 'Lines';
+                SubPageLink = "Document No." = field("No.");
             }
         }
         area(FactBoxes)
@@ -128,7 +142,14 @@ page 77260 "ADC Test Case"
                 ApplicationArea = All;
                 Caption = 'Steps';
                 Provider = Lines;
-                SubPageLink = "Document No." = field("Teststep ID");
+                SubPageLink = "Document No." = field("Step ID");
+            }
+            part(TCLines; "ADC Test Case Lines Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Lines';
+                Provider = Lines;
+                SubPageLink = "Document No." = field("Document No."), "Line No." = field("Line No.");
             }
             systempart(Control1905767507; Notes)
             {
