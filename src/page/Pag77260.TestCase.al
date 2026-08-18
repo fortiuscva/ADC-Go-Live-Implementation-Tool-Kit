@@ -66,26 +66,59 @@ page 77260 "ADC Test Case"
                 {
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
-                field("Test Scenario"; Rec."Test Scenario")
+                group("Test Scenario")
                 {
-                    MultiLine = true;
-                    ToolTip = 'Specifies the value of the Test Scenario field.', Comment = '%';
+                    Caption = 'Test Scenario';
+                    field(TestScenario; TestScenario)
+                    {
+                        ApplicationArea = All;
+                        Importance = Additional;
+                        MultiLine = true;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the scenario of the test case.', Comment = '%';
+                        trigger OnValidate()
+                        begin
+                            Rec.SetTestScenario(TestScenario);
+                        end;
+                    }
                 }
-                field("Test Case Description"; Rec."Test Case Description")
+                group("Test Case Description")
                 {
-                    MultiLine = true;
-                    ToolTip = 'Specifies the value of the Test Case Description field.', Comment = '%';
+                    Caption = 'Test Case Description';
+                    field(TestCaseDescription; TestCaseDescription)
+                    {
+                        ApplicationArea = All;
+                        Importance = Additional;
+                        MultiLine = true;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the description of the test case.';
+                        trigger OnValidate()
+                        begin
+                            Rec.SetTestCaseDescription(TestCaseDescription);
+                        end;
+                    }
                 }
-                field("Test Case Reference ID"; Rec."Test Case Reference ID")
+                group("Test Case Reference ID")
                 {
-                    MultiLine = true;
-                    ToolTip = 'Specifies the value of the Test Case Reference ID field.', Comment = '%';
+                    Caption = 'Test Case Reference ID';
+                    field(TestCaseReferenceID; TestCaseReferenceID)
+                    {
+                        ApplicationArea = All;
+                        Importance = Additional;
+                        MultiLine = true;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the Reference ID/JIRA ID of the test case.';
+                        trigger OnValidate()
+                        begin
+                            Rec.SetTestCaseReferenceID(TestCaseReferenceID);
+                        end;
+                    }
                 }
-            }
-            part(Lines; "ADC Test Case Subform")
-            {
-                Caption = 'Lines';
-                SubPageLink = "Document No." = field("Test Case ID");
+                part(Lines; "ADC Test Case Subform")
+                {
+                    Caption = 'Lines';
+                    SubPageLink = "Document No." = field("Test Case ID");
+                }
             }
         }
         area(FactBoxes)
@@ -93,10 +126,24 @@ page 77260 "ADC Test Case"
             part(TestSteps; "ADC Teststeps Factbox")
             {
                 ApplicationArea = All;
-                Caption = 'Teststeps';
+                Caption = 'Steps';
                 Provider = Lines;
                 SubPageLink = "Document No." = field("Teststep ID");
             }
+            systempart(Control1905767507; Notes)
+            {
+                ApplicationArea = Notes;
+            }
         }
     }
+    var
+        TestCaseDescription: Text;
+        TestScenario: Text;
+        TestCaseReferenceID: Text;
+
+    trigger OnAfterGetRecord()
+    begin
+        TestCaseDescription := Rec.GetTestCaseDescription();
+        TestScenario := Rec.GetTestScenario();
+    end;
 }
