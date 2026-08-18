@@ -3,7 +3,7 @@ page 77260 "ADC Test Case"
     ApplicationArea = All;
     Caption = 'Test Case';
     PageType = Document;
-    SourceTable = "ADC Test Case";
+    SourceTable = "ADC Test Case Header";
     UsageCategory = None;
 
     layout
@@ -14,9 +14,19 @@ page 77260 "ADC Test Case"
             {
                 Caption = 'General';
 
-                field("Test Case ID"; Rec."Test Case ID")
+                field(No; Rec."No.")
                 {
-                    ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the No. field.', Comment = '%';
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit(xRec) then
+                            CurrPage.Update();
+                    end;
+                }
+                field(Description; Rec.Description)
+                {
+                    MultiLine = true;
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("Business SignOff Owner"; Rec."Business SignOff Owner")
                 {
@@ -122,7 +132,7 @@ page 77260 "ADC Test Case"
             part(Lines; "ADC Test Case Subform")
             {
                 Caption = 'Lines';
-                SubPageLink = "Document No." = field("Test Case ID");
+                SubPageLink = "Document No." = field("No.");
             }
         }
         area(FactBoxes)
@@ -133,6 +143,13 @@ page 77260 "ADC Test Case"
                 Caption = 'Steps';
                 Provider = Lines;
                 SubPageLink = "Document No." = field("Step ID");
+            }
+            part(TCLines; "ADC Test Case Lines Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Lines';
+                Provider = Lines;
+                SubPageLink = "Document No." = field("Document No."), "Line No." = field("Line No.");
             }
             systempart(Control1905767507; Notes)
             {

@@ -4,14 +4,15 @@ table 77265 "ADC Business Process"
     LookupPageId = "ADC Business Processes";
     DrillDownPageId = "ADC Business Processes";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
     fields
     {
-        field(1; "Code"; Text[100])
+        field(1; Code; Code[100])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[250])
+        field(2; Description; Text[2048])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
@@ -19,7 +20,7 @@ table 77265 "ADC Business Process"
     }
     keys
     {
-        key(PK; "Code")
+        key(PK; Code)
         {
             Clustered = true;
         }

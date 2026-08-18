@@ -4,15 +4,16 @@ table 77269 "ADC Signoff Status"
     LookupPageId = "ADC Signoff Status";
     DrillDownPageId = "ADC Signoff Status";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {
-        field(1; "Code"; Text[100])
+        field(1; "Code"; Code[100])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[100])
+        field(2; Description; Text[2048])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;

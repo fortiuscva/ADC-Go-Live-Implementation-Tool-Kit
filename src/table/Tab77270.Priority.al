@@ -4,10 +4,11 @@ table 77270 "ADC Priority"
     LookupPageId = "ADC Priority Options";
     DrillDownPageId = "ADC Priority Options";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {
-        field(1; "Code"; Text[30])
+        field(1; Code; Code[100])
         {
             Caption = 'Code';
         }
@@ -18,7 +19,7 @@ table 77270 "ADC Priority"
     }
     keys
     {
-        key(PK; "Code")
+        key(PK; Code)
         {
             Clustered = true;
         }

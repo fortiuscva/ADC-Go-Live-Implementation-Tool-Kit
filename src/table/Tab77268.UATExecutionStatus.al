@@ -4,15 +4,16 @@ table 77268 "ADC UAT Execution Status"
     LookupPageId = "ADC UAT Execution Status";
     DrillDownPageId = "ADC UAT Execution Status";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {
-        field(1; "Code"; Text[30])
+        field(1; Code; Code[100])
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[100])
+        field(2; Description; Text[2048])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
@@ -20,7 +21,7 @@ table 77268 "ADC UAT Execution Status"
     }
     keys
     {
-        key(PK; "Code")
+        key(PK; Code)
         {
             Clustered = true;
         }

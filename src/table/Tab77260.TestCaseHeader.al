@@ -1,16 +1,29 @@
-table 77260 "ADC Test Case"
+table 77260 "ADC Test Case Header"
 {
     Caption = 'Testcase Header';
+    DataCaptionFields = "No.", Description;
     LookupPageId = "ADC Test Cases";
     DrillDownPageId = "ADC Test Cases";
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {
-        field(1; "Test Case ID"; Code[20])
+        field(1; "No."; Code[20])
         {
-            Caption = 'Test Case ID';
+            Caption = 'No.';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
+                NoSeries: Codeunit "No. Series";
+            begin
+                if "No." <> xRec."No." then begin
+                    GoLiveImplementationSetup.Get();
+                    NoSeries.TestManual(GoLiveImplementationSetup."Test Case Nos.");
+                    "No. Series" := '';
+                end;
+            end;
         }
         field(2; Category; Code[100])
         {
@@ -35,14 +48,16 @@ table 77260 "ADC Test Case"
             Caption = 'Training Session Code';
             DataClassification = CustomerContent;
         }
-        field(6; "UAT Owner"; code[20])
+        field(6; "UAT Owner"; code[50])
         {
             Caption = 'UAT Owner';
+            TableRelation = "User Setup";
             DataClassification = CustomerContent;
         }
-        field(7; "Business SignOff Owner"; text[100])
+        field(7; "Business SignOff Owner"; Code[50])
         {
             Caption = 'Business SignOff Owner';
+            TableRelation = "User Setup";
             DataClassification = CustomerContent;
         }
         field(8; "Go-Live Critical"; code[100])
@@ -89,18 +104,73 @@ table 77260 "ADC Test Case"
         {
             Caption = 'Test Case Description';
         }
+        field(16; Description; Text[2048])
+        {
+            Caption = 'Description';
+            DataClassification = CustomerContent;
+        }
         field(20; "Test Case Reference ID"; BLOB)
         {
             Caption = 'Test Case Reference ID';
         }
+        field(21; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            TableRelation = "No. Series";
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
-        key(PK; "Test Case ID")
+        key(PK; "No.")
         {
             Clustered = true;
         }
     }
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", Description)
+        {
+        }
+        fieldgroup(Brick; "No.", Description)
+        {
+        }
+    }
+    trigger OnInsert()
+    var
+        GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        if "No." = '' then begin
+            GoLiveImplementationSetup.Get();
+            GoLiveImplementationSetup.TestField("Test Case Nos.");
+
+            "No. Series" := GoLiveImplementationSetup."Test Case Nos.";
+
+            if NoSeries.AreRelated("No. Series", xRec."No. Series") then
+                "No. Series" := xRec."No. Series";
+
+            "No." := NoSeries.GetNextNo("No. Series");
+        end;
+    end;
+
+    procedure AssistEdit(OldTestCaseHeader: Record "ADC Test Case Header"): Boolean
+    var
+        GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        GoLiveImplementationSetup.Get();
+
+        if NoSeries.LookupRelatedNoSeries(
+            GoLiveImplementationSetup."Test Case Nos.",
+            OldTestCaseHeader."No. Series",
+            "No. Series")
+        then begin
+            "No." := NoSeries.GetNextNo("No. Series");
+            exit(true);
+        end;
+    end;
+
     procedure SetTestCaseDescription(NewTestCaseDescription: Text)
     var
         OutStream: OutStream;
