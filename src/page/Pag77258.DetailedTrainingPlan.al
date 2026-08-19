@@ -22,6 +22,7 @@ page 77258 "ADC Detailed Training Plan"
                 }
                 field("Training Session Code"; Rec."Training Session Code")
                 {
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
                 }
                 field("Training Topic"; Rec."Training Topic")

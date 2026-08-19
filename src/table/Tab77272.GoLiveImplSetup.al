@@ -2,6 +2,7 @@ table 77272 "ADC Go Live Impl. Setup"
 {
     Caption = 'Go-Live Implementation Setup';
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {

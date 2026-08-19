@@ -144,13 +144,6 @@ page 77260 "ADC Test Case"
                 Provider = Lines;
                 SubPageLink = "Document No." = field("Step ID");
             }
-            part(TCLines; "ADC Test Case Lines Factbox")
-            {
-                ApplicationArea = All;
-                Caption = 'Lines';
-                Provider = Lines;
-                SubPageLink = "Document No." = field("Document No."), "Line No." = field("Line No.");
-            }
             systempart(Control1905767507; Notes)
             {
                 ApplicationArea = Notes;
