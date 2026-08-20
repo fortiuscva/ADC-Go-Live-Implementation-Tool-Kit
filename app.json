@@ -1,7 +1,7 @@
 {
   "id": "0b628426-0019-45a5-8dc4-c5978a819764",
   "name": "Go Live Implementation Tool Kit",
-  "publisher": "link erp",
+  "publisher": "Link ERP",
   "version": "1.0.0.11",
   "brief": "",
   "description": "Link ERP Go Live Implementation Tool Kit",
@@ -21,7 +21,7 @@
     }
   ],
   "resourceExposurePolicy": {
-    "allowDebugging": false,
+    "allowDebugging": true,
     "allowDownloadingSource": false,
     "includeSourceInSymbolFile": false
   },

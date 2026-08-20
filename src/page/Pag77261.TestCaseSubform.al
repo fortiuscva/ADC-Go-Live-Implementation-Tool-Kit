@@ -6,6 +6,7 @@ page 77261 "ADC Test Case Subform"
     SourceTable = "ADC Test Case Line";
     UsageCategory = None;
     AutoSplitKey = true;
+    // DelayedInsert = true;
 
     layout
     {
@@ -26,22 +27,14 @@ page 77261 "ADC Test Case Subform"
                 field("Step ID"; Rec."Step ID")
                 {
                     ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
-                    trigger OnDrillDown()
-                    var
-                        Teststep: Record "ADC Test Step Header";
+                    trigger OnValidate()
                     begin
-                        Teststep.Reset();
-                        Teststep.Get(Rec."Step ID");
-                        Page.Run(Page::"ADC Test Step", Teststep);
+                        CurrPage.SaveRecord();
                     end;
                 }
-                field("Data Points"; Rec."Data Points")
+                field("No. of Tasks"; Rec."No. of Tasks")
                 {
-                    ToolTip = 'Specifies the value of the Data Points/Test Data field.', Comment = '%';
-                }
-                field("Defect ID"; Rec."Defect ID")
-                {
-                    ToolTip = 'Specifies the value of the Defect ID/Link field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the No. of Tasks field.', Comment = '%';
                 }
                 field("Executed By"; Rec."Executed By")
                 {
@@ -53,73 +46,40 @@ page 77261 "ADC Test Case Subform"
                 }
 
             }
-            group(Results)
-            {
-                Caption = 'Results';
-                ShowCaption = false;
-                group("Expected Result")
-                {
-                    Caption = 'Expected Result';
-
-                    field(ExpectedResult; ExpectedResult)
-                    {
-                        ApplicationArea = all;
-                        Importance = Additional;
-                        MultiLine = true;
-                        Editable = false;
-                        ShowCaption = false;
-                        ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
-                        trigger OnValidate()
-                        begin
-                            Rec.SetExpectedResult(ExpectedResult);
-                        end;
-                    }
-                }
-                group("Actual Result")
-                {
-                    Caption = 'Actual Result';
-                    field(ActualResult; ActualResult)
-                    {
-                        ApplicationArea = all;
-                        Importance = Additional;
-                        MultiLine = true;
-                        Editable = false;
-                        ShowCaption = false;
-                        ToolTip = 'Specifies the value of the Actual Result field.', Comment = '%';
-                        trigger OnValidate()
-                        begin
-                            Rec.SetActualResult(ActualResult);
-                        end;
-                    }
-                }
-            }
         }
     }
     actions
     {
         area(Processing)
         {
-            action(ShowResults)
+            action(OpenResults)
             {
                 ApplicationArea = All;
-                Caption = 'Show Results';
+                Caption = 'Open Data Points & Results';
                 Ellipsis = true;
-                Image = EditLines;
+                Image = Open;
                 trigger OnAction()
                 begin
                     Page.Run(Page::"ADC Test Case Results", Rec);
                 end;
             }
+            action(OpenTasks)
+            {
+                ApplicationArea = All;
+                Caption = 'Open Tasks';
+                Ellipsis = true;
+                Image = Open;
+                trigger OnAction()
+                var
+                    Task: Record "ADC Task";
+                begin
+                    Task.Reset();
+                    Task.FilterGroup := 8;
+                    Task.SetRange("Test Case No.", Rec."Document No.");
+                    Task.SetRange("Test Case Line No.", Rec."Line No.");
+                    Page.Run(Page::"ADC Tasks", Task);
+                end;
+            }
         }
     }
-
-    trigger OnAfterGetRecord()
-    begin
-        ExpectedResult := Rec.GetExpectedResult();
-        ActualResult := Rec.GetActualResult();
-    end;
-
-    var
-        ExpectedResult: Text;
-        ActualResult: Text;
 }
