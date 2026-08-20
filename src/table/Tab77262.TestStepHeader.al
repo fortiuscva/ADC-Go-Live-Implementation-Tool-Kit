@@ -74,6 +74,15 @@ table 77262 "ADC Test Step Header"
         end;
     end;
 
+    trigger OnDelete()
+    var
+        TestStepLine: Record "ADC Test Step Line";
+    begin
+        TestStepLine.Reset();
+        TestStepLine.SetRange("Document No.", "No.");
+        TestStepLine.DeleteAll(true);
+    end;
+
     procedure AssistEdit(OldTestStepHeader: Record "ADC Test Step Header"): Boolean
     var
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
