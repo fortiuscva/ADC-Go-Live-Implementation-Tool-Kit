@@ -23,10 +23,24 @@ page 77263 "ADC Test Step"
                             CurrPage.Update();
                     end;
                 }
+
                 field(Description; Rec.Description)
                 {
-                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                    ApplicationArea = all;
                     MultiLine = true;
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
+                group("Expected Result")
+                {
+                    Caption = 'Expected Result';
+                    field(ExpectedResult; Rec."Expected Result")
+                    {
+                        ApplicationArea = all;
+                        Importance = Additional;
+                        MultiLine = true;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
+                    }
                 }
             }
             part(Lines; "ADC Test Step Subform")

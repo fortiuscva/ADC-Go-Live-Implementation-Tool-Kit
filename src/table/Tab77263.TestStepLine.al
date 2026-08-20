@@ -16,7 +16,7 @@ table 77263 "ADC Test Step Line"
         }
         field(3; "Test Step Description"; Text[2048])
         {
-            Caption = 'Test Step Description';
+            Caption = 'Description';
         }
     }
     keys

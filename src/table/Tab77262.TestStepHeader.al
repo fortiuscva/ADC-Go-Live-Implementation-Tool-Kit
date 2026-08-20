@@ -28,6 +28,11 @@ table 77262 "ADC Test Step Header"
         {
             Caption = 'Description';
         }
+        field(3; "Expected Result"; Text[2048])
+        {
+            Caption = 'Expected Result';
+            DataClassification = CustomerContent;
+        }
         field(21; "No. Series"; Code[20])
         {
             Caption = 'No. Series';

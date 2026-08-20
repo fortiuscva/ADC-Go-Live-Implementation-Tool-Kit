@@ -26,6 +26,18 @@ table 77261 "ADC Test Case Line"
             Caption = 'Step ID';
             TableRelation = "ADC Test Step Header";
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                TestStepHeader: Record "ADC Test Step Header";
+            begin
+                if ((Rec."Step ID" <> xRec."Step ID") and (Rec."Step ID" <> '')) then begin
+                    TestStepHeader.Reset();
+                    TestStepHeader.Get(Rec."Step ID");
+                    Rec.SetExpectedResult(TestStepHeader."Expected Result");
+                end
+                else
+                    Rec.SetExpectedResult('');
+            end;
         }
         field(5; "Expected Result"; BLOB)
         {

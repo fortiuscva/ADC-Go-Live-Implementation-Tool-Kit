@@ -27,7 +27,7 @@ table 77257 "ADC Training Plan by Week"
         field(4; "Category Code"; Code[20])
         {
             Caption = 'Category Code';
-            // TableRelation = "ADC Category";
+            TableRelation = "ADC Category Code";
             DataClassification = CustomerContent;
         }
         field(5; Hours; Decimal)
@@ -58,22 +58,22 @@ table 77257 "ADC Training Plan by Week"
             Caption = 'Date';
             DataClassification = CustomerContent;
         }
-        field(10; "Business Owner"; Text[50])
+        field(10; "Business Owner"; Code[50])
         {
             Caption = 'Business Owner';
-            // TableRelation = "User Setup";
+            TableRelation = "User Setup";
             DataClassification = CustomerContent;
         }
-        field(11; "Business Technical Owner"; Text[50])
+        field(11; "Business Technical Owner"; Code[50])
         {
             Caption = 'Business Technical Owner';
-            // TableRelation = "User Setup";
+            TableRelation = "User Setup";
             DataClassification = CustomerContent;
         }
         field(12; Trainer; Text[50])
         {
             Caption = 'Trainer';
-            // TableRelation = "User Setup";
+            TableRelation = "User Setup";
             DataClassification = CustomerContent;
         }
         field(13; "Comments or Assumptions"; Text[2048])
