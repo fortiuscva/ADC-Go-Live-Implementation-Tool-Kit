@@ -1,10 +1,10 @@
 {
   "id": "0b628426-0019-45a5-8dc4-c5978a819764",
-  "name": "GoLiveImplementation Tool Kit",
-  "publisher": "Panacea",
+  "name": "Go Live Implementation Tool Kit",
+  "publisher": "link erp",
   "version": "1.0.0.11",
   "brief": "",
-  "description": "SMB Go Live Implementation Tool Kit",
+  "description": "Link ERP Go Live Implementation Tool Kit",
   "privacyStatement": "",
   "EULA": "",
   "help": "",
@@ -21,7 +21,7 @@
     }
   ],
   "resourceExposurePolicy": {
-    "allowDebugging": true,
+    "allowDebugging": false,
     "allowDownloadingSource": false,
     "includeSourceInSymbolFile": false
   },
