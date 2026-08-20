@@ -4,7 +4,7 @@ page 77258 "ADC Detailed Training Plan"
     Caption = 'Detailed Training Plan';
     PageType = List;
     SourceTable = "ADC Detailed Traning Plan";
-    UsageCategory = Lists;
+    UsageCategory = None;
 
     layout
     {
@@ -64,6 +64,58 @@ page 77258 "ADC Detailed Training Plan"
                 field("Learning Notes"; Rec."Learning Notes")
                 {
                     ToolTip = 'Specifies the value of the Learning Notes field.', Comment = '%';
+                }
+            }
+        }
+    }
+    actions
+    {
+        area(Navigation)
+        {
+            group(Navigate)
+            {
+                Caption = 'Navigate';
+                Image = Navigate;
+                action(ShowAssociatedTestCases)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Show Associated Test Cases';
+                    Ellipsis = true;
+                    Image = EditLines;
+                    trigger OnAction()
+                    var
+                        TestCaseHeader: Record "ADC Test Case Header";
+                    begin
+                        TestCaseHeader.Reset();
+                        TestCaseHeader.FilterGroup := 8;
+                        TestCaseHeader.SetRange("Training Session Code", Rec."Training Session Code");
+                        Page.Run(Page::"ADC Test Cases", TestCaseHeader);
+                    end;
+                }
+                action(ShowAllTestCases)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Show All Test Cases';
+                    Ellipsis = true;
+                    Image = EditLines;
+                    trigger OnAction()
+                    begin
+                        Page.Run(Page::"ADC Test Cases");
+                    end;
+                }
+            }
+        }
+        area(Promoted)
+        {
+            group(Category_Category5)
+            {
+                Caption = 'Navigate', Comment = 'Generated from the PromotedActionCategories property index 4.';
+                ShowAs = Standard;
+                actionref(ShowAssociatedTestCases_Promoted; ShowAssociatedTestCases)
+                {
+                }
+                actionref(ShowAllTestCases_Promoted; ShowAllTestCases)
+                {
                 }
             }
         }
