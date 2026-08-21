@@ -67,6 +67,19 @@ page 77258 "ADC Detailed Training Plan"
                 }
             }
         }
+        area(FactBoxes)
+        {
+            systempart(Links; Links)
+            {
+                Caption = 'Learning Links';
+                ApplicationArea = Links;
+            }
+            systempart(Notes; Notes)
+            {
+                Caption = 'Learning Notes';
+                ApplicationArea = Notes;
+            }
+        }
     }
     actions
     {

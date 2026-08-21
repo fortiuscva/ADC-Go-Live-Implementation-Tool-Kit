@@ -47,6 +47,23 @@ page 77281 "ADC Tasks"
                 }
             }
         }
+        area(FactBoxes)
+        {
+            part("Attached Documents"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                SubPageLink = "Table ID" = const(Database::"ADC Task"), "No." = field("Test Case No.");
+            }
+            systempart(Links; Links)
+            {
+                ApplicationArea = RecordLinks;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = Notes;
+            }
+        }
     }
     trigger OnNewRecord(BelowxRec: Boolean)
     var
