@@ -31,6 +31,39 @@ codeunit 77256 "ADC Event Management"
             IsHandled := true;
     end;
 
+    [EventSubscriber(ObjectType::Page, Page::"Doc. Attachment List Factbox", OnAfterGetRecRefFail, '', false, false)]
+    local procedure "Doc. Attachment List Factbox_OnAfterGetRecRefFail"(var Sender: Page "Doc. Attachment List Factbox"; var DocumentAttachment: Record "Document Attachment"; var RecRef: RecordRef)
+    var
+        TestCaseHeaderRecLcl: Record "ADC Test Case Header";
+    begin
+        Case DocumentAttachment."Table ID" Of
+            Database::"ADC Test Case Header":
+                begin
+                    RecRef.Open(Database::"ADC Test Case Header");
+                    if TestCaseHeaderRecLcl.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(TestCaseHeaderRecLcl);
+                end;
+        End;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Document Attachment", OnAfterInitFieldsFromRecRef, '', false, false)]
+    local procedure "Document Attachment_OnAfterInitFieldsFromRecRef"(var DocumentAttachment: Record "Document Attachment"; var RecRef: RecordRef)
+    var
+        FieldRef: FieldRef;
+        RecNo: Code[20];
+    begin
+        Case RecRef.Number Of
+            Database::"ADC Test Case Header":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+        End;
+    end;
+
+
+
 
     var
         GoLiveSingleInstance: Codeunit "ADC Go Live Single Instance";
