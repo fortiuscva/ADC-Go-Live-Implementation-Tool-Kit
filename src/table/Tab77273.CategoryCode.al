@@ -3,6 +3,7 @@ table 77273 "ADC Category Code"
     Caption = 'Category Code';
     LookupPageId = "ADC Category Codes";
     DrillDownPageId = "ADC Category Codes";
+    DataPerCompany = false;
     DataClassification = CustomerContent;
 
     fields

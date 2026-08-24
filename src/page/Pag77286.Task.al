@@ -1,7 +1,7 @@
 page 77286 "ADC Task"
 {
     ApplicationArea = All;
-    Caption = 'ADC Task';
+    Caption = 'Task (BC Support)';
     PageType = Card;
     SourceTable = "ADC Task";
 
@@ -13,25 +13,25 @@ page 77286 "ADC Task"
             {
                 Caption = 'General';
 
-                field("Entry No."; Rec."Entry No.")
+                field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
-                }
-                field("Test Case No."; Rec."Test Case No.")
-                {
-                    ToolTip = 'Specifies the value of the Test Case No. field.', Comment = '%';
-                }
-                field("Test Case Line No."; Rec."Test Case Line No.")
-                {
-                    ToolTip = 'Specifies the value of the Test Case Line No. field.', Comment = '%';
-                }
-                field(Type; Rec."Type")
-                {
-                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit(xRec) then
+                            CurrPage.Update();
+                    end;
                 }
                 field(Description; Rec.Description)
                 {
+                    ShowMandatory = true;
+                    MultiLine = true;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
+                field(Type; Rec."Type")
+                {
+                    ShowMandatory = true;
+                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
                 field("Assigned To"; Rec."Assigned To")
                 {
@@ -45,19 +45,35 @@ page 77286 "ADC Task"
                 {
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
-                field("No."; Rec."No.")
+                group(TestCase)
                 {
-                    ToolTip = 'Specifies the value of the No. field.', Comment = '%';
-                    // trigger OnAssistEdit()
-                    // begin
-                    //     if Rec.AssistEdit(xRec) then
-                    //         CurrPage.Update();
-                    // end;
+                    Caption = 'Test Case';
+                    field("Test Case No."; Rec."Test Case No.")
+                    {
+                        ToolTip = 'Specifies the value of the Test Case No. field.', Comment = '%';
+                    }
+                    field("Test Case Line No."; Rec."Test Case Line No.")
+                    {
+                        ToolTip = 'Specifies the value of the Test Case Line No. field.', Comment = '%';
+                    }
                 }
-                field("No.Series"; Rec."No.Series")
-                {
-                    ToolTip = 'Specifies the value of the No.Series field.', Comment = '%';
-                }
+            }
+        }
+        area(FactBoxes)
+        {
+            part("Attached Documents"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                SubPageLink = "Table ID" = const(Database::"ADC Task"), "No." = field("No.");
+            }
+            systempart(Links; Links)
+            {
+                ApplicationArea = RecordLinks;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = Notes;
             }
         }
     }

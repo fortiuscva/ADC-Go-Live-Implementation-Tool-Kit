@@ -47,6 +47,15 @@ table 77260 "ADC Test Case Header"
         {
             Caption = 'Training Session Code';
             DataClassification = CustomerContent;
+            trigger OnLookup()
+            var
+                DetailedTrainingPlan: Record "ADC Detailed Traning Plan";
+            begin
+                DetailedTrainingPlan.Reset();
+                DetailedTrainingPlan.SetFilter("Training Session Code", '<>%1', '');
+                if Page.RunModal(Page::"ADC Detailed Training Plan", DetailedTrainingPlan) = Action::LookupOK then
+                    Rec."Training Session Code" := DetailedTrainingPlan."Training Session Code";
+            end;
         }
         field(6; "UAT Owner"; code[50])
         {

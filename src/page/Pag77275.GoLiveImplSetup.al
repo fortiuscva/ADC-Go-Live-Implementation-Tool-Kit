@@ -23,6 +23,10 @@ page 77275 "ADC Go Live Impl. Setup"
                 {
                     ToolTip = 'Specifies the value of the Test Step Nos. field.', Comment = '%';
                 }
+                field("Task Nos."; Rec."Task Nos.")
+                {
+                    ToolTip = 'Specifies the value of the Task Nos. field.', Comment = '%';
+                }
             }
         }
     }

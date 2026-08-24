@@ -4,8 +4,10 @@ page 77281 "ADC Tasks"
     Caption = 'Tasks (BC Support)';
     PageType = List;
     SourceTable = "ADC Task";
-    DelayedInsert = true;
+    CardPageId = "ADC Task";
+    // DelayedInsert = true;
     UsageCategory = Lists;
+    Editable = false;
 
     layout
     {
@@ -13,11 +15,29 @@ page 77281 "ADC Tasks"
         {
             repeater(General)
             {
-                field("Entry No."; Rec."Entry No.")
+                field("No."; Rec."No.")
                 {
-                    Editable = false;
-                    Visible = false;
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
+                }
+                field(Description; Rec.Description)
+                {
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
+                field(Type; Rec."Type")
+                {
+                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
+                }
+                field("Assigned To"; Rec."Assigned To")
+                {
+                    ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';
+                }
+                field(Status; Rec.Status)
+                {
+                    ToolTip = 'Specifies the value of the Status field.', Comment = '%';
+                }
+                field(Priority; Rec.Priority)
+                {
+                    ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
                 field("Test Case No."; Rec."Test Case No.")
                 {
@@ -29,22 +49,6 @@ page 77281 "ADC Tasks"
                     Visible = false;
                     ToolTip = 'Specifies the value of the Test Case Line No. field.', Comment = '%';
                 }
-                field(Type; Rec."Type")
-                {
-                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
-                }
-                field(Description; Rec.Description)
-                {
-                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
-                }
-                field("Assigned To"; Rec."Assigned To")
-                {
-                    ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';
-                }
-                field(Status; Rec.Status)
-                {
-                    ToolTip = 'Specifies the value of the Status field.', Comment = '%';
-                }
             }
         }
         area(FactBoxes)
@@ -53,7 +57,7 @@ page 77281 "ADC Tasks"
             {
                 ApplicationArea = All;
                 Caption = 'Attachments';
-                SubPageLink = "Table ID" = const(Database::"ADC Task"), "No." = field("Test Case No.");
+                SubPageLink = "Table ID" = const(Database::"ADC Task"), "No." = field("No.");
             }
             systempart(Links; Links)
             {
@@ -75,8 +79,6 @@ page 77281 "ADC Tasks"
             Rec.Validate("Test Case No.", TestCaseNo);
             Evaluate(Rec."Test Case Line No.", TestCaseLineNo);
         end;
-
-
     end;
 
     var
