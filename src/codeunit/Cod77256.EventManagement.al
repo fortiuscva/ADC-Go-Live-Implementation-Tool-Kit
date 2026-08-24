@@ -35,6 +35,7 @@ codeunit 77256 "ADC Event Management"
     local procedure "Doc. Attachment List Factbox_OnAfterGetRecRefFail"(var Sender: Page "Doc. Attachment List Factbox"; var DocumentAttachment: Record "Document Attachment"; var RecRef: RecordRef)
     var
         TestCaseHeaderRecLcl: Record "ADC Test Case Header";
+        TaskLcl: Record "ADC Task";
     begin
         Case DocumentAttachment."Table ID" Of
             Database::"ADC Test Case Header":
@@ -42,6 +43,12 @@ codeunit 77256 "ADC Event Management"
                     RecRef.Open(Database::"ADC Test Case Header");
                     if TestCaseHeaderRecLcl.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(TestCaseHeaderRecLcl);
+                end;
+            Database::"ADC Task":
+                begin
+                    RecRef.Open(Database::"ADC Task");
+                    if TaskLcl.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(TaskLcl);
                 end;
         End;
     end;
@@ -54,6 +61,12 @@ codeunit 77256 "ADC Event Management"
     begin
         Case RecRef.Number Of
             Database::"ADC Test Case Header":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            Database::"ADC Task":
                 begin
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
