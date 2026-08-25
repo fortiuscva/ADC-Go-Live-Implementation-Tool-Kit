@@ -94,6 +94,11 @@ table 77259 "ADC Detailed Traning Plan"
             Caption = 'Learning Notes';
             DataClassification = CustomerContent;
         }
+        field(15; "Training Scheduled Date"; Date)
+        {
+            Caption = 'Training Scheduled Date';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
