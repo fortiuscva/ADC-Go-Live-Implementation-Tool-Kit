@@ -1,7 +1,7 @@
 page 77288 "ADC User Groups"
 {
     ApplicationArea = All;
-    Caption = 'User Groups';
+    Caption = 'User Groups (BC Support)';
     PageType = List;
     SourceTable = "ADC User Group";
     UsageCategory = Lists;
