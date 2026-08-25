@@ -133,6 +133,11 @@ table 77261 "ADC Test Case Line"
             Clustered = true;
         }
     }
+    trigger OnDelete()
+    begin
+        CheckWhetherTasksExistOrNot();
+    end;
+
     local procedure CheckWhetherTasksExistOrNot()
     var
         TaskRecLcl: Record "ADC Task";
