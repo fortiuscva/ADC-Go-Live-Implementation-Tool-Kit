@@ -53,13 +53,24 @@ table 77261 "ADC Test Case Line"
         field(8; "Executed By"; Code[50])
         {
             Caption = 'Executed By';
-            TableRelation = "User Setup";
+            TableRelation = "ADC User Setup";
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                if "Executed By" <> '' then
+                    TestField("Tested in Company");
+            end;
         }
         field(9; "Executed Date Time"; DateTime)
         {
             Caption = 'Executed Date Time';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if "Executed Date Time" <> 0DT then
+                    TestField("Tested in Company");
+            end;
         }
         field(10; "No. of Tasks"; Integer)
         {
@@ -78,7 +89,7 @@ table 77261 "ADC Test Case Line"
         field(12; "Assigned To"; Code[50])
         {
             Caption = 'Assigned To';
-            TableRelation = "User Setup";
+            TableRelation = "ADC User Setup";
             DataClassification = CustomerContent;
         }
         field(13; "Assigned Date"; Date)
@@ -92,6 +103,12 @@ table 77261 "ADC Test Case Line"
             FieldClass = FlowField;
             CalcFormula = lookup("ADC Test Case Header"."Training Session Code" where("No." = field("Document No.")));
             Editable = false;
+        }
+        field(20; "Tested in Company"; Text[30])
+        {
+            Caption = 'Tested in Company';
+            DataClassification = CustomerContent;
+            TableRelation = Company.Name;
         }
     }
     keys

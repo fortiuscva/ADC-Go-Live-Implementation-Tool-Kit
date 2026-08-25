@@ -50,7 +50,7 @@ table 77275 "ADC Task"
         field(6; "Assigned To"; Code[50])
         {
             Caption = 'Assigned To';
-            TableRelation = "User Setup";
+            TableRelation = "ADC User Setup";
             DataClassification = CustomerContent;
         }
         field(7; Status; Code[20])
@@ -71,6 +71,18 @@ table 77275 "ADC Task"
             caption = 'No.Series';
             TableRelation = "No. Series";
             DataClassification = Customercontent;
+        }
+        field(30; "Assigned By"; Code[50])
+        {
+            Caption = 'Assigned By';
+            TableRelation = "ADC User Setup";
+            DataClassification = CustomerContent;
+            ValidateTableRelation = false;
+        }
+        field(31; "Assigned Date"; Date)
+        {
+            Caption = 'Assigned Date';
+            DataClassification = CustomerContent;
         }
     }
     keys

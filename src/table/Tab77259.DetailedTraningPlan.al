@@ -70,7 +70,7 @@ table 77259 "ADC Detailed Traning Plan"
         field(10; "Business User"; Code[50])
         {
             Caption = 'Business User';
-            TableRelation = "User Setup";
+            TableRelation = "ADC User Setup";
             DataClassification = CustomerContent;
         }
         field(11; "Training Completion Status"; Text[30])
