@@ -16,6 +16,10 @@ page 77285 "ADC User Setup"
                 {
                     ToolTip = 'Specifies the value of the User ID field.', Comment = '%';
                 }
+                field("User Group"; Rec."User Group")
+                {
+                    ToolTip = 'Specifies the value of the User Group field.', Comment = '%';
+                }
             }
         }
     }

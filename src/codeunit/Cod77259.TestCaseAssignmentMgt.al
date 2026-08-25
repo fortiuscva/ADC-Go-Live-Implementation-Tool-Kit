@@ -1,6 +1,6 @@
 codeunit 77259 "ADC Test Case Assignment Mgt."
 {
-    procedure CreateLinesForSelectedUsers(TestCaseNo: Code[20]; TestStepID: Code[20]; var TempSelectedUsers: Record "ADC Test Step User Selection" temporary)
+    procedure CreateLinesForSelectedUsers(TestCaseNo: Code[20]; TestStepID: Code[20]; TargetCompletionDate: Date; var TempSelectedUsers: Record "ADC Test Step User Selection" temporary)
     var
         TestCaseLineRecLcl: Record "ADC Test Case Line";
     begin
@@ -15,6 +15,7 @@ codeunit 77259 "ADC Test Case Assignment Mgt."
                 TestCaseLineRecLcl.Validate("Step ID", TestStepID);
                 TestCaseLineRecLcl.Validate("Assigned To", TempSelectedUsers."User ID");
                 TestCaseLineRecLcl.Validate("Assigned Date", Today);
+                TestCaseLineRecLcl.Validate("Target Completion Date", TargetCompletionDate);
                 TestCaseLineRecLcl.Modify(true);
             until TempSelectedUsers.Next() = 0;
         end;

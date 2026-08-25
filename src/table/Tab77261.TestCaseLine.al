@@ -16,7 +16,7 @@ table 77261 "ADC Test Case Line"
             Caption = 'Line No.';
             DataClassification = CustomerContent;
         }
-        field(3; "Data Points"; BLOB)
+        field(3; "Data Points"; Text[2048])
         {
             Caption = 'Data Points/Test Data';
             DataClassification = CustomerContent;
@@ -34,18 +34,21 @@ table 77261 "ADC Test Case Line"
                 if ((Rec."Step ID" <> xRec."Step ID") and (Rec."Step ID" <> '')) then begin
                     TestStepHeader.Reset();
                     TestStepHeader.Get(Rec."Step ID");
-                    Rec.SetExpectedResult(TestStepHeader."Expected Result");
+                    Rec."Expected Result" := TestStepHeader."Expected Result";
+                    Rec."Data Points" := TestStepHeader."Data Points";
                 end
-                else
-                    Rec.SetExpectedResult('');
+                else begin
+                    Rec."Expected Result" := '';
+                    Rec."Data Points" := '';
+                end;
             end;
         }
-        field(5; "Expected Result"; BLOB)
+        field(5; "Expected Result"; Text[2048])
         {
             Caption = 'Expected Result';
             DataClassification = CustomerContent;
         }
-        field(6; "Actual Result"; BLOB)
+        field(6; "Actual Result"; Text[2048])
         {
             Caption = 'Actual Result';
             DataClassification = CustomerContent;
@@ -79,9 +82,9 @@ table 77261 "ADC Test Case Line"
             CalcFormula = count("ADC Task" where("Test Case No." = field("Document No."), "Test Case Line No." = field("Line No.")));
             Editable = false;
         }
-        field(11; "Header Description"; Text[2048])
+        field(11; "Test Case Description"; Text[2048])
         {
-            Caption = 'Description';
+            Caption = 'Test Case Description';
             FieldClass = FlowField;
             CalcFormula = lookup("ADC Test Case Header".Description where("No." = field("Document No.")));
             Editable = false;
@@ -104,6 +107,18 @@ table 77261 "ADC Test Case Line"
             CalcFormula = lookup("ADC Test Case Header"."Training Session Code" where("No." = field("Document No.")));
             Editable = false;
         }
+        field(15; "Target Completion Date"; Date)
+        {
+            Caption = 'Target Completion Date';
+            DataClassification = CustomerContent;
+        }
+        field(16; "Test Step Description"; Text[2048])
+        {
+            Caption = 'Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup("ADC Test Step Header".Description where("No." = field("Step ID")));
+            Editable = false;
+        }
         field(20; "Tested in Company"; Text[30])
         {
             Caption = 'Tested in Company';
@@ -118,63 +133,63 @@ table 77261 "ADC Test Case Line"
             Clustered = true;
         }
     }
-    procedure SetExpectedResult(NewExpectedResult: Text)
-    var
-        OutStream: OutStream;
-    begin
-        Clear("Expected Result");
-        "Expected Result".CreateOutStream(OutStream, TEXTENCODING::UTF8);
-        OutStream.WriteText(NewExpectedResult);
-    end;
+    // procedure SetExpectedResult(NewExpectedResult: Text)
+    // var
+    //     OutStream: OutStream;
+    // begin
+    //     Clear("Expected Result");
+    //     "Expected Result".CreateOutStream(OutStream, TEXTENCODING::UTF8);
+    //     OutStream.WriteText(NewExpectedResult);
+    // end;
 
-    procedure GetExpectedResult() ExpectedResult: Text
-    var
-        TypeHelper: Codeunit "Type Helper";
-        InStream: InStream;
-    begin
-        CalcFields("Expected Result");
-        "Expected Result".CreateInStream(InStream, TEXTENCODING::UTF8);
-        exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Expected Result")));
-    end;
+    // procedure GetExpectedResult() ExpectedResult: Text
+    // var
+    //     TypeHelper: Codeunit "Type Helper";
+    //     InStream: InStream;
+    // begin
+    //     CalcFields("Expected Result");
+    //     "Expected Result".CreateInStream(InStream, TEXTENCODING::UTF8);
+    //     exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Expected Result")));
+    // end;
 
-    procedure SetActualResult(NewActualResult: Text)
-    var
-        OutStream: OutStream;
-    begin
-        Clear("Actual Result");
-        "Actual Result".CreateOutStream(OutStream, TEXTENCODING::UTF8);
-        OutStream.WriteText(NewActualResult);
-        Modify();
-    end;
+    // procedure SetActualResult(NewActualResult: Text)
+    // var
+    //     OutStream: OutStream;
+    // begin
+    //     Clear("Actual Result");
+    //     "Actual Result".CreateOutStream(OutStream, TEXTENCODING::UTF8);
+    //     OutStream.WriteText(NewActualResult);
+    //     Modify();
+    // end;
 
-    procedure GetActualResult() ActualResult: Text
-    var
-        TypeHelper: Codeunit "Type Helper";
-        InStream: InStream;
-    begin
-        CalcFields("Actual Result");
-        "Actual Result".CreateInStream(InStream, TEXTENCODING::UTF8);
-        exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Actual Result")));
-    end;
+    // procedure GetActualResult() ActualResult: Text
+    // var
+    //     TypeHelper: Codeunit "Type Helper";
+    //     InStream: InStream;
+    // begin
+    //     CalcFields("Actual Result");
+    //     "Actual Result".CreateInStream(InStream, TEXTENCODING::UTF8);
+    //     exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Actual Result")));
+    // end;
 
-    procedure SetTestData(NewTestData: Text)
-    var
-        OutStream: OutStream;
-    begin
-        Clear("Data Points");
-        "Data Points".CreateOutStream(OutStream, TEXTENCODING::UTF8);
-        OutStream.WriteText(NewTestData);
-        Modify();
-    end;
+    // procedure SetTestData(NewTestData: Text)
+    // var
+    //     OutStream: OutStream;
+    // begin
+    //     Clear("Data Points");
+    //     "Data Points".CreateOutStream(OutStream, TEXTENCODING::UTF8);
+    //     OutStream.WriteText(NewTestData);
+    //     Modify();
+    // end;
 
-    procedure GetTestData() TestData: Text
-    var
-        TypeHelper: Codeunit "Type Helper";
-        InStream: InStream;
-    begin
-        CalcFields("Data Points");
-        "Data Points".CreateInStream(InStream, TEXTENCODING::UTF8);
-        exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Data Points")));
-    end;
+    // procedure GetTestData() TestData: Text
+    // var
+    //     TypeHelper: Codeunit "Type Helper";
+    //     InStream: InStream;
+    // begin
+    //     CalcFields("Data Points");
+    //     "Data Points".CreateInStream(InStream, TEXTENCODING::UTF8);
+    //     exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Data Points")));
+    // end;
 
 }

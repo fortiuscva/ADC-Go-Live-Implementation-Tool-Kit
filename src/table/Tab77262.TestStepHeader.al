@@ -33,6 +33,11 @@ table 77262 "ADC Test Step Header"
             Caption = 'Expected Result';
             DataClassification = CustomerContent;
         }
+        field(4; "Data Points"; Text[2048])
+        {
+            Caption = 'Data Points/Test Data';
+            DataClassification = CustomerContent;
+        }
         field(21; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
