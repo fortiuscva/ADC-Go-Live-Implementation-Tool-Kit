@@ -1,7 +1,7 @@
 page 77287 "ADC Assign Test Steps"
 {
     ApplicationArea = All;
-    Caption = 'Assign Test Steps';
+    Caption = 'Assign Test Steps to the Selected Users';
     PageType = Worksheet;
     SourceTable = "ADC Test Step User Selection";
     // SaveValues = true;
@@ -88,6 +88,10 @@ page 77287 "ADC Assign Test Steps"
                 field("User ID"; Rec."User ID")
                 {
                     ToolTip = 'Specifies the value of the User ID field.', Comment = '%';
+                }
+                field("User Group"; Rec."User Group")
+                {
+                    ToolTip = 'Specifies the value of the User Group field.', Comment = '%';
                 }
                 field(Select; Rec.Select)
                 {
@@ -232,7 +236,8 @@ page 77287 "ADC Assign Test Steps"
     local procedure SetSelectionValue(NewValue: Boolean)
     begin
         Rec.Reset();
-        Rec.SetRange("User Group", UserGroupFilter);
+        if UserGroupFilter <> '' then
+            Rec.SetRange("User Group", UserGroupFilter);
         if Rec.FindSet(true) then
             repeat
                 Rec.Select := NewValue;
