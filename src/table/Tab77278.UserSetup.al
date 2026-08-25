@@ -1,10 +1,10 @@
 table 77278 "ADC User Setup"
 {
     Caption = 'User Setup (BC Support)';
-    DataClassification = ToBeClassified;
     DrillDownPageID = "ADC User Setup";
     LookupPageID = "ADC User Setup";
-
+    DataPerCompany = false;
+    DataClassification = CustomerContent;
     fields
     {
         field(1; "User ID"; Code[50])
