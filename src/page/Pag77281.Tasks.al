@@ -27,6 +27,14 @@ page 77281 "ADC Tasks"
                 {
                     ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
+                field("Assigned By"; Rec."Assigned By")
+                {
+                    ToolTip = 'Specifies the value of the Assigned By.', Comment = '%';
+                }
+                field("Assigned Date"; Rec."Assigned Date")
+                {
+                    ToolTip = 'Specifies the value of the Assigned Date.', Comment = '%';
+                }
                 field("Assigned To"; Rec."Assigned To")
                 {
                     ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';

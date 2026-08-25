@@ -70,6 +70,10 @@ page 77259 "ADC Test Cases"
                 {
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
+                field("Task No"; Rec."Task No")
+                {
+                    ToolTip = 'Specifies the value of the Task No. field.', Comment = '%';
+                }
                 field("Test Scenario"; Rec."Test Scenario")
                 {
                     ToolTip = 'Specifies the value of the Test Scenario field.', Comment = '%';

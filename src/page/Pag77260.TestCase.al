@@ -40,6 +40,10 @@ page 77260 "ADC Test Case"
                 {
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
+                field("Task No"; Rec."Task No")
+                {
+                    ToolTip = 'Specifies the value of the Task No. field.', Comment = '%';
+                }
                 field(TestScenario; TestScenario)
                 {
                     ApplicationArea = All;
