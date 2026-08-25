@@ -42,6 +42,18 @@ page 77263 "ADC Test Step"
                         ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
                     }
                 }
+                group("Data Points/Test Data")
+                {
+                    Caption = 'Data Points/Test Data';
+                    field(DataPointsOrTestData; Rec."Data Points")
+                    {
+                        ApplicationArea = all;
+                        Importance = Additional;
+                        MultiLine = true;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the value of the Data Points/Test Data field.', Comment = '%';
+                    }
+                }
             }
             part(Lines; "ADC Test Step Subform")
             {
