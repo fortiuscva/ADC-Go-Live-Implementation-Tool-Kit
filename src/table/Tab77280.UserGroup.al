@@ -11,10 +11,13 @@ table 77280 "ADC User Group"
         field(1; "Code"; Code[50])
         {
             Caption = 'Code';
+            NotBlank = true;
+            DataClassification = CustomerContent;
         }
         field(2; Description; Text[250])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
     }
     keys

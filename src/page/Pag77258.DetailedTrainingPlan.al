@@ -76,7 +76,7 @@ page 77258 "ADC Detailed Training Plan"
             systempart(Links; Links)
             {
                 Caption = 'Learning Links';
-                ApplicationArea = Links;
+                ApplicationArea = RecordLinks;
             }
             systempart(Notes; Notes)
             {

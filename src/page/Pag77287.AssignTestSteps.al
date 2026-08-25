@@ -61,6 +61,7 @@ page 77287 "ADC Assign Test Steps"
                 var
                     UserGroup: Record "ADC User Group";
                     UserGroups: Page "ADC User Groups";
+                    ADCUserSetup: Query "ADC User Setup";
                 begin
                     CurrPage.SaveRecord();
                     Clear(UserGroup);
@@ -71,29 +72,21 @@ page 77287 "ADC Assign Test Steps"
                     if UserGroups.RunModal() = Action::LookupOK then begin
                         UserGroups.GetRecord(UserGroup);
                         SetUserGroup(UserGroup.Code);
+                        LoadUsers(true);
                         CurrPage.Update(false);
                     end;
                 end;
 
                 trigger OnValidate()
                 var
-                    ADCUserSetup: Query "ADC User Setup";
+                    ADCUserGroupRecLcl: Record "ADC User Group";
                 begin
-                    Rec.Reset();
-                    Rec.DeleteAll();
-
-                    ADCUserSetup.SetRange(UserGroup, UserGroupFilter);
-                    ADCUserSetup.Open();
-                    while ADCUserSetup.Read() do begin
-                        Rec.Init();
-                        Rec."User ID" := ADCUserSetup.UserID;
-                        Rec."User Group" := ADCUserSetup.UserGroup;
-                        Rec.Select := false;
-                        Rec.Insert();
-                    end;
-
-                    Rec.Reset();
-                    if Rec.FindFirst() then;
+                    if UserGroupFilter <> '' then begin
+                        ADCUserGroupRecLcl.Get(UserGroupFilter);
+                        LoadUsers(true);
+                    end else
+                        LoadUsers(false);
+                    CurrPage.Update(false);
                 end;
             }
             repeater(General)
@@ -167,7 +160,7 @@ page 77287 "ADC Assign Test Steps"
     }
     trigger OnOpenPage()
     begin
-        LoadUsers();
+        LoadUsers(false);
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
@@ -226,12 +219,15 @@ page 77287 "ADC Assign Test Steps"
         end;
     end;
 
-    local procedure LoadUsers()
+    local procedure LoadUsers(IncludeUserGroupFilter: Boolean)
     var
         ADCUserSetup: Query "ADC User Setup";
     begin
         Rec.Reset();
         Rec.DeleteAll();
+
+        if IncludeUserGroupFilter then
+            ADCUserSetup.SetRange(UserGroup, UserGroupFilter);
 
         ADCUserSetup.Open();
         while ADCUserSetup.Read() do begin
