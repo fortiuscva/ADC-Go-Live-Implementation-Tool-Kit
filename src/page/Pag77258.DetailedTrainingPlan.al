@@ -53,6 +53,10 @@ page 77258 "ADC Detailed Training Plan"
                 {
                     ToolTip = 'Specifies the value of the Training Completion Status field.', Comment = '%';
                 }
+                field("Training Scheduled Date"; Rec."Training Scheduled Date")
+                {
+                    ToolTip = 'Specifies the value of the Training Scheduled Date field.', Comment = '%';
+                }
                 field("Training Completion Date"; Rec."Training Completion Date")
                 {
                     ToolTip = 'Specifies the value of the Training Completion Date field.', Comment = '%';

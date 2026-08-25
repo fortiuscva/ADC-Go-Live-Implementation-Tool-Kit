@@ -12,77 +12,90 @@ page 77287 "ADC Assign Test Steps"
     {
         area(Content)
         {
-            group(Options)
+            field(TestStepID; TestStepID)
             {
-                Caption = 'Options';
-                field(TestStepID; TestStepID)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Test Step ID';
-                    Lookup = true;
-                    ShowMandatory = true;
-                    ToolTip = 'Specifies the Test Step that will be assigned to the selected users.';
-                    trigger OnLookup(var Text: Text): Boolean
-                    var
-                        TestStepHeader: Record "ADC Test Step Header";
-                        TestSteps: Page "ADC Test Steps";
-                    begin
-                        CurrPage.SaveRecord();
-                        Clear(TestSteps);
+                ApplicationArea = All;
+                Caption = 'Test Step ID';
+                Lookup = true;
+                ShowMandatory = true;
+                ToolTip = 'Specifies the Test Step that will be assigned to the selected users.';
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    TestStepHeader: Record "ADC Test Step Header";
+                    TestSteps: Page "ADC Test Steps";
+                begin
+                    CurrPage.SaveRecord();
+                    Clear(TestSteps);
 
-                        TestSteps.LookupMode(true);
-                        TestSteps.SetTableView(TestStepHeader);
+                    TestSteps.LookupMode(true);
+                    TestSteps.SetTableView(TestStepHeader);
 
-                        if TestSteps.RunModal() = Action::LookupOK then begin
-                            TestSteps.GetRecord(TestStepHeader);
-                            SetTestStepID(TestStepHeader."No.");
-                            CurrPage.Update(false);
-                        end;
+                    if TestSteps.RunModal() = Action::LookupOK then begin
+                        TestSteps.GetRecord(TestStepHeader);
+                        SetTestStepID(TestStepHeader."No.");
+                        CurrPage.Update(false);
                     end;
+                end;
 
-                    trigger OnValidate()
-                    var
-                        TestStepHeader: Record "ADC Test Step Header";
-                    begin
-                        if TestStepID <> '' then
-                            TestStepHeader.Get(TestStepID);
-                    end;
-                }
-                field(TargetCompletionDate; TargetCompletionDate)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Target Completion Date';
-                    ToolTip = 'Specifies the target completion date that will be assigned on the test case lines';
-                }
+                trigger OnValidate()
+                var
+                    TestStepHeader: Record "ADC Test Step Header";
+                begin
+                    if TestStepID <> '' then
+                        TestStepHeader.Get(TestStepID);
+                end;
             }
-            group(Filters)
+            field(TargetCompletionDate; TargetCompletionDate)
             {
-                field(UserGroup; UserGroupFilter)
-                {
-                    ApplicationArea = All;
-                    Caption = 'User Group Filter';
-                    Lookup = true;
-                    ToolTip = 'Specifies the User Group Filter based on which the users will be selected';
-                    trigger OnLookup(var Text: Text): Boolean
-                    var
-                        UserGroup: Record "ADC User Group";
-                        UserGroups: Page "ADC User Groups";
-                    begin
-                        CurrPage.SaveRecord();
-                        Clear(UserGroup);
-
-                        UserGroups.LookupMode(true);
-                        UserGroups.SetTableView(UserGroup);
-
-                        if UserGroups.RunModal() = Action::LookupOK then begin
-                            UserGroups.GetRecord(UserGroup);
-                            SetUserGroup(UserGroup.Code);
-                            CurrPage.Update(false);
-                        end;
-                    end;
-                }
+                ApplicationArea = All;
+                Caption = 'Target Completion Date';
+                ToolTip = 'Specifies the target completion date that will be assigned on the test case lines';
             }
+            field(UserGroup; UserGroupFilter)
+            {
+                ApplicationArea = All;
+                Caption = 'User Group Filter';
+                Lookup = true;
+                ToolTip = 'Specifies the User Group Filter based on which the users will be selected';
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    UserGroup: Record "ADC User Group";
+                    UserGroups: Page "ADC User Groups";
+                begin
+                    CurrPage.SaveRecord();
+                    Clear(UserGroup);
 
+                    UserGroups.LookupMode(true);
+                    UserGroups.SetTableView(UserGroup);
+
+                    if UserGroups.RunModal() = Action::LookupOK then begin
+                        UserGroups.GetRecord(UserGroup);
+                        SetUserGroup(UserGroup.Code);
+                        CurrPage.Update(false);
+                    end;
+                end;
+
+                trigger OnValidate()
+                var
+                    ADCUserSetup: Query "ADC User Setup";
+                begin
+                    Rec.Reset();
+                    Rec.DeleteAll();
+
+                    ADCUserSetup.SetRange(UserGroup, UserGroupFilter);
+                    ADCUserSetup.Open();
+                    while ADCUserSetup.Read() do begin
+                        Rec.Init();
+                        Rec."User ID" := ADCUserSetup.UserID;
+                        Rec."User Group" := ADCUserSetup.UserGroup;
+                        Rec.Select := false;
+                        Rec.Insert();
+                    end;
+
+                    Rec.Reset();
+                    if Rec.FindFirst() then;
+                end;
+            }
             repeater(General)
             {
                 field("User ID"; Rec."User ID")
@@ -245,6 +258,7 @@ page 77287 "ADC Assign Test Steps"
             until Rec.Next() = 0;
 
         Rec.Reset();
+        if Rec.FindFirst() then;
         CurrPage.Update(false);
     end;
 
