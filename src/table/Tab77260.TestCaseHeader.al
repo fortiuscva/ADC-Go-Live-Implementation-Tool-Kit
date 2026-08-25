@@ -182,6 +182,7 @@ table 77260 "ADC Test Case Header"
     var
         TestCaseLine: Record "ADC Test Case Line";
     begin
+        CheckWhetherTasksExistOrNot();
         TestCaseLine.Reset();
         TestCaseLine.SetRange("Document No.", "No.");
         TestCaseLine.DeleteAll(true);
@@ -262,6 +263,17 @@ table 77260 "ADC Test Case Header"
         CalcFields("Test Case Reference ID");
         "Test Case Reference ID".CreateInStream(InStream, TEXTENCODING::UTF8);
         exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName("Test Case Reference ID")));
+    end;
+
+    local procedure CheckWhetherTasksExistOrNot()
+    var
+        TaskRecLcl: Record "ADC Task";
+        CannotDeleteTestCaseErr: Label 'Test Case %1 cannot be deleted as it is associated with one or more tasks.';
+    begin
+        TaskRecLcl.Reset();
+        TaskRecLcl.SetRange("Test Case No.", "No.");
+        if not TaskRecLcl.IsEmpty() then
+            Error(StrSubstNo(CannotDeleteTestCaseErr, "No."));
     end;
 
 }
