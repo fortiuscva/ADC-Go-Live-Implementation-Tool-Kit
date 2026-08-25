@@ -17,11 +17,11 @@ page 77260 "ADC Test Case"
                 field(No; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.', Comment = '%';
-                    trigger OnAssistEdit()
-                    begin
-                        if Rec.AssistEdit(xRec) then
-                            CurrPage.Update();
-                    end;
+                    // trigger OnAssistEdit()
+                    // begin
+                    //     if Rec.AssistEdit(xRec) then
+                    //         CurrPage.Update();
+                    // end;
                 }
                 field(Description; Rec.Description)
                 {

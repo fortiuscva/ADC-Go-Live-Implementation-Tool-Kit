@@ -17,11 +17,11 @@ table 77275 "ADC Task"
                 GoLiveImplementationSetup: record "ADC Go Live Impl. Setup";
                 NoSeries: Codeunit "No. Series";
             begin
-                If "No." <> xRec."No." then begin
-                    GoLiveImplementationSetup.Get();
-                    NoSeries.TestManual(GoLiveImplementationSetup."Task Nos.");
-                    "No.Series" := '';
-                end;
+                // If "No." <> xRec."No." then begin
+                //     GoLiveImplementationSetup.Get();
+                //     NoSeries.TestManual(GoLiveImplementationSetup."Task Nos.");
+                //     "No.Series" := '';
+                // end;
             end;
         }
         field(2; "Test Case No."; Code[20])
@@ -93,18 +93,25 @@ table 77275 "ADC Task"
     var
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
         NoSeries: Codeunit "No. Series";
+        ADCTasks: Record "ADC Task";
     begin
-        if "No." = '' then begin
-            GoLiveImplementationSetup.Get();
-            GoLiveImplementationSetup.TestField("Task Nos.");
+        // if "No." = '' then begin
+        //     GoLiveImplementationSetup.Get();
+        //     GoLiveImplementationSetup.TestField("Task Nos.");
 
-            "No.Series" := GoLiveImplementationSetup."Task Nos.";
+        //     "No.Series" := GoLiveImplementationSetup."Task Nos.";
 
-            if NoSeries.AreRelated("No.Series", xRec."No.Series") then
-                "No.Series" := xRec."No.Series";
+        //     if NoSeries.AreRelated("No.Series", xRec."No.Series") then
+        //         "No.Series" := xRec."No.Series";
 
-            "No." := NoSeries.GetNextNo("No.Series");
+        //     "No." := NoSeries.GetNextNo("No.Series");
+        // end;
+        if not ADCTasks.FindLast() then
+            "No." := 'TASK-000001'
+        else begin
+            "No." := IncStr(ADCTasks."No.");
         end;
+        TestField("No.");
     end;
 
     procedure AssistEdit(OldTask: Record "ADC Task"): Boolean

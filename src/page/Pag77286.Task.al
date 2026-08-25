@@ -18,8 +18,8 @@ page 77286 "ADC Task"
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
                     trigger OnAssistEdit()
                     begin
-                        if Rec.AssistEdit(xRec) then
-                            CurrPage.Update();
+                        // if Rec.AssistEdit(xRec) then
+                        //     CurrPage.Update();
                     end;
                 }
                 field(Description; Rec.Description)
