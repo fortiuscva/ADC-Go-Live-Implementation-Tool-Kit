@@ -18,11 +18,11 @@ table 77260 "ADC Test Case Header"
                 GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
                 NoSeries: Codeunit "No. Series";
             begin
-                if "No." <> xRec."No." then begin
-                    GoLiveImplementationSetup.Get();
-                    NoSeries.TestManual(GoLiveImplementationSetup."Test Case Nos.");
-                    "No. Series" := '';
-                end;
+                // if "No." <> xRec."No." then begin
+                //     GoLiveImplementationSetup.Get();
+                //     NoSeries.TestManual(GoLiveImplementationSetup."Test Case Nos.");
+                //     "No. Series" := '';
+                // end;
             end;
         }
         field(2; Category; Code[100])
@@ -149,18 +149,27 @@ table 77260 "ADC Test Case Header"
     var
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
         NoSeries: Codeunit "No. Series";
+        TestCaseHeader: Record "ADC Test Case Header";
     begin
-        if "No." = '' then begin
-            GoLiveImplementationSetup.Get();
-            GoLiveImplementationSetup.TestField("Test Case Nos.");
+        // if "No." = '' then begin
+        //     GoLiveImplementationSetup.Get();
+        //     if not GoLiveImplementationSetup."Use Manual Nos." then begin
+        //         GoLiveImplementationSetup.TestField("Test Case Nos.");
 
-            "No. Series" := GoLiveImplementationSetup."Test Case Nos.";
+        //         "No. Series" := GoLiveImplementationSetup."Test Case Nos.";
 
-            if NoSeries.AreRelated("No. Series", xRec."No. Series") then
-                "No. Series" := xRec."No. Series";
+        //         if NoSeries.AreRelated("No. Series", xRec."No. Series") then
+        //             "No. Series" := xRec."No. Series";
 
-            "No." := NoSeries.GetNextNo("No. Series");
+        //         "No." := NoSeries.GetNextNo("No. Series");
+        //     end;
+        // end;
+        if not TestCaseHeader.FindLast() then begin
+            "No." := 'TC-0001';
+        end else begin
+            "No." := IncStr(TestCaseHeader."No.");
         end;
+        TestField("No.");
     end;
 
     trigger OnDelete()

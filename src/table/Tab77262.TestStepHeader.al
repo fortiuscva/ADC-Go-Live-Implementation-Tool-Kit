@@ -17,11 +17,11 @@ table 77262 "ADC Test Step Header"
                 GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
                 NoSeries: Codeunit "No. Series";
             begin
-                if "No." <> xRec."No." then begin
-                    GoLiveImplementationSetup.Get();
-                    NoSeries.TestManual(GoLiveImplementationSetup."Test Step Nos.");
-                    "No. Series" := '';
-                end;
+                // if "No." <> xRec."No." then begin
+                //     GoLiveImplementationSetup.Get();
+                //     NoSeries.TestManual(GoLiveImplementationSetup."Test Step Nos.");
+                //     "No. Series" := '';
+                // end;
             end;
         }
         field(2; Description; Text[2048])
@@ -61,17 +61,18 @@ table 77262 "ADC Test Step Header"
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
         NoSeries: Codeunit "No. Series";
     begin
-        if "No." = '' then begin
-            GoLiveImplementationSetup.Get();
-            GoLiveImplementationSetup.TestField("Test Step Nos.");
+        // if "No." = '' then begin
+        //     GoLiveImplementationSetup.Get();
+        //     GoLiveImplementationSetup.TestField("Test Step Nos.");
 
-            "No. Series" := GoLiveImplementationSetup."Test Step Nos.";
+        //     "No. Series" := GoLiveImplementationSetup."Test Step Nos.";
 
-            if NoSeries.AreRelated("No. Series", xRec."No. Series") then
-                "No. Series" := xRec."No. Series";
+        //     if NoSeries.AreRelated("No. Series", xRec."No. Series") then
+        //         "No. Series" := xRec."No. Series";
 
-            "No." := NoSeries.GetNextNo("No. Series");
-        end;
+        //     "No." := NoSeries.GetNextNo("No. Series");
+        // end;
+        TestField("No.");
     end;
 
     trigger OnDelete()
