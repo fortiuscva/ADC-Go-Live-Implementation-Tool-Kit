@@ -77,9 +77,16 @@ page 77263 "ADC Test Step"
                 var
                     FunctionsCULcl: Codeunit "ADC Go Live Functions";
                 begin
-                    Clear(FunctionsCULcl);
+                    if not Confirm('Do you want to synchronize updates to the associated test case lines?', false) then
+                        exit;
                     FunctionsCULcl.SynchronizeUpdatesToTestCases(Rec);
                 end;
+            }
+        }
+        area(Promoted)
+        {
+            actionref(SynchronizeUpdates_Promoted; SynchronizeUpdates)
+            {
             }
         }
     }
