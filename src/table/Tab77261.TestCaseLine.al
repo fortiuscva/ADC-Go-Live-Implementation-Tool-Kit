@@ -30,6 +30,7 @@ table 77261 "ADC Test Case Line"
             var
                 TestStepHeader: Record "ADC Test Step Header";
             begin
+                Commit();
                 if Rec."Step ID" <> '' then begin
                     TestStepHeader.Reset();
                     TestStepHeader.Get(Rec."Step ID");

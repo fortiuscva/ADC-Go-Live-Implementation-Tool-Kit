@@ -4,7 +4,7 @@ page 77258 "ADC Detailed Training Plan"
     Caption = 'Detailed Training Plan';
     PageType = List;
     SourceTable = "ADC Detailed Traning Plan";
-    UsageCategory = None;
+    UsageCategory = Lists;
 
     layout
     {
