@@ -20,6 +20,19 @@ codeunit 77258 "ADC Go Live Functions"
             Page.Run(Page::"ADC Task", TaskLcl);
     end;
 
+    procedure SynchronizeUpdatesToTestCases(TestStepHeaderRecPar: Record "ADC Test Step Header")
+    var
+        TestCaseLineRecLcl: Record "ADC Test Case Line";
+    begin
+        TestCaseLineRecLcl.Reset();
+        TestCaseLineRecLcl.SetRange("Step ID", TestStepHeaderRecPar."No.");
+        if TestCaseLineRecLcl.FindSet() then begin
+            repeat
+                TestCaseLineRecLcl.Validate("Step ID");
+            until TestCaseLineRecLcl.Next() = 0;
+        end;
+    end;
+
     var
         GoLiveImplSetup: Record "ADC Go Live Impl. Setup";
 }

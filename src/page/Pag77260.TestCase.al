@@ -28,7 +28,7 @@ page 77260 "ADC Test Case"
                     MultiLine = true;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
-                field("Business SignOff Owner"; Rec."Business SignOff Owner")
+                field("Business SignOff Owner"; Rec."Business Owner SignOff")
                 {
                     ToolTip = 'Specifies the value of the Business SignOff Owner field.', Comment = '%';
                 }
@@ -106,7 +106,7 @@ page 77260 "ADC Test Case"
                     {
                         ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
                     }
-                    field("UAT Owner"; Rec."UAT Owner")
+                    field("UAT Owner"; Rec."UAT Owner SignOff")
                     {
                         ToolTip = 'Specifies the value of the UAT Owner field.', Comment = '%';
                     }
