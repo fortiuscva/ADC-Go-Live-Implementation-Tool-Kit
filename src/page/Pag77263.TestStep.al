@@ -62,4 +62,25 @@ page 77263 "ADC Test Step"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(SynchronizeUpdates)
+            {
+                ApplicationArea = All;
+                Caption = 'Synchronize Updates';
+                Image = UpdateDescription;
+                Ellipsis = true;
+                ToolTip = 'Synchronize the updates on the associated test cases.';
+                trigger OnAction()
+                var
+                    FunctionsCULcl: Codeunit "ADC Go Live Functions";
+                begin
+                    Clear(FunctionsCULcl);
+                    FunctionsCULcl.SynchronizeUpdatesToTestCases(Rec);
+                end;
+            }
+        }
+    }
 }

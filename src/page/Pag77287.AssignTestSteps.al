@@ -4,7 +4,8 @@ page 77287 "ADC Assign Test Steps"
     Caption = 'Assign Test Steps to the Selected Users';
     PageType = Worksheet;
     SourceTable = "ADC Test Step User Selection";
-    // SaveValues = true;
+    InsertAllowed = false;
+    DeleteAllowed = false;
     SourceTableTemporary = true;
     UsageCategory = None;
 
@@ -93,10 +94,14 @@ page 77287 "ADC Assign Test Steps"
             {
                 field("User ID"; Rec."User ID")
                 {
+                    ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the User ID field.', Comment = '%';
                 }
                 field("User Group"; Rec."User Group")
                 {
+                    ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the User Group field.', Comment = '%';
                 }
                 field(Select; Rec.Select)
@@ -142,6 +147,18 @@ page 77287 "ADC Assign Test Steps"
                     SetSelectionValue(false);
                 end;
             }
+            action(OpenUserSetup)
+            {
+                ApplicationArea = All;
+                Caption = 'Open User Setup (BC Support)';
+                Image = SetupList;
+                Ellipsis = true;
+                ToolTip = 'Opens the custom User Setup (BC Support)';
+                trigger OnAction()
+                begin
+                    Page.Run(Page::"ADC User Setup");
+                end;
+            }
         }
         area(Promoted)
         {
@@ -153,6 +170,9 @@ page 77287 "ADC Assign Test Steps"
                 {
                 }
                 actionref(ClearAllPromoted; ClearAll)
+                {
+                }
+                actionref(OpenUserSetup_Promoted; OpenUserSetup)
                 {
                 }
             }
