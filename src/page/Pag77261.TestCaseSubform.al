@@ -141,6 +141,17 @@ page 77261 "ADC Test Case Subform"
                     Functions.CreateTaskForTestCaseLine(Rec, true);
                 end;
             }
+            action(ShowAllTestSteps)
+            {
+                ApplicationArea = All;
+                Caption = 'Show All Test Steps';
+                Ellipsis = true;
+                Image = ShowList;
+                trigger OnAction()
+                begin
+                    Page.Run(Page::"ADC Test Steps");
+                end;
+            }
         }
     }
     var
