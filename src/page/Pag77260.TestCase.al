@@ -151,7 +151,17 @@ page 77260 "ADC Test Case"
                 Provider = Lines;
                 SubPageLink = "Document No." = field("Document No."), "Line No." = field("Line No.");
             }
-            systempart(Control1905767507; Notes)
+            part("Attached Documents"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                SubPageLink = "Table ID" = const(Database::"ADC Test Case Header"), "No." = field("No.");
+            }
+            systempart(Links; Links)
+            {
+                ApplicationArea = RecordLinks;
+            }
+            systempart(Notes; Notes)
             {
                 ApplicationArea = Notes;
             }
