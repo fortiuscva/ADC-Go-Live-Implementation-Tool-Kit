@@ -1,6 +1,6 @@
 table 77260 "ADC Test Case"
 {
-    Caption = 'Test Case';
+    Caption = 'Testcase Header';
     LookupPageId = "ADC Test Cases";
     DrillDownPageId = "ADC Test Cases";
     DataClassification = CustomerContent;
@@ -11,7 +11,7 @@ table 77260 "ADC Test Case"
         {
             Caption = 'Test Case ID';
         }
-        field(2; Category; Code[30])
+        field(2; Category; Text[100])
         {
             Caption = 'Category';
         }
@@ -23,7 +23,7 @@ table 77260 "ADC Test Case"
         {
             Caption = 'Business Process';
         }
-        field(5; "Training Session Code"; Code[30])
+        field(5; "Training Session Code"; Text[100])
         {
             Caption = 'Training Session Code';
         }
@@ -66,22 +66,6 @@ table 77260 "ADC Test Case"
         field(15; "Test Case Description"; Text[2048])
         {
             Caption = 'Test Case Description';
-        }
-        field(16; "Data Points"; Text[2048])
-        {
-            Caption = 'Data Points';
-        }
-        field(17; "Test Steps"; Text[2048])
-        {
-            Caption = 'Test Steps';
-        }
-        field(18; "Expected Result"; Text[2048])
-        {
-            Caption = 'Expected Result';
-        }
-        field(19; "Actual Result"; Text[2048])
-        {
-            Caption = 'Actual Result';
         }
         field(20; "Test Case Reference ID"; Text[2048])
         {
