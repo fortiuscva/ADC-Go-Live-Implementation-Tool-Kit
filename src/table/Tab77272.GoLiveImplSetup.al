@@ -23,6 +23,12 @@ table 77272 "ADC Go Live Impl. Setup"
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
+        field(4; "Task Nos."; Code[20])
+        {
+            caption = 'Task Nos.';
+            TableRelation = "No. Series";
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {

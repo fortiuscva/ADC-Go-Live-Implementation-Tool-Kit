@@ -48,10 +48,38 @@ table 77275 "ADC Task"
             TableRelation = "ADC Defect Status";
             DataClassification = CustomerContent;
         }
+        field(9; Priority; Code[20])
+        {
+            Caption = 'Priority';
+            TableRelation = "ADC Priority";
+            DataClassification = CustomerContent;
+        }
+        field(10; "No."; code[20])
+        {
+            caption = 'No.';
+            DataClassification = Customercontent;
+            trigger OnValidate()
+            var
+                GoLiveImplementationSetup: record "ADC Go Live Impl. Setup";
+                NoSeries: Codeunit "No. Series";
+            begin
+                If "No." <> xRec."No." then begin
+                    GoLiveImplementationSetup.Get();
+                    NoSeries.TestManual(GoLiveImplementationSetup."Task Nos.");
+                    "No.Series" := '';
+                end;
+            end;
+        }
+        field(11; "No.Series"; Code[20])
+        {
+            caption = 'No.Series';
+            TableRelation = "No. Series";
+            DataClassification = Customercontent;
+        }
     }
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "No.")
         {
             Clustered = true;
         }
@@ -65,4 +93,38 @@ table 77275 "ADC Task"
         {
         }
     }
+    trigger OnInsert()
+    var
+        GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        if "No." = '' then begin
+            GoLiveImplementationSetup.Get();
+            GoLiveImplementationSetup.TestField("Task Nos.");
+
+            "No.Series" := GoLiveImplementationSetup."Task Nos.";
+
+            if NoSeries.AreRelated("No.Series", xRec."No.Series") then
+                "No.Series" := xRec."No.Series";
+
+            "No." := NoSeries.GetNextNo("No.Series");
+        end;
+    end;
+
+    //     procedure AssistEdit(OldTask: Reord "adc Task"): Boolean
+    //     var
+    //         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
+    //         NoSeries: Codeunit "No. Series";
+    //     begin
+    //         GoLiveImplementationSetup.Get();
+
+    //         if NoSeries.LookupRelatedNoSeries(
+    //             GoLiveImplementationSetup."Task Nos.",
+    //             OldTask."No.Series",
+    //             "No.Series")
+    //         then begin
+    //             "No." := NoSeries.GetNextNo("No.Series");
+    //             exit(true);
+    //         end;
+    //     end;
 }
