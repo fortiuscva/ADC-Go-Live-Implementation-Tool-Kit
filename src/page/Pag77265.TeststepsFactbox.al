@@ -2,16 +2,20 @@ page 77265 "ADC Teststeps Factbox"
 {
     ApplicationArea = All;
     Caption = 'Teststeps Factbox';
-    PageType = CardPart;
+    PageType = ListPart;
     SourceTable = "ADC Test Step Line";
 
     layout
     {
         area(Content)
         {
-            field("Test Step Description"; Rec."Test Step Description")
+            repeater(Teststeps)
             {
-                ToolTip = 'Specifies the value of the Test Step Description field.', Comment = '%';
+                ShowCaption = false;
+                field("Test Step Description"; Rec."Test Step Description")
+                {
+                    ToolTip = 'Specifies the value of the Test Step Description field.', Comment = '%';
+                }
             }
         }
     }

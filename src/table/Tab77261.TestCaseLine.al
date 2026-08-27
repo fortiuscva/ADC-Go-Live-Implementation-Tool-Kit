@@ -36,6 +36,11 @@ table 77261 "ADC Test Case Line"
             Caption = 'Actual Result';
             DataClassification = CustomerContent;
         }
+        field(20; "Defect ID"; Code[20])
+        {
+            Caption = 'Defect ID/Link';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
