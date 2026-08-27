@@ -1,0 +1,98 @@
+page 77259 "ADC Test Cases"
+{
+    ApplicationArea = All;
+    Caption = 'Test Cases';
+    PageType = List;
+    SourceTable = "ADC Test Case";
+    UsageCategory = Lists;
+
+    layout
+    {
+        area(Content)
+        {
+            repeater(General)
+            {
+                field("Test Case ID"; Rec."Test Case ID")
+                {
+                    ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
+                }
+                field(Category; Rec.Category)
+                {
+                    ToolTip = 'Specifies the value of the Category field.', Comment = '%';
+                }
+                field("Sub Category"; Rec."Sub Category")
+                {
+                    ToolTip = 'Specifies the value of the Sub Category field.', Comment = '%';
+                }
+                field("Business Process"; Rec."Business Process")
+                {
+                    ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
+                }
+                field("Training Session Code"; Rec."Training Session Code")
+                {
+                    ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
+                }
+                field("UAT Owner"; Rec."UAT Owner")
+                {
+                    ToolTip = 'Specifies the value of the UAT Owner field.', Comment = '%';
+                }
+                field("Business SignOff Owner"; Rec."Business SignOff Owner")
+                {
+                    ToolTip = 'Specifies the value of the Business SignOff Owner field.', Comment = '%';
+                }
+                field("Go-Live Critical"; Rec."Go-Live Critical")
+                {
+                    ToolTip = 'Specifies the value of the Go-Live Critical field.', Comment = '%';
+                }
+                field("UAT Execution Status"; Rec."UAT Execution Status")
+                {
+                    ToolTip = 'Specifies the value of the UAT Execution Status field.', Comment = '%';
+                }
+                field("Signoff Status"; Rec."Signoff Status")
+                {
+                    ToolTip = 'Specifies the value of the Signoff Status field.', Comment = '%';
+                }
+                field("Testing Type"; Rec."Testing Type")
+                {
+                    ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
+                }
+                field("Training Driven"; Rec."Training Driven")
+                {
+                    ToolTip = 'Specifies the value of the Training Driven field.', Comment = '%';
+                }
+                field(Priority; Rec.Priority)
+                {
+                    ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
+                }
+                field("Test Scenario"; Rec."Test Scenario")
+                {
+                    ToolTip = 'Specifies the value of the Test Scenario field.', Comment = '%';
+                }
+                field("Test Case Description"; Rec."Test Case Description")
+                {
+                    ToolTip = 'Specifies the value of the Test Case Description field.', Comment = '%';
+                }
+                field("Data Points"; Rec."Data Points")
+                {
+                    ToolTip = 'Specifies the value of the Data Points field.', Comment = '%';
+                }
+                field("Test Steps"; Rec."Test Steps")
+                {
+                    ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
+                }
+                field("Expected Result"; Rec."Expected Result")
+                {
+                    ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
+                }
+                field("Actual Result"; Rec."Actual Result")
+                {
+                    ToolTip = 'Specifies the value of the Actual Result field.', Comment = '%';
+                }
+                field("Test Case Reference ID"; Rec."Test Case Reference ID")
+                {
+                    ToolTip = 'Specifies the value of the Test Case Reference ID field.', Comment = '%';
+                }
+            }
+        }
+    }
+}
