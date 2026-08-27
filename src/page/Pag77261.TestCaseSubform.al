@@ -39,16 +39,6 @@ page 77261 "ADC Test Case Subform"
                 {
                     ToolTip = 'Specifies the value of the Data Points/Test Data field.', Comment = '%';
                 }
-                field("Expected Result"; Rec."Expected Result")
-                {
-                    Visible = false;
-                    ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
-                }
-                field("Actual Result"; Rec."Actual Result")
-                {
-                    Visible = false;
-                    ToolTip = 'Specifies the value of the Actual Result field.', Comment = '%';
-                }
                 field("Defect ID"; Rec."Defect ID")
                 {
                     ToolTip = 'Specifies the value of the Defect ID/Link field.', Comment = '%';
@@ -63,6 +53,55 @@ page 77261 "ADC Test Case Subform"
                 }
 
             }
+            group(Results)
+            {
+                Caption = 'Results';
+                ShowCaption = false;
+                group("Expected Result")
+                {
+                    Caption = 'Expected Result';
+
+                    field(ExpectedResult; ExpectedResult)
+                    {
+                        ApplicationArea = all;
+                        Importance = Additional;
+                        MultiLine = true;
+                        Editable = false;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
+                        trigger OnValidate()
+                        begin
+                            Rec.SetExpectedResult(ExpectedResult);
+                        end;
+                    }
+                }
+                group("Actual Result")
+                {
+                    Caption = 'Actual Result';
+                    field(ActualResult; ActualResult)
+                    {
+                        ApplicationArea = all;
+                        Importance = Additional;
+                        MultiLine = true;
+                        ShowCaption = false;
+                        ToolTip = 'Specifies the value of the Actual Result field.', Comment = '%';
+                        trigger OnValidate()
+                        begin
+                            Rec.SetActualResult(ActualResult);
+                        end;
+                    }
+                }
+            }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        ExpectedResult := Rec.GetExpectedResult();
+        ActualResult := Rec.GetActualResult();
+    end;
+
+    var
+        ExpectedResult: Text;
+        ActualResult: Text;
 }

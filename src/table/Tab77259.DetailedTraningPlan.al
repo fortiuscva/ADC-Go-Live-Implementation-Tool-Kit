@@ -17,7 +17,7 @@ table 77259 "ADC Detailed Traning Plan"
         field(2; Category; Code[20])
         {
             Caption = 'Category';
-            // TableRelation = "ADC Category";
+            TableRelation = "ADC Category Code";
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
@@ -67,14 +67,16 @@ table 77259 "ADC Detailed Traning Plan"
             Caption = 'Business Scenario';
             DataClassification = CustomerContent;
         }
-        field(10; "Business User"; Text[50])
+        field(10; "Business User"; Code[50])
         {
             Caption = 'Business User';
+            TableRelation = "User Setup";
             DataClassification = CustomerContent;
         }
         field(11; "Training Completion Status"; Text[30])
         {
             Caption = 'Training Completion Status';
+            TableRelation = "ADC Training Completion Status";
             DataClassification = CustomerContent;
         }
         field(12; "Training Completion Date"; Date)
