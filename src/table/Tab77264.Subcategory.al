@@ -1,9 +1,10 @@
 table 77264 "ADC Subcategory"
 {
     Caption = 'Subcategory';
-    DataClassification = CustomerContent;
     LookupPageId = Subcategories;
     DrillDownPageId = Subcategories;
+    DataClassification = CustomerContent;
+
 
     fields
     {
@@ -30,6 +31,8 @@ table 77264 "ADC Subcategory"
         fieldgroup(DropDown; Subcategory, Description)
         {
         }
+        fieldgroup(Brick; Subcategory, Description)
+        {
+        }
     }
-
 }

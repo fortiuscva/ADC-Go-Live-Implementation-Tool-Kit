@@ -1,9 +1,10 @@
-table 77265 "ADC Business Process"
+table 77269 "ADC Signoff Status"
 {
-    Caption = 'Business Process';
-    LookupPageId = "ADC Business Processes";
-    DrillDownPageId = "ADC Business Processes";
+    Caption = 'Signoff Status';
+    LookupPageId = "ADC Signoff Status";
+    DrillDownPageId = "ADC Signoff Status";
     DataClassification = CustomerContent;
+
     fields
     {
         field(1; "Code"; Text[100])
@@ -11,7 +12,7 @@ table 77265 "ADC Business Process"
             Caption = 'Code';
             DataClassification = CustomerContent;
         }
-        field(2; Description; Text[250])
+        field(2; Description; Text[100])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;

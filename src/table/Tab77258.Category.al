@@ -1,11 +1,9 @@
 table 77258 "ADC Category"
 {
     Caption = 'Category';
-    DataClassification = CustomerContent;
-    DataPerCompany = false;
     LookupPageId = "ADC Categories";
     DrillDownPageId = "ADC Categories";
-
+    DataClassification = CustomerContent;
     fields
     {
         field(1; Category; text[100])
@@ -29,6 +27,9 @@ table 77258 "ADC Category"
     fieldgroups
     {
         fieldgroup(DropDown; Category, Description)
+        {
+        }
+        fieldgroup(Brick; Category, Description)
         {
         }
     }
