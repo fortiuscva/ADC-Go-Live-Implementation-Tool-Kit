@@ -13,7 +13,7 @@ page 77262 "ADC Test Steps"
         {
             repeater(General)
             {
-                field("Code"; Rec."Code")
+                field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }

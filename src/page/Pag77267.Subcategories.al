@@ -1,4 +1,4 @@
-page 77267 Subcategories
+page 77267 "ADC Subcategories"
 {
     ApplicationArea = All;
     Caption = 'Subcategories';
@@ -12,7 +12,7 @@ page 77267 Subcategories
         {
             repeater(General)
             {
-                field(Subcategory; Rec.Subcategory)
+                field(Subcategory; Rec.Code)
                 {
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }

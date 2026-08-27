@@ -2,6 +2,7 @@ table 77263 "ADC Test Step Line"
 {
     Caption = 'Test Step Line';
     DataClassification = CustomerContent;
+    DataPerCompany = false;
 
     fields
     {

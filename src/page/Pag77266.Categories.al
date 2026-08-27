@@ -12,7 +12,7 @@ page 77266 "ADC Categories"
         {
             repeater(General)
             {
-                field(Category; Rec.Category)
+                field(Category; Rec.Code)
                 {
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }
