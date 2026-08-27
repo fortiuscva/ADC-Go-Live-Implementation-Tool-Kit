@@ -134,6 +134,13 @@ table 77260 "ADC Test Case Header"
             DataClassification = CustomerContent;
             TableRelation = "ADC Task";
         }
+        field(31; "Training Category"; Code[20])
+        {
+            Caption = 'Category Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("ADC Detailed Traning Plan".Category where("Training Session Code" = field("Training Session Code")));
+            Editable = false;
+        }
     }
     keys
     {
