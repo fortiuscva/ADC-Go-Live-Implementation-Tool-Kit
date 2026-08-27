@@ -34,6 +34,10 @@ page 77259 "ADC Test Cases"
                 {
                     ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
                 }
+                field("Training Category Code"; Rec."Training Category Code")
+                {
+                    ToolTip = 'Specifies the value of the Training Category field.', Comment = '%';
+                }
                 field("Training Session Code"; Rec."Training Session Code")
                 {
                     ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';

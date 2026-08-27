@@ -55,6 +55,12 @@ table 77260 "ADC Test Case Header"
                 DetailedTrainingPlan.SetFilter("Training Session Code", '<>%1', '');
                 if Page.RunModal(Page::"ADC Detailed Training Plan", DetailedTrainingPlan) = Action::LookupOK then
                     Rec."Training Session Code" := DetailedTrainingPlan."Training Session Code";
+                CalcFields("Training Category Code");
+            end;
+
+            trigger OnValidate()
+            begin
+                CalcFields("Training Category Code");
             end;
         }
         field(6; "UAT Owner SignOff"; code[50])
@@ -134,9 +140,9 @@ table 77260 "ADC Test Case Header"
             DataClassification = CustomerContent;
             TableRelation = "ADC Task";
         }
-        field(31; "Training Category"; Code[20])
+        field(31; "Training Category Code"; Code[20])
         {
-            Caption = 'Category Code';
+            Caption = 'Training Category Code';
             FieldClass = FlowField;
             CalcFormula = lookup("ADC Detailed Traning Plan".Category where("Training Session Code" = field("Training Session Code")));
             Editable = false;
