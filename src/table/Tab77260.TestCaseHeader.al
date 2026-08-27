@@ -60,13 +60,13 @@ table 77260 "ADC Test Case Header"
         field(6; "UAT Owner"; code[50])
         {
             Caption = 'UAT Owner';
-            TableRelation = "User Setup";
+            TableRelation = "ADC User Setup";
             DataClassification = CustomerContent;
         }
         field(7; "Business SignOff Owner"; Code[50])
         {
             Caption = 'Business SignOff Owner';
-            TableRelation = "User Setup";
+            TableRelation = "ADC User Setup";
             DataClassification = CustomerContent;
         }
         field(8; "Go-Live Critical"; code[100])
@@ -127,6 +127,12 @@ table 77260 "ADC Test Case Header"
             Caption = 'No. Series';
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
+        }
+        field(30; "Task No"; Code[20])
+        {
+            Caption = 'Task No.';
+            DataClassification = CustomerContent;
+            TableRelation = "ADC Task";
         }
     }
     keys

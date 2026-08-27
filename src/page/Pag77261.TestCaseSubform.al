@@ -44,6 +44,10 @@ page 77261 "ADC Test Case Subform"
                 {
                     ToolTip = 'Specifies the value of the Assigned Date field.', Comment = '%';
                 }
+                field("Tested in Company"; Rec."Tested in Company")
+                {
+                    ToolTip = 'Specifies the value of the Tested in Company field.', Comment = '%';
+                }
                 field("Executed By"; Rec."Executed By")
                 {
                     ToolTip = 'Specifies the value of the Executed By field.', Comment = '%';

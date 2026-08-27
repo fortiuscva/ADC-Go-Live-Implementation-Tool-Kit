@@ -33,12 +33,24 @@ page 77286 "ADC Task"
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
+                field("Assigned By"; Rec."Assigned By")
+                {
+                    ShowMandatory = true;
+                    ToolTip = 'Specifies the value of the Assigned By.', Comment = '%';
+                }
+                field("Assigned Date"; Rec."Assigned Date")
+                {
+                    ShowMandatory = true;
+                    ToolTip = 'Specifies the value of the Assigned Date.', Comment = '%';
+                }
                 field("Assigned To"; Rec."Assigned To")
                 {
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';
                 }
                 field(Status; Rec.Status)
                 {
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Status field.', Comment = '%';
                 }
                 field(Priority; Rec.Priority)
@@ -59,6 +71,7 @@ page 77286 "ADC Task"
                 }
             }
         }
+
         area(FactBoxes)
         {
             part("Attached Documents"; "Doc. Attachment List Factbox")
@@ -77,4 +90,13 @@ page 77286 "ADC Task"
             }
         }
     }
+
+    trigger OnNewRecord(BelowxRec: Boolean)
+    var
+        ADCUserSetup: Record "ADC User Setup";
+    begin
+        if ADCUserSetup.Get(UserId) then
+            Rec."Assigned By" := ADCUserSetup."User ID";
+        Rec."Assigned Date" := Today;
+    end;
 }
