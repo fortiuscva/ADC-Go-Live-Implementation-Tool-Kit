@@ -123,6 +123,11 @@ page 77260 "ADC Test Case"
                 group(Training)
                 {
                     caption = 'Training';
+                    field("Training Category"; Rec."Training Category")
+                    {
+                        ToolTip = 'Specifies the value of the Training Category field.', Comment = '%';
+                        Editable = false;
+                    }
                     field("Training Session Code"; Rec."Training Session Code")
                     {
                         ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
