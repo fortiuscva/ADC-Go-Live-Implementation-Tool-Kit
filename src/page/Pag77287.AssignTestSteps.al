@@ -77,14 +77,17 @@ page 77287 "ADC Assign Test Steps"
                     end;
                 end;
 
-                // trigger OnValidate()
-                // begin
-                //     if UserGroupFilter <> '' then
-                //         LoadUsers(true)
-                //     else
-                //         LoadUsers(false);
-                //     CurrPage.Update(false);
-                // end;
+                trigger OnValidate()
+                var
+                    ADCUserGroupRecLcl: Record "ADC User Group";
+                begin
+                    if UserGroupFilter <> '' then begin
+                        ADCUserGroupRecLcl.Get(UserGroupFilter);
+                        LoadUsers(true);
+                    end else
+                        LoadUsers(false);
+                    CurrPage.Update(false);
+                end;
             }
             repeater(General)
             {
@@ -139,20 +142,6 @@ page 77287 "ADC Assign Test Steps"
                     SetSelectionValue(false);
                 end;
             }
-            action(ClearUserGroupFilter)
-            {
-                ApplicationArea = All;
-                Caption = 'Clear User Group Filter';
-                Image = ClearFilter;
-                Ellipsis = true;
-                ToolTip = 'Clears the user group filters.';
-                trigger OnAction()
-                begin
-                    UserGroupFilter := '';
-                    LoadUsers(false);
-                    CurrPage.Update(false);
-                end;
-            }
         }
         area(Promoted)
         {
@@ -164,9 +153,6 @@ page 77287 "ADC Assign Test Steps"
                 {
                 }
                 actionref(ClearAllPromoted; ClearAll)
-                {
-                }
-                actionref(ClearUserGroupFilterPromoted; ClearUserGroupFilter)
                 {
                 }
             }
@@ -240,7 +226,7 @@ page 77287 "ADC Assign Test Steps"
         Rec.Reset();
         Rec.DeleteAll();
 
-        if (IncludeUserGroupFilter) and (UserGroupFilter <> '') then
+        if IncludeUserGroupFilter then
             ADCUserSetup.SetRange(UserGroup, UserGroupFilter);
 
         ADCUserSetup.Open();
