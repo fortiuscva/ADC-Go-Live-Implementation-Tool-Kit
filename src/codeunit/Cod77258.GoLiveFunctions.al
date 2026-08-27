@@ -29,7 +29,9 @@ codeunit 77258 "ADC Go Live Functions"
         if TestCaseLineRecLcl.FindSet() then begin
             repeat
                 TestCaseLineRecLcl.Validate("Step ID");
+                TestCaseLineRecLcl.Modify();
             until TestCaseLineRecLcl.Next() = 0;
+            Message('All the test case lines associated with this test step %1 were updated', TestStepHeaderRecPar."No.");
         end;
     end;
 

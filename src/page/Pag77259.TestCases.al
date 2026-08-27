@@ -37,6 +37,14 @@ page 77259 "ADC Test Cases"
                 field("Training Session Code"; Rec."Training Session Code")
                 {
                     ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
+                    trigger OnDrillDown()
+                    var
+                        DetailedTrainingPlanRecLcl: Record "ADC Detailed Traning Plan";
+                    begin
+                        DetailedTrainingPlanRecLcl.Reset();
+                        DetailedTrainingPlanRecLcl.SetRange("Training Session Code", Rec."Training Session Code");
+                        Page.Run(Page::"ADC Detailed Training Plan", DetailedTrainingPlanRecLcl);
+                    end;
                 }
                 field("UAT Owner"; Rec."UAT Owner SignOff")
                 {
