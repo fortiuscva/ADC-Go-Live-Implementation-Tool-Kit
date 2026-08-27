@@ -84,6 +84,7 @@ table 77262 "ADC Test Step Header"
     var
         TestStepLine: Record "ADC Test Step Line";
     begin
+        CheckWhetherTestCaseExists();
         TestStepLine.Reset();
         TestStepLine.SetRange("Document No.", "No.");
         TestStepLine.DeleteAll(true);
@@ -106,4 +107,14 @@ table 77262 "ADC Test Step Header"
         end;
     end;
 
+    local procedure CheckWhetherTestCaseExists()
+    var
+        TestCaseLineRecGbl: Record "ADC Test Case Line";
+        CannotDeleteTestStepErr: Label 'Test Step %1 cannot be deleted as it is associated with one or more test cases';
+    begin
+        TestCaseLineRecGbl.Reset();
+        TestCaseLineRecGbl.SetRange("Step ID", "No.");
+        if not TestCaseLineRecGbl.IsEmpty() then
+            Error(StrSubstNo(CannotDeleteTestStepErr, "No."));
+    end;
 }

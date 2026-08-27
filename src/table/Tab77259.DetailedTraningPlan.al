@@ -107,4 +107,34 @@ table 77259 "ADC Detailed Traning Plan"
             Clustered = true;
         }
     }
+    trigger OnModify()
+    var
+        CannotModifyErr: Label 'Detailed training plan with training session code %1 cannot be changed as it is associated with one or more test cases.';
+    begin
+        if CheckWhetherTestCaseExists() then
+            Error(StrSubstNo(CannotModifyErr, Rec."Training Session Code"));
+    end;
+
+    trigger OnDelete()
+    var
+        CannotDeleteErr: Label 'Detailed training plan with training session code %1 cannot be deleted as it is associated with one or more test cases.';
+    begin
+        if CheckWhetherTestCaseExists() then
+            Error(StrSubstNo(CannotDeleteErr, Rec."Training Session Code"));
+    end;
+
+    local procedure CheckWhetherTestCaseExists(): Boolean
+    begin
+        if (xRec."Training Session Code" <> '') then begin
+            TestCaseHeaderRecGbl.Reset();
+            TestCaseHeaderRecGbl.SetRange("Training Session Code", Rec."Training Session Code");
+            if not TestCaseHeaderRecGbl.IsEmpty() then
+                exit(true);
+
+            exit(false);
+        end;
+    end;
+
+    var
+        TestCaseHeaderRecGbl: Record "ADC Test Case Header";
 }
