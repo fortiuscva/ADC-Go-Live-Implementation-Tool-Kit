@@ -28,6 +28,11 @@ page 77260 "ADC Test Case"
                     MultiLine = true;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
+                field("No. Of Test Steps"; Rec."No. Of Test Steps")
+                {
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the No. Of Test Steps field.', Comment = '%';
+                }
                 field("Business SignOff Owner"; Rec."Business Owner SignOff")
                 {
                     ToolTip = 'Specifies the value of the Business SignOff Owner field.', Comment = '%';
@@ -176,14 +181,72 @@ page 77260 "ADC Test Case"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(CreateTestStep)
+            {
+                ApplicationArea = All;
+                Caption = 'Create Test Step';
+                Ellipsis = true;
+                Image = Create;
+                ToolTip = 'Creates a test step for this test case.';
+                trigger OnAction()
+                var
+                    TestStepHeader: Record "ADC Test Step Header";
+                begin
+                    TestStepHeader.Init();
+                    TestStepHeader."No." := GetNextTestStepNo();
+                    TestStepHeader.Insert(true);
+                    TestStepHeader.Validate("Default Test Case No.", Rec."No.");
+                    TestStepHeader.Modify(true);
+                    Page.Run(page::"ADC Test Step", TestStepHeader);
+                end;
+            }
+            action(OpenTestSteps)
+            {
+                ApplicationArea = All;
+                Caption = 'Open Test Steps';
+                Ellipsis = true;
+                Image = Open;
+                ToolTip = 'Opens all test steps associated with this test case.';
+                trigger OnAction()
+                begin
+                    TestStepHeaderRecGbl.Reset();
+                    TestStepHeaderRecGbl.SetRange("Default Test Case No.", Rec."No.");
+                    Page.Run(Page::"ADC Test Steps", TestStepHeaderRecGbl);
+                end;
+            }
+        }
+        area(Promoted)
+        {
+            actionref(CreateTestStep_Promoted; CreateTestStep)
+            {
+            }
+            actionref(OpenTestSteps_Promoted; OpenTestSteps)
+            {
+            }
+        }
+    }
     var
         TestCaseDescription: Text;
         TestScenario: Text;
         TestCaseReferenceID: Text;
+        TestStepHeaderRecGbl: Record "ADC Test Step Header";
 
     trigger OnAfterGetRecord()
     begin
         TestCaseDescription := Rec.GetTestCaseDescription();
         TestScenario := Rec.GetTestScenario();
+    end;
+
+    local procedure GetNextTestStepNo(): Code[20]
+    begin
+        TestStepHeaderRecGbl.Reset();
+        if not TestStepHeaderRecGbl.FindLast() then
+            exit('TC-0001')
+        else
+            exit(IncStr(TestStepHeaderRecGbl."No."));
     end;
 }
