@@ -21,6 +21,14 @@ page 77262 "ADC Test Steps"
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
+                field("Data Points"; Rec."Data Points")
+                {
+                    ToolTip = 'Specifies the value of the Data Points/Test Data field.', Comment = '%';
+                }
+                field("Expected Result"; Rec."Expected Result")
+                {
+                    ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
+                }
             }
         }
     }
