@@ -152,6 +152,21 @@ page 77261 "ADC Test Case Subform"
                     Page.Run(Page::"ADC Test Steps");
                 end;
             }
+            action(OpenTestStep)
+            {
+                ApplicationArea = All;
+                Caption = 'Open Test Step';
+                Ellipsis = true;
+                Image = Open;
+                trigger OnAction()
+                var
+                    TestStepHeader: Record "ADC Test Step Header";
+                begin
+                    if not TestStepHeader.Get(Rec."Step ID") then
+                        exit;
+                    Page.Run(Page::"ADC Test Step", TestStepHeader)
+                end;
+            }
         }
     }
     var
