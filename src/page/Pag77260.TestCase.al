@@ -123,7 +123,7 @@ page 77260 "ADC Test Case"
                 group(Training)
                 {
                     caption = 'Training';
-                    field("Training Category"; Rec."Training Category")
+                    field("Training Category"; Rec."Training Category Code")
                     {
                         ToolTip = 'Specifies the value of the Training Category field.', Comment = '%';
                         Editable = false;
