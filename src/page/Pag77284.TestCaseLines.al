@@ -1,12 +1,14 @@
-page 77261 "ADC Test Case Subform"
+page 77284 "ADC Test Case Lines"
 {
     ApplicationArea = All;
-    Caption = 'Test Case Subform';
-    PageType = ListPart;
+    Caption = 'Test Case Lines';
+    PageType = List;
     SourceTable = "ADC Test Case Line";
-    UsageCategory = None;
-    AutoSplitKey = true;
-    // DelayedInsert = true;
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
+    UsageCategory = Lists;
+    Editable = false;
 
     layout
     {
@@ -17,12 +19,23 @@ page 77261 "ADC Test Case Subform"
                 field("Document No."; Rec."Document No.")
                 {
                     ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
-                    Visible = false;
+                    trigger OnDrillDown()
+                    var
+                        TCHeader: Record "ADC Test Case Header";
+                    begin
+                        TCHeader.Reset();
+                        TCHeader.Get(Rec."Document No.");
+                        Page.Run(Page::"ADC Test Case", TCHeader);
+                    end;
                 }
                 field("Line No."; Rec."Line No.")
                 {
-                    ToolTip = 'Specifies the value of the Line No. field.', Comment = '%';
                     Visible = false;
+                    ToolTip = 'Specifies the value of the Line No. field.', Comment = '%';
+                }
+                field("Training Session Code"; Rec."Training Session Code")
+                {
+                    ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
                 }
                 field("Step ID"; Rec."Step ID")
                 {
@@ -52,57 +65,36 @@ page 77261 "ADC Test Case Subform"
                 {
                     ToolTip = 'Specifies the value of the Executed Date Time field.', Comment = '%';
                 }
-
             }
         }
-    }
-    actions
-    {
-        area(Processing)
+        area(FactBoxes)
         {
-            action(OpenResults)
+            part(TestSteps; "ADC Teststeps Factbox")
             {
                 ApplicationArea = All;
-                Caption = 'Open Data Points & Results';
-                Ellipsis = true;
-                Image = Open;
-                trigger OnAction()
-                begin
-                    Page.Run(Page::"ADC Test Case Results", Rec);
-                end;
+                Caption = 'Steps';
+                SubPageLink = "Document No." = field("Step ID");
             }
-            action(OpenTasks)
+            part(TestCaseLines; "ADC Test Case Line Factbox")
             {
                 ApplicationArea = All;
-                Caption = 'Open Tasks';
-                Ellipsis = true;
-                Image = TaskList;
-                trigger OnAction()
-                begin
-                    TaskGbl.Reset();
-                    TaskGbl.FilterGroup := 8;
-                    TaskGbl.SetRange("Test Case No.", Rec."Document No.");
-                    TaskGbl.SetRange("Test Case Line No.", Rec."Line No.");
-                    Page.Run(Page::"ADC Tasks", TaskGbl);
-                end;
+                Caption = 'Data Points & Results';
+                SubPageLink = "Document No." = field("Document No."), "Line No." = field("Line No.");
             }
-            action(CreateTask)
+            part("Attached Documents"; "Doc. Attachment List Factbox")
             {
                 ApplicationArea = All;
-                Caption = 'Create Task';
-                Ellipsis = true;
-                Image = Task;
-                trigger OnAction()
-                var
-                    Functions: Codeunit "ADC Go Live Functions";
-                begin
-                    if not Confirm('Do you want to create a task?') then
-                        exit;
-                    Functions.CreateTaskForTestCaseLine(Rec, true);
-                end;
+                Caption = 'Attachments';
+                SubPageLink = "Table ID" = const(Database::"ADC Test Case Header"), "No." = field("Document No.");
+            }
+            systempart(Links; Links)
+            {
+                ApplicationArea = RecordLinks;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = Notes;
             }
         }
     }
-    var
-        TaskGbl: Record "ADC Task";
 }

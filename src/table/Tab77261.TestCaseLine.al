@@ -68,6 +68,31 @@ table 77261 "ADC Test Case Line"
             CalcFormula = count("ADC Task" where("Test Case No." = field("Document No."), "Test Case Line No." = field("Line No.")));
             Editable = false;
         }
+        field(11; "Header Description"; Text[2048])
+        {
+            Caption = 'Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup("ADC Test Case Header".Description where("No." = field("Document No.")));
+            Editable = false;
+        }
+        field(12; "Assigned To"; Code[50])
+        {
+            Caption = 'Assigned To';
+            TableRelation = "User Setup";
+            DataClassification = CustomerContent;
+        }
+        field(13; "Assigned Date"; Date)
+        {
+            Caption = 'Assigned Date';
+            DataClassification = CustomerContent;
+        }
+        field(14; "Training Session Code"; Code[20])
+        {
+            Caption = 'Training Session Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("ADC Test Case Header"."Training Session Code" where("No." = field("Document No.")));
+            Editable = false;
+        }
     }
     keys
     {

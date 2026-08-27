@@ -3,6 +3,7 @@ table 77276 "ADC Defect Type"
     Caption = 'Defect Type';
     LookupPageId = "ADC Defect Types";
     DrillDownPageId = "ADC Defect Types";
+    DataPerCompany = false;
     DataClassification = CustomerContent;
 
     fields

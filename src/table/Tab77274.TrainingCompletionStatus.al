@@ -3,6 +3,7 @@ table 77274 "ADC Training Completion Status"
     Caption = 'Training Completion Status';
     LookupPageId = "ADC Training Completion Status";
     DrillDownPageId = "ADC Training Completion Status";
+    DataPerCompany = false;
     DataClassification = CustomerContent;
 
     fields
