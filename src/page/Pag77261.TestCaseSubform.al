@@ -28,7 +28,7 @@ page 77261 "ADC Test Case Subform"
                 {
                     ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
                 }
-                field("Header Description"; Rec."Header Description")
+                field("Test Step Description"; Rec."Test Step Description")
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
@@ -43,6 +43,10 @@ page 77261 "ADC Test Case Subform"
                 field("Assigned Date"; Rec."Assigned Date")
                 {
                     ToolTip = 'Specifies the value of the Assigned Date field.', Comment = '%';
+                }
+                field("Training Completion Date"; Rec."Target Completion Date")
+                {
+                    ToolTip = 'Specifies the value of the Training Completion Date field.', Comment = '%';
                 }
                 field("Tested in Company"; Rec."Tested in Company")
                 {
@@ -76,6 +80,7 @@ page 77261 "ADC Test Case Subform"
                     AssignTestSteps: Page "ADC Assign Test Steps";
                     TestCaseAssignMgt: Codeunit "ADC Test Case Assignment Mgt.";
                     SelectedTestStepID: Code[20];
+                    TargetCompletionDate: Date;
                 begin
                     CurrPage.SaveRecord();
 
@@ -85,9 +90,11 @@ page 77261 "ADC Test Case Subform"
                     if AssignTestSteps.RunModal() = Action::LookupOK then begin
                         SelectedTestStepID := AssignTestSteps.GetTestStepID();
 
+                        TargetCompletionDate := AssignTestSteps.GetTargetCompletionDate();
+
                         AssignTestSteps.GetSelectedUsers(TempSelectedUsers);
 
-                        TestCaseAssignMgt.CreateLinesForSelectedUsers(Rec."Document No.", SelectedTestStepID, TempSelectedUsers);
+                        TestCaseAssignMgt.CreateLinesForSelectedUsers(Rec."Document No.", SelectedTestStepID, TargetCompletionDate, TempSelectedUsers);
 
                         CurrPage.Update(false);
                     end;

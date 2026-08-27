@@ -14,6 +14,12 @@ table 77278 "ADC User Setup"
             TableRelation = User."User Name";
             ValidateTableRelation = false;
         }
+        field(2; "User Group"; Code[50])
+        {
+            Caption = 'User Group';
+            TableRelation = "ADC User Group".Code;
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
@@ -25,7 +31,10 @@ table 77278 "ADC User Setup"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "User ID")
+        fieldgroup(DropDown; "User ID", "User Group")
+        {
+        }
+        fieldgroup(Brick; "User ID", "User Group")
         {
         }
     }

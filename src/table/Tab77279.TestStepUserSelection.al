@@ -11,7 +11,13 @@ table 77279 "ADC Test Step User Selection"
             TableRelation = "ADC User Setup"."User ID";
             DataClassification = CustomerContent;
         }
-        field(2; Select; Boolean)
+        field(2; "User Group"; Code[50])
+        {
+            Caption = 'User Group';
+            TableRelation = "ADC User Group".Code;
+            DataClassification = CustomerContent;
+        }
+        field(3; Select; Boolean)
         {
             Caption = 'Select';
             DataClassification = CustomerContent;

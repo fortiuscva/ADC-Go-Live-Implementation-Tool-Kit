@@ -35,7 +35,7 @@ page 77287 "ADC Assign Test Steps"
 
                         if TestSteps.RunModal() = Action::LookupOK then begin
                             TestSteps.GetRecord(TestStepHeader);
-                            TestStepID := TestStepHeader."No.";
+                            SetTestStepID(TestStepHeader."No.");
                             CurrPage.Update(false);
                         end;
                     end;
@@ -46,6 +46,39 @@ page 77287 "ADC Assign Test Steps"
                     begin
                         if TestStepID <> '' then
                             TestStepHeader.Get(TestStepID);
+                    end;
+                }
+                field(TargetCompletionDate; TargetCompletionDate)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Target Completion Date';
+                    ToolTip = 'Specifies the target completion date that will be assigned on the test case lines';
+                }
+            }
+            group(Filters)
+            {
+                field(UserGroup; UserGroupFilter)
+                {
+                    ApplicationArea = All;
+                    Caption = 'User Group Filter';
+                    Lookup = true;
+                    ToolTip = 'Specifies the User Group Filter based on which the users will be selected';
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        UserGroup: Record "ADC User Group";
+                        UserGroups: Page "ADC User Groups";
+                    begin
+                        CurrPage.SaveRecord();
+                        Clear(UserGroup);
+
+                        UserGroups.LookupMode(true);
+                        UserGroups.SetTableView(UserGroup);
+
+                        if UserGroups.RunModal() = Action::LookupOK then begin
+                            UserGroups.GetRecord(UserGroup);
+                            SetUserGroup(UserGroup.Code);
+                            CurrPage.Update(false);
+                        end;
                     end;
                 }
             }
@@ -59,6 +92,13 @@ page 77287 "ADC Assign Test Steps"
                 field(Select; Rec.Select)
                 {
                     ToolTip = 'Specifies the value of the Select field.', Comment = '%';
+                    trigger OnValidate()
+                    var
+                        UserGroupFilterErr: Label 'User %1 does not belong to the filtered user group %2';
+                    begin
+                        if ((UserGroupFilter <> '') and (Rec."User Group" <> UserGroupFilter)) then
+                            Error(StrSubstNo(UserGroupFilterErr, Rec."User ID", UserGroupFilter));
+                    end;
                 }
             }
         }
@@ -124,9 +164,11 @@ page 77287 "ADC Assign Test Steps"
 
     var
         TestStepID: Code[20];
+        UserGroupFilter: Code[50];
         SelectionConfirmed: Boolean;
+        TargetCompletionDate: Date;
 
-    procedure SetTestStepID(NewTestStepID: Code[20])
+    local procedure SetTestStepID(NewTestStepID: Code[20])
     begin
         TestStepID := NewTestStepID;
     end;
@@ -136,9 +178,19 @@ page 77287 "ADC Assign Test Steps"
         exit(TestStepID);
     end;
 
-    procedure WasSelectionConfirmed(): Boolean
+    local procedure SetUserGroup(NewUserGroup: Code[50])
     begin
-        exit(SelectionConfirmed);
+        UserGroupFilter := NewUserGroup;
+    end;
+
+    local procedure GetUserGroup(): Code[50]
+    begin
+        exit(UserGroupFilter);
+    end;
+
+    procedure GetTargetCompletionDate(): Date
+    begin
+        exit(TargetCompletionDate);
     end;
 
     procedure GetSelectedUsers(var TempSelectedUsers: Record "ADC Test Step User Selection" temporary)
@@ -159,19 +211,18 @@ page 77287 "ADC Assign Test Steps"
 
     local procedure LoadUsers()
     var
-        ADCUserSetup: Record "ADC User Setup";
+        ADCUserSetup: Query "ADC User Setup";
     begin
         Rec.Reset();
         Rec.DeleteAll();
 
-        ADCUserSetup.Reset();
-        if ADCUserSetup.FindSet() then begin
-            repeat
-                Rec.Init();
-                Rec."User ID" := ADCUserSetup."User ID";
-                Rec.Select := false;
-                Rec.Insert();
-            until ADCUserSetup.Next() = 0;
+        ADCUserSetup.Open();
+        while ADCUserSetup.Read() do begin
+            Rec.Init();
+            Rec."User ID" := ADCUserSetup.UserID;
+            Rec."User Group" := ADCUserSetup.UserGroup;
+            Rec.Select := false;
+            Rec.Insert();
         end;
 
         Rec.Reset();
@@ -181,7 +232,7 @@ page 77287 "ADC Assign Test Steps"
     local procedure SetSelectionValue(NewValue: Boolean)
     begin
         Rec.Reset();
-
+        Rec.SetRange("User Group", UserGroupFilter);
         if Rec.FindSet(true) then
             repeat
                 Rec.Select := NewValue;

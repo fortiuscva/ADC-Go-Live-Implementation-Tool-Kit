@@ -41,7 +41,11 @@ page 77284 "ADC Test Case Lines"
                 {
                     ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
                 }
-                field("Header Description"; Rec."Header Description")
+                field("Test Case Description"; Rec."Test Case Description")
+                {
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
+                field("Test Step Description"; Rec."Test Step Description")
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
@@ -56,6 +60,10 @@ page 77284 "ADC Test Case Lines"
                 field("Assigned Date"; Rec."Assigned Date")
                 {
                     ToolTip = 'Specifies the value of the Assigned Date field.', Comment = '%';
+                }
+                field("Target Completion Date"; Rec."Target Completion Date")
+                {
+                    ToolTip = 'Specifies the value of the Training Completion Date field.', Comment = '%';
                 }
                 field("Executed By"; Rec."Executed By")
                 {
