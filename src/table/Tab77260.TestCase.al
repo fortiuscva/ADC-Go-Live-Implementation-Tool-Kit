@@ -24,6 +24,7 @@ table 77260 "ADC Test Case"
         field(4; "Business Process"; Text[100])
         {
             Caption = 'Business Process';
+            TableRelation = "ADC Business Process";
         }
         field(5; "Training Session Code"; Text[100])
         {
@@ -52,6 +53,7 @@ table 77260 "ADC Test Case"
         field(11; "Testing Type"; Text[30])
         {
             Caption = 'Testing Type';
+            TableRelation = "ADC Testing Type";
         }
         field(12; "Training Driven"; Text[30])
         {
