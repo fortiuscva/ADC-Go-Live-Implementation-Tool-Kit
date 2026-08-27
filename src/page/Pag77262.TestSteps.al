@@ -17,6 +17,10 @@ page 77262 "ADC Test Steps"
                 {
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }
+                field("Default Test Case No."; Rec."Default Test Case No.")
+                {
+                    ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
+                }
                 field(Description; Rec.Description)
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
