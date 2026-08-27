@@ -64,6 +64,35 @@ page 77261 "ADC Test Case Subform"
     {
         area(Processing)
         {
+            action(AssignSteps)
+            {
+                ApplicationArea = All;
+                Caption = 'Assign Steps';
+                Ellipsis = true;
+                Image = Process;
+                trigger OnAction()
+                var
+                    TempSelectedUsers: Record "ADC Test Step User Selection" temporary;
+                    AssignTestSteps: Page "ADC Assign Test Steps";
+                    TestCaseAssignMgt: Codeunit "ADC Test Case Assignment Mgt.";
+                    SelectedTestStepID: Code[20];
+                begin
+                    CurrPage.SaveRecord();
+
+                    Clear(AssignTestSteps);
+                    AssignTestSteps.LookupMode(true);
+
+                    if AssignTestSteps.RunModal() = Action::LookupOK then begin
+                        SelectedTestStepID := AssignTestSteps.GetTestStepID();
+
+                        AssignTestSteps.GetSelectedUsers(TempSelectedUsers);
+
+                        TestCaseAssignMgt.CreateLinesForSelectedUsers(Rec."Document No.", SelectedTestStepID, TempSelectedUsers);
+
+                        CurrPage.Update(false);
+                    end;
+                end;
+            }
             action(OpenResults)
             {
                 ApplicationArea = All;
