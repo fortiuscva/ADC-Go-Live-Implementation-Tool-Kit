@@ -83,6 +83,7 @@ page 77261 "ADC Test Case Subform"
                         ApplicationArea = all;
                         Importance = Additional;
                         MultiLine = true;
+                        Editable = false;
                         ShowCaption = false;
                         ToolTip = 'Specifies the value of the Actual Result field.', Comment = '%';
                         trigger OnValidate()
@@ -91,6 +92,23 @@ page 77261 "ADC Test Case Subform"
                         end;
                     }
                 }
+            }
+        }
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action(ShowResults)
+            {
+                ApplicationArea = All;
+                Caption = 'Show Results';
+                Ellipsis = true;
+                Image = EditLines;
+                trigger OnAction()
+                begin
+                    Page.Run(Page::"ADC Test Case Results", Rec);
+                end;
             }
         }
     }

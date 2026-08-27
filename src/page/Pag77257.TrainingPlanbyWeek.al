@@ -71,4 +71,30 @@ page 77257 "ADC Training Plan by Week"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(DetailedTrainingPlan)
+            {
+                ApplicationArea = all;
+                Caption = 'Detailed Training Plan';
+                Ellipsis = true;
+                Image = ViewDetails;
+                trigger OnAction()
+                begin
+                    Page.Run(Page::"ADC Detailed Training Plan");
+                end;
+            }
+        }
+        area(Promoted)
+        {
+            group(Category_Process)
+            {
+                actionref(DetailedTrainingPlan_Promoted; DetailedTrainingPlan)
+                {
+                }
+            }
+        }
+    }
 }
