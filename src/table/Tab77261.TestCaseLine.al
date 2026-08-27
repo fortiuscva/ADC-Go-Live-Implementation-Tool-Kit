@@ -5,9 +5,9 @@ table 77261 "ADC Test Case Line"
 
     fields
     {
-        field(1; "Test Case ID"; Code[20])
+        field(1; "Document No."; Code[20])
         {
-            Caption = 'Test Case ID';
+            Caption = 'Document No.';
             DataClassification = CustomerContent;
         }
         field(2; "Line No."; Integer)
@@ -20,9 +20,10 @@ table 77261 "ADC Test Case Line"
             Caption = 'Data Points/Test Data';
             DataClassification = CustomerContent;
         }
-        field(17; "Test Steps"; Text[2048])
+        field(17; "Teststep ID"; Code[20])
         {
-            Caption = 'Test Steps';
+            Caption = 'Teststep ID/Link';
+            TableRelation = "ADC Test Step Header";
             DataClassification = CustomerContent;
         }
         field(18; "Expected Result"; Text[2048])
@@ -38,7 +39,7 @@ table 77261 "ADC Test Case Line"
     }
     keys
     {
-        key(PK; "Test Case ID", "Line No.")
+        key(PK; "Document No.", "Line No.")
         {
             Clustered = true;
         }
