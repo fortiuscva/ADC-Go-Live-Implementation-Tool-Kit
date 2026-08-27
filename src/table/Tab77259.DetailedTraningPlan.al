@@ -125,12 +125,14 @@ table 77259 "ADC Detailed Traning Plan"
 
     local procedure CheckWhetherTestCaseExists(): Boolean
     begin
-        TestCaseHeaderRecGbl.Reset();
-        TestCaseHeaderRecGbl.SetRange("Training Session Code", Rec."Training Session Code");
-        if not TestCaseHeaderRecGbl.IsEmpty() then
-            exit(true);
+        if (xRec."Training Session Code" <> '') then begin
+            TestCaseHeaderRecGbl.Reset();
+            TestCaseHeaderRecGbl.SetRange("Training Session Code", Rec."Training Session Code");
+            if not TestCaseHeaderRecGbl.IsEmpty() then
+                exit(true);
 
-        exit(false);
+            exit(false);
+        end;
     end;
 
     var
