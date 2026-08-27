@@ -12,70 +12,70 @@ table 77260 "ADC Test Case"
             Caption = 'Test Case ID';
             DataClassification = CustomerContent;
         }
-        field(2; Category; Text[100])
+        field(2; Category; Code[100])
         {
             Caption = 'Category';
             TableRelation = "ADC Category";
             DataClassification = CustomerContent;
         }
-        field(3; "Sub Category"; Text[100])
+        field(3; "Sub Category"; Code[100])
         {
             Caption = 'Sub Category';
             TableRelation = "ADC Subcategory";
             DataClassification = CustomerContent;
         }
-        field(4; "Business Process"; Text[100])
+        field(4; "Business Process"; Code[100])
         {
             Caption = 'Business Process';
             TableRelation = "ADC Business Process";
             DataClassification = CustomerContent;
         }
-        field(5; "Training Session Code"; Text[100])
+        field(5; "Training Session Code"; code[20])
         {
             Caption = 'Training Session Code';
             DataClassification = CustomerContent;
         }
-        field(6; "UAT Owner"; Text[100])
+        field(6; "UAT Owner"; code[20])
         {
             Caption = 'UAT Owner';
             DataClassification = CustomerContent;
         }
-        field(7; "Business SignOff Owner"; Text[100])
+        field(7; "Business SignOff Owner"; text[100])
         {
             Caption = 'Business SignOff Owner';
             DataClassification = CustomerContent;
         }
-        field(8; "Go-Live Critical"; Text[30])
+        field(8; "Go-Live Critical"; code[100])
         {
             Caption = 'Go-Live Critical';
             TableRelation = "ADC Go Live Critical";
             DataClassification = CustomerContent;
         }
-        field(9; "UAT Execution Status"; Text[30])
+        field(9; "UAT Execution Status"; code[100])
         {
             Caption = 'UAT Execution Status';
             TableRelation = "ADC UAT Execution Status";
             DataClassification = CustomerContent;
         }
-        field(10; "Signoff Status"; Text[100])
+        field(10; "Signoff Status"; Code[100])
         {
             Caption = 'Signoff Status';
             TableRelation = "ADC Signoff Status";
             DataClassification = CustomerContent;
         }
-        field(11; "Testing Type"; Text[30])
+        field(11; "Testing Type"; code[100])
         {
             Caption = 'Testing Type';
             TableRelation = "ADC Testing Type";
             DataClassification = CustomerContent;
         }
-        field(12; "Training Driven"; Text[30])
+        field(12; "Training Driven"; code[100])
         {
             Caption = 'Training Driven';
             TableRelation = "ADC Training Driven";
             DataClassification = CustomerContent;
         }
-        field(13; Priority; Text[30])
+        field(13; Priority; code[100])
         {
             Caption = 'Priority';
             TableRelation = "ADC Priority";

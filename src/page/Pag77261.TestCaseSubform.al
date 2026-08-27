@@ -27,7 +27,7 @@ page 77261 "ADC Test Case Subform"
                 {
                     ToolTip = 'Specifies the value of the Data Points/Test Data field.', Comment = '%';
                 }
-                field("Teststep ID"; Rec."Teststep ID")
+                field("Teststep ID"; Rec."Step ID")
                 {
                     ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
                     trigger OnDrillDown()
@@ -35,7 +35,7 @@ page 77261 "ADC Test Case Subform"
                         Teststep: Record "ADC Test Step Header";
                     begin
                         Teststep.Reset();
-                        Teststep.Get(Rec."Teststep ID");
+                        Teststep.Get(Rec."Step ID");
                         Page.Run(Page::"ADC Test Step", Teststep);
                     end;
                 }
