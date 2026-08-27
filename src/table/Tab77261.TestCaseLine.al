@@ -133,6 +133,18 @@ table 77261 "ADC Test Case Line"
             Clustered = true;
         }
     }
+    local procedure CheckWhetherTasksExistOrNot()
+    var
+        TaskRecLcl: Record "ADC Task";
+        CannotDeleteTestCaseLineErr: Label 'Test case line with document no. %1 and line no. %2 cannot be deleted as it is associated with one or more tasks.';
+    begin
+        TaskRecLcl.Reset();
+        TaskRecLcl.SetRange("Test Case No.", "Document No.");
+        TaskRecLcl.SetRange("Test Case Line No.", "Line No.");
+        if not TaskRecLcl.IsEmpty() then
+            Error(StrSubstNo(CannotDeleteTestCaseLineErr, "Document No.", "Line No."));
+    end;
+
     // procedure SetExpectedResult(NewExpectedResult: Text)
     // var
     //     OutStream: OutStream;
