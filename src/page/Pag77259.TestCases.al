@@ -38,11 +38,11 @@ page 77259 "ADC Test Cases"
                 {
                     ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
                 }
-                field("UAT Owner"; Rec."UAT Owner")
+                field("UAT Owner"; Rec."UAT Owner SignOff")
                 {
                     ToolTip = 'Specifies the value of the UAT Owner field.', Comment = '%';
                 }
-                field("Business SignOff Owner"; Rec."Business SignOff Owner")
+                field("Business SignOff Owner"; Rec."Business Owner SignOff")
                 {
                     ToolTip = 'Specifies the value of the Business SignOff Owner field.', Comment = '%';
                 }
