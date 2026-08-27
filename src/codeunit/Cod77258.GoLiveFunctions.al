@@ -4,8 +4,8 @@ codeunit 77258 "ADC Go Live Functions"
     var
         TaskLcl: Record "ADC Task";
     begin
-        GoLiveImplSetup.Get();
-        GoLiveImplSetup.TestField("Task Nos.");
+        //GoLiveImplSetup.Get();
+        //GoLiveImplSetup.TestField("Task Nos.");
         TaskLcl.Init();
         TaskLcl."No." := '';
         TaskLcl.Insert(true);
