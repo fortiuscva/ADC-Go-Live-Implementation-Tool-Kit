@@ -154,6 +154,15 @@ table 77260 "ADC Test Case Header"
         end;
     end;
 
+    trigger OnDelete()
+    var
+        TestCaseLine: Record "ADC Test Case Line";
+    begin
+        TestCaseLine.Reset();
+        TestCaseLine.SetRange("Document No.", "No.");
+        TestCaseLine.DeleteAll(true);
+    end;
+
     procedure AssistEdit(OldTestCaseHeader: Record "ADC Test Case Header"): Boolean
     var
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
