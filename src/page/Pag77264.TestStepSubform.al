@@ -23,6 +23,12 @@ page 77264 "ADC Test Step Subform"
                     ToolTip = 'Specifies the value of the Line No. field.', Comment = '%';
                     Visible = false;
                 }
+                field(Description; Rec.Description)
+                {
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                    Visible = false;
+                }
                 field("Test Step Description"; Rec."Test Step Description")
                 {
                     ToolTip = 'Specifies the value of the Test Step Description field.', Comment = '%';

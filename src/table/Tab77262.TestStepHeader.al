@@ -49,6 +49,13 @@ table 77262 "ADC Test Step Header"
             Caption = 'Default Test Case No.';
             DataClassification = CustomerContent;
         }
+        field(23; "No. of Lines"; Integer)
+        {
+            Caption = 'No. of Lines';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = count("ADC Test Step Line" where("Document No." = field("No.")));
+        }
     }
     keys
     {
