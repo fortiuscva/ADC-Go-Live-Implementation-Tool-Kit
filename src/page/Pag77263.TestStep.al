@@ -25,7 +25,7 @@ page 77263 "ADC Test Step"
                 }
                 field("Default Test Case No."; Rec."Default Test Case No.")
                 {
-                    Editable = false;
+                    Editable = true;
                     ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
                 }
 
