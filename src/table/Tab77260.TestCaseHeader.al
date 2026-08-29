@@ -147,6 +147,13 @@ table 77260 "ADC Test Case Header"
             CalcFormula = lookup("ADC Detailed Traning Plan".Category where("Training Session Code" = field("Training Session Code")));
             Editable = false;
         }
+        field(32; "No. Of Test Steps"; Integer)
+        {
+            Caption = 'No. Of Test Steps';
+            CalcFormula = count("ADC Test Step Header" where("Default Test Case No." = field("No.")));
+            Editable = false;
+            FieldClass = FlowField;
+        }
     }
     keys
     {
