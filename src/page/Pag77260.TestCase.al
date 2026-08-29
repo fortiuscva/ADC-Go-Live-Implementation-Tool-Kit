@@ -22,86 +22,62 @@ page 77260 "ADC Test Case"
                     //     if Rec.AssistEdit(xRec) then
                     //         CurrPage.Update();
                     // end;
+                    ShowMandatory = true;
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     MultiLine = true;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                    ShowMandatory = true;
                 }
-                field("No. Of Test Steps"; Rec."No. Of Test Steps")
+                field("No. Of Attached Test Steps"; Rec."No. Of Attached Test Steps")
                 {
+                    ApplicationArea = All;
                     Editable = false;
-                    ToolTip = 'Specifies the value of the No. Of Test Steps field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the No. Of Attached Test Steps field.', Comment = '%';
                 }
                 field("Business SignOff Owner"; Rec."Business Owner SignOff")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Business SignOff Owner field.', Comment = '%';
                 }
                 field("Go-Live Critical"; Rec."Go-Live Critical")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Go-Live Critical field.', Comment = '%';
                 }
                 field(Priority; Rec.Priority)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
                 field("Task No"; Rec."Task No")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Task No. field.', Comment = '%';
-                }
-                field(TestScenario; TestScenario)
-                {
-                    ApplicationArea = All;
-                    Importance = Additional;
-                    MultiLine = true;
-                    ShowCaption = false;
-                    ToolTip = 'Specifies the scenario of the test case.', Comment = '%';
-                    visible = false;
-                    trigger OnValidate()
-                    begin
-                        Rec.SetTestScenario(TestScenario);
-                    end;
-                }
-                field(TestCaseDescription; TestCaseDescription)
-                {
-                    ApplicationArea = All;
-                    Importance = Additional;
-                    MultiLine = true;
-                    ShowCaption = false;
-                    ToolTip = 'Specifies the description of the test case.';
-                    Visible = false;
-                    trigger OnValidate()
-                    begin
-                        Rec.SetTestCaseDescription(TestCaseDescription);
-                    end;
-                }
-                field(TestCaseReferenceID; TestCaseReferenceID)
-                {
-                    ApplicationArea = All;
-                    Importance = Additional;
-                    MultiLine = true;
-                    ShowCaption = false;
-                    ToolTip = 'Specifies the Reference ID/JIRA ID of the test case.';
-                    Visible = false;
-                    trigger OnValidate()
-                    begin
-                        Rec.SetTestCaseReferenceID(TestCaseReferenceID);
-                    end;
                 }
                 group(Categories)
                 {
                     caption = 'Categories';
                     field(Category; Rec.Category)
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Category field.', Comment = '%';
+                        ShowMandatory = true;
                     }
                     field("Sub Category"; Rec."Sub Category")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Sub Category field.', Comment = '%';
+                        ShowMandatory = true;
                     }
                     field("Business Process"; Rec."Business Process")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
+                        ShowMandatory = true;
                     }
                 }
                 group(Testing)
@@ -109,18 +85,23 @@ page 77260 "ADC Test Case"
                     caption = 'Testing';
                     field("Testing Type"; Rec."Testing Type")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
+                        ShowMandatory = true;
                     }
                     field("UAT Owner"; Rec."UAT Owner SignOff")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the UAT Owner field.', Comment = '%';
                     }
                     field("UAT Execution Status"; Rec."UAT Execution Status")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the UAT Execution Status field.', Comment = '%';
                     }
                     field("Signoff Status"; Rec."Signoff Status")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Signoff Status field.', Comment = '%';
                     }
 
@@ -130,15 +111,18 @@ page 77260 "ADC Test Case"
                     caption = 'Training';
                     field("Training Category"; Rec."Training Category Code")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Training Category field.', Comment = '%';
                         Editable = false;
                     }
                     field("Training Session Code"; Rec."Training Session Code")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
                     }
                     field("Training Driven"; Rec."Training Driven")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Training Driven field.', Comment = '%';
                     }
                 }
@@ -202,14 +186,15 @@ page 77260 "ADC Test Case"
                     TestStepHeader."No." := GetNextTestStepNo();
                     TestStepHeader.Insert(true);
                     TestStepHeader.Validate("Default Test Case No.", Rec."No.");
+                    TestStepHeader.Validate(Description, Rec.Description);
                     TestStepHeader.Modify(true);
                     Page.Run(page::"ADC Test Step", TestStepHeader);
                 end;
             }
-            action(OpenTestSteps)
+            action(OpenAttachedTestSteps)
             {
                 ApplicationArea = All;
-                Caption = 'Open Test Steps';
+                Caption = 'Open Attached Test Steps';
                 Ellipsis = true;
                 Image = Open;
                 ToolTip = 'Opens all test steps associated with this test case.';
@@ -220,15 +205,33 @@ page 77260 "ADC Test Case"
                     Page.Run(Page::"ADC Test Steps", TestStepHeaderRecGbl);
                 end;
             }
+            action(OpenRelatedTestSteps)
+            {
+                ApplicationArea = All;
+                Caption = 'Open Related Test Steps';
+                Ellipsis = true;
+                Image = Open;
+                ToolTip = 'Opens all related test steps associated with this test case description';
+                trigger OnAction()
+                begin
+                    TestStepHeaderRecGbl.Reset();
+                    TestStepHeaderRecGbl.SetRange(Description, Rec.Description);
+                    Page.Run(Page::"ADC Test Steps", TestStepHeaderRecGbl);
+                end;
+            }
         }
         area(Promoted)
         {
             actionref(CreateTestStep_Promoted; CreateTestStep)
             {
             }
-            actionref(OpenTestSteps_Promoted; OpenTestSteps)
+            actionref(OpenAttachedTestSteps_Promoted; OpenAttachedTestSteps)
             {
             }
+            actionref(OpenRelativeTestSteps_Promoted; OpenRelatedTestSteps)
+            {
+            }
+
         }
     }
     var
@@ -246,8 +249,9 @@ page 77260 "ADC Test Case"
     local procedure GetNextTestStepNo(): Code[20]
     begin
         TestStepHeaderRecGbl.Reset();
+        TestStepHeaderRecGbl.SetRange("No.", Rec."No.");
         if not TestStepHeaderRecGbl.FindLast() then
-            exit('TC-0001')
+            exit(Rec."No.")
         else
             exit(IncStr(TestStepHeaderRecGbl."No."));
     end;
