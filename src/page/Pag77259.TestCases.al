@@ -22,7 +22,7 @@ page 77259 "ADC Test Cases"
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
-                field("No. Of Test Steps"; Rec."No. Of Test Steps")
+                field("No. Of Test Steps"; Rec."No. Of Attached Test Steps")
                 {
                     ToolTip = 'Specifies the value of the No. Of Test Steps field.', Comment = '%';
                 }

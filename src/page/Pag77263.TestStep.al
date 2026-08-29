@@ -66,6 +66,23 @@ page 77263 "ADC Test Step"
                 }
             }
         }
+        area(FactBoxes)
+        {
+            part("Attached Documents"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                SubPageLink = "Table ID" = const(Database::"ADC Test Step Header"), "No." = field("No.");
+            }
+            systempart(Links; Links)
+            {
+                ApplicationArea = RecordLinks;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = Notes;
+            }
+        }
     }
     actions
     {

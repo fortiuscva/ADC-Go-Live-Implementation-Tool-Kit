@@ -20,6 +20,7 @@ page 77262 "ADC Test Steps"
                 field("Default Test Case No."; Rec."Default Test Case No.")
                 {
                     ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
+                    Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -33,6 +34,29 @@ page 77262 "ADC Test Steps"
                 {
                     ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
                 }
+            }
+        }
+        area(FactBoxes)
+        {
+            part(TestSteps; "ADC Teststeps Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Steps';
+                SubPageLink = "Document No." = field("No.");
+            }
+            part("Attached Documents"; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                SubPageLink = "Table ID" = const(Database::"ADC Test Step Header"), "No." = field("No.");
+            }
+            systempart(Links; Links)
+            {
+                ApplicationArea = RecordLinks;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = Notes;
             }
         }
     }

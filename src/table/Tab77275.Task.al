@@ -106,6 +106,7 @@ table 77275 "ADC Task"
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
         NoSeries: Codeunit "No. Series";
         ADCTasks: Record "ADC Task";
+        NewTaskNo: Code[20];
     begin
         // if "No." = '' then begin
         //     GoLiveImplementationSetup.Get();
@@ -118,11 +119,12 @@ table 77275 "ADC Task"
 
         //     "No." := NoSeries.GetNextNo("No.Series");
         // end;
-        if not ADCTasks.FindLast() then
-            "No." := 'TASK-000001'
-        else begin
-            "No." := IncStr(ADCTasks."No.");
-        end;
+        GoLiveImplementationSetup.Get();
+        GoLiveImplementationSetup.TestField("Last Task No.");
+        NewTaskNo := IncStr(GoLiveImplementationSetup."Last Task No.");
+        GoLiveImplementationSetup."Last Task No." := NewTaskNo;
+        GoLiveImplementationSetup.Modify();
+        "No." := NewTaskNo;
         TestField("No.");
     end;
 

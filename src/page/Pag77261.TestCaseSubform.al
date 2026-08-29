@@ -26,38 +26,53 @@ page 77261 "ADC Test Case Subform"
                 }
                 field("Step ID"; Rec."Step ID")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
+                    ShowMandatory = true;
                 }
                 field("Test Step Description"; Rec."Test Step Description")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("No. of Tasks"; Rec."No. of Tasks")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the No. of Tasks field.', Comment = '%';
                 }
                 field("Assigned To"; Rec."Assigned To")
                 {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';
                 }
                 field("Assigned Date"; Rec."Assigned Date")
                 {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Assigned Date field.', Comment = '%';
                 }
-                field("Training Completion Date"; Rec."Target Completion Date")
+                field("Target Completion Date"; Rec."Target Completion Date")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Training Completion Date field.', Comment = '%';
                 }
                 field("Tested in Company"; Rec."Tested in Company")
                 {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Tested in Company field.', Comment = '%';
                 }
                 field("Executed By"; Rec."Executed By")
                 {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Executed By field.', Comment = '%';
                 }
                 field("Executed Date Time"; Rec."Executed Date Time")
                 {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Executed Date Time field.', Comment = '%';
                 }
 
@@ -111,61 +126,83 @@ page 77261 "ADC Test Case Subform"
                     Page.Run(Page::"ADC Test Case Results", Rec);
                 end;
             }
-            action(OpenTasks)
+            group("&Tasks")
             {
-                ApplicationArea = All;
-                Caption = 'Open Tasks';
-                Ellipsis = true;
-                Image = TaskList;
-                trigger OnAction()
-                begin
-                    TaskGbl.Reset();
-                    TaskGbl.FilterGroup := 8;
-                    TaskGbl.SetRange("Test Case No.", Rec."Document No.");
-                    TaskGbl.SetRange("Test Case Line No.", Rec."Line No.");
-                    Page.Run(Page::"ADC Tasks", TaskGbl);
-                end;
-            }
-            action(CreateTask)
-            {
-                ApplicationArea = All;
-                Caption = 'Create Task';
-                Ellipsis = true;
+                Caption = 'Tasks';
                 Image = Task;
-                trigger OnAction()
-                var
-                    Functions: Codeunit "ADC Go Live Functions";
-                begin
-                    if not Confirm('Do you want to create a task?') then
-                        exit;
-                    Functions.CreateTaskForTestCaseLine(Rec, true);
-                end;
+                action(OpenTasks)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Open Tasks';
+                    Ellipsis = true;
+                    Image = TaskList;
+                    trigger OnAction()
+                    begin
+                        TaskGbl.Reset();
+                        TaskGbl.FilterGroup := 8;
+                        TaskGbl.SetRange("Test Case No.", Rec."Document No.");
+                        TaskGbl.SetRange("Test Case Line No.", Rec."Line No.");
+                        Page.Run(Page::"ADC Tasks", TaskGbl);
+                    end;
+                }
+                action(CreateTask)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Create Task';
+                    Ellipsis = true;
+                    Image = Task;
+                    trigger OnAction()
+                    var
+                        Functions: Codeunit "ADC Go Live Functions";
+                    begin
+                        if not Confirm('Do you want to create a task?') then
+                            exit;
+                        Functions.CreateTaskForTestCaseLine(Rec, true);
+                    end;
+                }
+                action(ShowAllTasks)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Show All Tasks';
+                    Ellipsis = true;
+                    Image = Task;
+                    trigger OnAction()
+                    begin
+                        TaskGbl.Reset();
+                        Page.Run(Page::"ADC Tasks", TaskGbl);
+                    end;
+                }
             }
-            action(ShowAllTestSteps)
+            group("&Steps")
             {
-                ApplicationArea = All;
-                Caption = 'Show All Test Steps';
-                Ellipsis = true;
-                Image = ShowList;
-                trigger OnAction()
-                begin
-                    Page.Run(Page::"ADC Test Steps");
-                end;
-            }
-            action(OpenTestStep)
-            {
-                ApplicationArea = All;
-                Caption = 'Open Test Step';
-                Ellipsis = true;
-                Image = Open;
-                trigger OnAction()
-                var
-                    TestStepHeader: Record "ADC Test Step Header";
-                begin
-                    if not TestStepHeader.Get(Rec."Step ID") then
-                        exit;
-                    Page.Run(Page::"ADC Test Step", TestStepHeader)
-                end;
+                Caption = 'Steps';
+                Image = StepInto;
+                action(ShowAllTestSteps)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Show All Test Steps';
+                    Ellipsis = true;
+                    Image = ShowList;
+                    trigger OnAction()
+                    begin
+                        Page.Run(Page::"ADC Test Steps");
+                    end;
+                }
+                action(OpenTestStep)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Open Test Step';
+                    Ellipsis = true;
+                    Image = Open;
+                    trigger OnAction()
+                    var
+                        TestStepHeader: Record "ADC Test Step Header";
+                    begin
+                        if not TestStepHeader.Get(Rec."Step ID") then
+                            exit;
+                        Page.Run(Page::"ADC Test Step", TestStepHeader)
+                    end;
+                }
             }
         }
     }

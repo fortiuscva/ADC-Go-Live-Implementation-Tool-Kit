@@ -29,6 +29,18 @@ table 77272 "ADC Go Live Impl. Setup"
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
+        field(10; "Last Test Case No."; Code[20])
+        {
+            Caption = 'Last Test Case No.';
+        }
+        field(11; "Last Test Step No."; Code[20])
+        {
+            Caption = 'Last Test Step No.';
+        }
+        field(12; "Last Task No."; Code[20])
+        {
+            Caption = 'Last Task No.';
+        }
     }
     keys
     {
