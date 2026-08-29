@@ -10,6 +10,7 @@ report 77260 "ADC Create Test Step Lines"
         TestStepLine: Record "ADC Test Step Line";
         Counter: Integer;
     begin
+        TestStepLine.DeleteAll();
         Clear(Counter);
         Counter := 0;
         BCTestStepLine.Reset();
