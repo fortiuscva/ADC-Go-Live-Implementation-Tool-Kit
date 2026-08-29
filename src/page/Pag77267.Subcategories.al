@@ -14,10 +14,12 @@ page 77267 "ADC Subcategories"
             {
                 field(Subcategory; Rec.Code)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
             }

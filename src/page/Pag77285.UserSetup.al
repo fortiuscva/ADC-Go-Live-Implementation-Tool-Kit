@@ -14,10 +14,12 @@ page 77285 "ADC User Setup"
             {
                 field("User ID"; Rec."User ID")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the User ID field.', Comment = '%';
                 }
                 field("User Group"; Rec."User Group")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the User Group field.', Comment = '%';
                 }
             }

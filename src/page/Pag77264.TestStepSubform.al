@@ -15,16 +15,19 @@ page 77264 "ADC Test Step Subform"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
                     Visible = false;
                 }
                 field("Line No."; Rec."Line No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Line No. field.', Comment = '%';
                     Visible = false;
                 }
                 field("Test Step Description"; Rec."Test Step Description")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Step Description field.', Comment = '%';
                 }
             }
