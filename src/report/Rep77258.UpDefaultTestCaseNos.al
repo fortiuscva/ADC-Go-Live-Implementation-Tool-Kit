@@ -9,9 +9,18 @@ report 77258 "ADC Up Default Test Case Nos."
         dataitem(ADCTestStepHeader; "ADC Test Step Header")
         {
             trigger OnAfterGetRecord()
+            var
+                CaseHeader: Record "ADC Test Case Header";
             begin
-                ADCTestStepHeader."Default Test Case No." := ADCTestStepHeader."No.";
-                ADCTestStepHeader.Modify(true);
+                CaseHeader.Reset();
+                CaseHeader.SetRange(Description, ADCTestStepHeader.Description);
+                if CaseHeader.FindFirst() then begin
+                    ADCTestStepHeader."Default Test Case No." := CaseHeader."No.";
+                    ADCTestStepHeader.Modify(true);
+                end else begin
+                    ADCTestStepHeader."Default Test Case No." := '';
+                    ADCTestStepHeader.Modify(true);
+                end;
             end;
         }
     }

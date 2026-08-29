@@ -196,6 +196,8 @@ page 77260 "ADC Test Case"
                 var
                     TestStepHeader: Record "ADC Test Step Header";
                 begin
+                    if not Confirm('Do you want to create a test step?') then
+                        exit;
                     TestStepHeader.Init();
                     TestStepHeader."No." := GetNextTestStepNo();
                     TestStepHeader.Insert(true);
