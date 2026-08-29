@@ -147,9 +147,9 @@ table 77260 "ADC Test Case Header"
             CalcFormula = lookup("ADC Detailed Traning Plan".Category where("Training Session Code" = field("Training Session Code")));
             Editable = false;
         }
-        field(32; "No. Of Test Steps"; Integer)
+        field(32; "No. Of Attached Test Steps"; Integer)
         {
-            Caption = 'No. Of Test Steps';
+            Caption = 'No. Of Attached Test Steps';
             CalcFormula = count("ADC Test Step Header" where("Default Test Case No." = field("No.")));
             Editable = false;
             FieldClass = FlowField;
@@ -176,6 +176,7 @@ table 77260 "ADC Test Case Header"
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
         NoSeries: Codeunit "No. Series";
         TestCaseHeader: Record "ADC Test Case Header";
+        NewTestCaseNo: Code[20];
     begin
         // if "No." = '' then begin
         //     GoLiveImplementationSetup.Get();
@@ -190,11 +191,12 @@ table 77260 "ADC Test Case Header"
         //         "No." := NoSeries.GetNextNo("No. Series");
         //     end;
         // end;
-        if not TestCaseHeader.FindLast() then begin
-            "No." := 'TC-0001';
-        end else begin
-            "No." := IncStr(TestCaseHeader."No.");
-        end;
+        GoLiveImplementationSetup.Get();
+        GoLiveImplementationSetup.TestField("Last Test Case No.");
+        NewTestCaseNo := IncStr(GoLiveImplementationSetup."Last Test Case No.");
+        GoLiveImplementationSetup."Last Test Case No." := NewTestCaseNo;
+        GoLiveImplementationSetup.Modify();
+        "No." := NewTestCaseNo;
         TestField("No.");
     end;
 

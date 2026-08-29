@@ -29,6 +29,7 @@ codeunit 77256 "ADC Event Management"
     var
         TestCaseHeaderRecLcl: Record "ADC Test Case Header";
         TaskLcl: Record "ADC Task";
+        TestStepHeaderRecLcl: Record "ADC Test Step Header";
     begin
         Case DocumentAttachment."Table ID" Of
             Database::"ADC Test Case Header":
@@ -36,6 +37,12 @@ codeunit 77256 "ADC Event Management"
                     RecRef.Open(Database::"ADC Test Case Header");
                     if TestCaseHeaderRecLcl.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(TestCaseHeaderRecLcl);
+                end;
+            Database::"ADC Test Step Header":
+                begin
+                    RecRef.Open(Database::"ADC Test Step Header");
+                    if TestStepHeaderRecLcl.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(TestStepHeaderRecLcl);
                 end;
             Database::"ADC Task":
                 begin
@@ -54,6 +61,12 @@ codeunit 77256 "ADC Event Management"
     begin
         Case RecRef.Number Of
             Database::"ADC Test Case Header":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            Database::"ADC Test Step Header":
                 begin
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
