@@ -15,6 +15,7 @@ page 77286 "ADC Task"
 
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
                     trigger OnAssistEdit()
                     begin
@@ -24,37 +25,44 @@ page 77286 "ADC Task"
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                     MultiLine = true;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field(Type; Rec."Type")
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
                 field("Assigned By"; Rec."Assigned By")
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Assigned By.', Comment = '%';
                 }
                 field("Assigned Date"; Rec."Assigned Date")
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Assigned Date.', Comment = '%';
                 }
                 field("Assigned To"; Rec."Assigned To")
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Status field.', Comment = '%';
                 }
                 field(Priority; Rec.Priority)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Priority field.', Comment = '%';
                 }
                 group(TestCase)
@@ -62,10 +70,12 @@ page 77286 "ADC Task"
                     Caption = 'Test Case';
                     field("Test Case No."; Rec."Test Case No.")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Test Case No. field.', Comment = '%';
                     }
                     field("Test Case Line No."; Rec."Test Case Line No.")
                     {
+                        ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Test Case Line No. field.', Comment = '%';
                     }
                 }

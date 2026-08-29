@@ -14,10 +14,12 @@ page 77277 "ADC Training Completion Status"
             {
                 field("Code"; Rec."Code")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
             }

@@ -106,6 +106,7 @@ page 77287 "ADC Assign Test Steps"
                 }
                 field(Select; Rec.Select)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Select field.', Comment = '%';
                     trigger OnValidate()
                     var

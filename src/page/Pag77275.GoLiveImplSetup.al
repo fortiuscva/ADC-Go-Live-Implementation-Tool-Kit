@@ -17,16 +17,19 @@ page 77275 "ADC Go Live Impl. Setup"
 
                 field("Test Case Nos."; Rec."Test Case Nos.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Case Nos. field.', Comment = '%';
                     Visible = false;
                 }
                 field("Test Step Nos."; Rec."Test Step Nos.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Step Nos. field.', Comment = '%';
                     Visible = false;
                 }
                 field("Task Nos."; Rec."Task Nos.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Task Nos. field.', Comment = '%';
                     Visible = false;
                 }

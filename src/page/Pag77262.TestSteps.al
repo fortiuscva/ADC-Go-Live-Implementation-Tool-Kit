@@ -15,23 +15,28 @@ page 77262 "ADC Test Steps"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                 }
                 field("Default Test Case No."; Rec."Default Test Case No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
                     Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("Data Points"; Rec."Data Points")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Data Points/Test Data field.', Comment = '%';
                 }
                 field("Expected Result"; Rec."Expected Result")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Expected Result field.', Comment = '%';
                 }
             }
