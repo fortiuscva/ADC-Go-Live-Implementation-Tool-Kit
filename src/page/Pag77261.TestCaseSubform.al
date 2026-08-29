@@ -71,7 +71,7 @@ page 77261 "ADC Test Case Subform"
             action(AssignSteps)
             {
                 ApplicationArea = All;
-                Caption = 'Assign Steps';
+                Caption = 'Assign Steps to Users';
                 Ellipsis = true;
                 Image = Process;
                 trigger OnAction()

@@ -2,6 +2,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "12EC-Dev",
+            "type": "al",
+            "request": "launch",
+            "environmentType": "Sandbox",
+            "environmentName": "Dev",
+            "tenant": "5520bf2a-e65c-4ca4-82c0-6169cccfd425",
+            "breakOnError": "All",
+            "breakOnRecordWrite": "None",
+            "launchBrowser": true,
+            "enableSqlInformationDebugger": true,
+            "enableLongRunningSqlStatements": true,
+            "schemaUpdateMode": "Synchronize"
+        },        
+        {
             "name": "Snapshot",
             "request": "snapshotInitialize",
             "type": "al",
@@ -86,20 +100,6 @@
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
             "schemaUpdateMode": "Synchronize"
-        },
-        {
-            "name": "12EC-Dev",
-            "type": "al",
-            "request": "launch",
-            "environmentType": "Sandbox",
-            "environmentName": "Dev_08242026",
-            "tenant": "5520bf2a-e65c-4ca4-82c0-6169cccfd425",
-            "breakOnError": "All",
-            "breakOnRecordWrite": "None",
-            "launchBrowser": true,
-            "enableSqlInformationDebugger": true,
-            "enableLongRunningSqlStatements": true,
-            "schemaUpdateMode": "ForceSync"
         }
     ]
 }
