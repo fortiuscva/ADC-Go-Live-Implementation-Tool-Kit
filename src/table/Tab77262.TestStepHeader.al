@@ -48,6 +48,7 @@ table 77262 "ADC Test Step Header"
         {
             Caption = 'Default Test Case No.';
             DataClassification = CustomerContent;
+            TableRelation = "ADC Test Case Header"."No.";
         }
     }
     keys
