@@ -71,6 +71,7 @@ table 77262 "ADC Test Step Header"
     var
         GoLiveImplementationSetup: Record "ADC Go Live Impl. Setup";
         NoSeries: Codeunit "No. Series";
+        NewTestStepNo: Code[20];
     begin
         // if "No." = '' then begin
         //     GoLiveImplementationSetup.Get();
@@ -83,6 +84,12 @@ table 77262 "ADC Test Step Header"
 
         //     "No." := NoSeries.GetNextNo("No. Series");
         // end;
+        GoLiveImplementationSetup.Get();
+        GoLiveImplementationSetup.TestField("Last Test Step No.");
+        NewTestStepNo := IncStr(GoLiveImplementationSetup."Last Test Step No.");
+        GoLiveImplementationSetup."Last Test Step No." := NewTestStepNo;
+        GoLiveImplementationSetup.Modify();
+        "No." := NewTestStepNo;
         TestField("No.");
     end;
 

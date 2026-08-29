@@ -30,6 +30,21 @@ page 77275 "ADC Go Live Impl. Setup"
                     ToolTip = 'Specifies the value of the Task Nos. field.', Comment = '%';
                     Visible = false;
                 }
+                field("Last Test Case No."; Rec."Last Test Case No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Last Test Case No. field.', Comment = '%';
+                }
+                field("Last Step No."; Rec."Last Test Step No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Last Step No. field.', Comment = '%';
+                }
+                field("Last Task No."; Rec."Last Task No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Last Task No. field.', Comment = '%';
+                }
             }
         }
     }
