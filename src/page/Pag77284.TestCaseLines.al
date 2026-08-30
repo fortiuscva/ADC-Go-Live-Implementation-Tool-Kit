@@ -18,6 +18,7 @@ page 77284 "ADC Test Case Lines"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
                     trigger OnDrillDown()
                     var
@@ -30,47 +31,58 @@ page 77284 "ADC Test Case Lines"
                 }
                 field("Line No."; Rec."Line No.")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                     ToolTip = 'Specifies the value of the Line No. field.', Comment = '%';
                 }
                 field("Training Session Code"; Rec."Training Session Code")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Training Session Code field.', Comment = '%';
                 }
                 field("Step ID"; Rec."Step ID")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Steps field.', Comment = '%';
                 }
                 field("Test Case Description"; Rec."Test Case Description")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("Test Step Description"; Rec."Test Step Description")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("No. of Tasks"; Rec."No. of Tasks")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the No. of Tasks field.', Comment = '%';
                 }
                 field("Assigned To"; Rec."Assigned To")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Assigned To field.', Comment = '%';
                 }
                 field("Assigned Date"; Rec."Assigned Date")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Assigned Date field.', Comment = '%';
                 }
                 field("Target Completion Date"; Rec."Target Completion Date")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Training Completion Date field.', Comment = '%';
                 }
                 field("Executed By"; Rec."Executed By")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Executed By field.', Comment = '%';
                 }
                 field("Executed Date Time"; Rec."Executed Date Time")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Executed Date Time field.', Comment = '%';
                 }
             }

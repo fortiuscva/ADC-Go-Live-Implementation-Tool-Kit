@@ -16,6 +16,7 @@ page 77263 "ADC Test Step"
 
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
                     // trigger OnAssistEdit()
                     // begin
@@ -25,6 +26,7 @@ page 77263 "ADC Test Step"
                 }
                 field("Default Test Case No."; Rec."Default Test Case No.")
                 {
+                    ApplicationArea = All;
                     Editable = true;
                     ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
                 }
