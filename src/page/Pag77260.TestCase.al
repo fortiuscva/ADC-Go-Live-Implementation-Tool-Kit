@@ -16,21 +16,21 @@ page 77260 "ADC Test Case"
 
                 field(No; Rec."No.")
                 {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                     ToolTip = 'Specifies the value of the No. field.', Comment = '%';
                     // trigger OnAssistEdit()
                     // begin
                     //     if Rec.AssistEdit(xRec) then
                     //         CurrPage.Update();
                     // end;
-                    ShowMandatory = true;
-                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                     MultiLine = true;
-                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                     ShowMandatory = true;
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
                 field("No. Of Attached Test Steps"; Rec."No. Of Attached Test Steps")
                 {
@@ -64,20 +64,20 @@ page 77260 "ADC Test Case"
                     field(Category; Rec.Category)
                     {
                         ApplicationArea = All;
-                        ToolTip = 'Specifies the value of the Category field.', Comment = '%';
                         ShowMandatory = true;
+                        ToolTip = 'Specifies the value of the Category field.', Comment = '%';
                     }
                     field("Sub Category"; Rec."Sub Category")
                     {
                         ApplicationArea = All;
-                        ToolTip = 'Specifies the value of the Sub Category field.', Comment = '%';
                         ShowMandatory = true;
+                        ToolTip = 'Specifies the value of the Sub Category field.', Comment = '%';
                     }
                     field("Business Process"; Rec."Business Process")
                     {
                         ApplicationArea = All;
-                        ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
                         ShowMandatory = true;
+                        ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
                     }
                 }
                 group(Testing)
@@ -86,8 +86,8 @@ page 77260 "ADC Test Case"
                     field("Testing Type"; Rec."Testing Type")
                     {
                         ApplicationArea = All;
-                        ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
                         ShowMandatory = true;
+                        ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
                     }
                     field("UAT Owner"; Rec."UAT Owner SignOff")
                     {
