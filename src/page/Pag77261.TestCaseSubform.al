@@ -88,7 +88,7 @@ page 77261 "ADC Test Case Subform"
             action(AssignSteps)
             {
                 ApplicationArea = All;
-                Caption = 'Assign Steps to Users';
+                Caption = 'Assign Test Steps to the Users';
                 Ellipsis = true;
                 Image = Process;
                 trigger OnAction()
@@ -99,7 +99,7 @@ page 77261 "ADC Test Case Subform"
                     SelectedTestStepID: Code[20];
                     TargetCompletionDate: Date;
                 begin
-                    if not Confirm('Do you want to assign steps to users?') then
+                    if not Confirm('Do you want to assign test steps to the users?') then
                         exit;
 
                     CurrPage.SaveRecord();
