@@ -3,6 +3,8 @@ table 77263 "ADC Test Step Line"
     Caption = 'Test Step Line';
     DataClassification = CustomerContent;
     DataPerCompany = false;
+    DrillDownPageId = "ADC Test Step Lines";
+    LookupPageId = "ADC Test Step Lines";
 
     fields
     {
