@@ -142,7 +142,7 @@ table 77260 "ADC Test Case Header"
         }
         field(31; "Training Category Code"; Code[20])
         {
-            Caption = 'Training Category Code';
+            Caption = 'Training Topic Code';
             FieldClass = FlowField;
             CalcFormula = lookup("ADC Detailed Traning Plan".Category where("Training Session Code" = field("Training Session Code")));
             Editable = false;
