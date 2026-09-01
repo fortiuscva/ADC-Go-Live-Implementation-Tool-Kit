@@ -24,6 +24,11 @@ page 77259 "ADC Test Cases"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
+                field("Testing Type"; Rec."Testing Type")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
+                }
                 field("No. Of Test Steps"; Rec."No. Of Attached Test Steps")
                 {
                     ApplicationArea = All;
@@ -33,6 +38,12 @@ page 77259 "ADC Test Cases"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Category field.', Comment = '%';
+                    Visible = false;
+                }
+                field("Training Category Code"; Rec."Training Category Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Training Category field.', Comment = '%';
                 }
                 field("Sub Category"; Rec."Sub Category")
                 {
@@ -43,11 +54,7 @@ page 77259 "ADC Test Cases"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Business Process field.', Comment = '%';
-                }
-                field("Training Category Code"; Rec."Training Category Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Training Category field.', Comment = '%';
+                    Visible = false;
                 }
                 field("Training Session Code"; Rec."Training Session Code")
                 {
@@ -86,11 +93,6 @@ page 77259 "ADC Test Cases"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Signoff Status field.', Comment = '%';
-                }
-                field("Testing Type"; Rec."Testing Type")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Testing Type field.', Comment = '%';
                 }
                 field("Training Driven"; Rec."Training Driven")
                 {
