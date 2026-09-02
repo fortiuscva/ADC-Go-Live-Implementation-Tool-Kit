@@ -24,45 +24,12 @@ xmlport 77252 "ADC Test step Export"
                 fieldelement(No; TestStepHeader."No.")
                 {
                 }
-                // fieldelement(DefaultTestCaseNo; TestStepHeader."Default Test Case No.")
-                // {
-                // }
-                // fieldelement(Description; TestStepHeader.Description)
-                // {
-                // }
-                // fieldelement(DataPoints; TestStepHeader."Data Points")
-                // {
-                // }
-                // fieldelement(ExpectedResult; TestStepHeader."Expected Result")
-                // {
-                // }
                 textelement(TestSteps)
                 {
-                    trigger OnBeforePassVariable()
-                    begin
-                        TestSteps := MergedTestSteps;
-                    end;
                 }
-
                 trigger OnAfterGetRecord()
-                var
-                    TestStepLineRec: Record "ADC Test Step Line";
-                    Seperator: Text;
                 begin
-                    MergedTestSteps := '';
-                    Seperator := GetActualSeperator(Format(GoLiveImplSetupRecGbl."Test Steps Line Separator"));
-
-                    TestStepLineRec.Reset();
-                    TestStepLineRec.SetRange("Document No.", TestStepHeader."No.");
-
-                    if TestStepLineRec.FindSet() then
-                        repeat
-                            if MergedTestSteps <> '' then
-                                MergedTestSteps += Seperator;
-
-                            MergedTestSteps += TestStepLineRec."Test Step Description";
-
-                        until TestStepLineRec.Next() = 0;
+                    TestSteps := GetMergedTestSteps(TestStepHeader."No.");
                 end;
             }
         }
@@ -71,6 +38,29 @@ xmlport 77252 "ADC Test step Export"
     begin
         GoLiveImplSetupRecGbl.Get();
         GoLiveImplSetupRecGbl.TestField("Test Steps Line Separator");
+    end;
+
+    local procedure GetMergedTestSteps(StepNoPar: Code[20]): Text
+    var
+        TestStepLineRec: Record "ADC Test Step Line";
+        Seperator: Text;
+    begin
+        MergedTestSteps := '';
+        Seperator := GetActualSeperator(Format(GoLiveImplSetupRecGbl."Test Steps Line Separator"));
+
+        TestStepLineRec.Reset();
+        TestStepLineRec.SetRange("Document No.", StepNoPar);
+
+        if TestStepLineRec.FindSet() then
+            repeat
+                if MergedTestSteps <> '' then
+                    MergedTestSteps += Seperator;
+
+                MergedTestSteps += TestStepLineRec."Test Step Description";
+
+            until TestStepLineRec.Next() = 0;
+
+        exit(MergedTestSteps);
     end;
 
     local procedure GetActualSeperator(ConfiguredSeperator: Text): Text
@@ -82,7 +72,7 @@ xmlport 77252 "ADC Test step Export"
 
         Case UpperCase(ConfiguredSeperator) of
             'CRLF':
-                exit(Format(CRLF[1]) + Format(CRLF[2]));
+                exit(CRLF);
         End;
     end;
 
