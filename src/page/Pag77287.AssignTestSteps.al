@@ -160,6 +160,17 @@ page 77287 "ADC Assign Test Steps"
                     Page.Run(Page::"ADC User Setup");
                 end;
             }
+            action(RefreshUsers)
+            {
+                ApplicationArea = All;
+                Caption = 'Refresh Users';
+                Image = Refresh;
+                trigger OnAction()
+                begin
+                    CurrPage.Update(True);
+                end;
+
+            }
         }
         area(Promoted)
         {

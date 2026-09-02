@@ -106,6 +106,57 @@ page 77263 "ADC Test Step"
                     FunctionsCULcl.SynchronizeUpdatesToTestCases(Rec);
                 end;
             }
+            action(ExporttoExcel)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to Excel';
+
+                trigger OnAction()
+                var
+                    TestStepExport: XmlPort "ADC Test step Export";
+                    TestStepHeader: Record "ADC Test Step Header";
+                begin
+                    CurrPage.SetSelectionFilter(TestStepHeader);
+                    Xmlport.Run(Xmlport::"ADC Test step Export", true, false, TestStepHeader);
+                end;
+            }
+            //             HeaderRec: Record "ADC Test Step Header";
+            //             LineRec: Record "ADC Test Step Line";
+            //             ExcelBuf: Record "Excel Buffer" temporary;
+            //             CombinedLines: Text;
+            //         begin
+            //             ExcelBuf.DeleteAll();
+
+            //             ExcelBuf.NewRow();
+            //             ExcelBuf.AddColumn('Test Step', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
+            //             ExcelBuf.AddColumn('Test Step Lines', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
+
+            //             // Loop through each Header
+            //             if HeaderRec.FindSet() then
+            //                 repeat
+            //                     CombinedLines := '';
+
+            //                     LineRec.SetRange(LineRec."Document No.", HeaderRec."No.");
+            //                     if LineRec.FindSet() then
+            //                         repeat
+            //                             if CombinedLines = '' then
+            //                                 CombinedLines := LineRec."Test Step Description"
+            //                             else
+            //                                 CombinedLines := CombinedLines + '#(lf)' + LineRec."Test Step Description";
+            //                         until LineRec.Next() = 0;
+
+            //                     ExcelBuf.NewRow();
+            //                     ExcelBuf.AddColumn(HeaderRec."No.", false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+            //                     ExcelBuf.AddColumn(CombinedLines, false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
+            //                 until HeaderRec.Next() = 0;
+
+            //             ExcelBuf.CreateNewBook('Test Step Export');
+            //             ExcelBuf.WriteSheet('Test Steps', CompanyName, UserId);
+            //             ExcelBuf.CloseBook();
+            //             ExcelBuf.OpenExcel();
+            //         end;
+            //     }
+            // }
         }
         area(Promoted)
         {

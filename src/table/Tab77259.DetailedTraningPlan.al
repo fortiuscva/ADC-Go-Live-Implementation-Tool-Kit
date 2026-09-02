@@ -113,7 +113,13 @@ table 77259 "ADC Detailed Traning Plan"
     begin
         if CheckWhetherTestCaseExists() then
             Error(StrSubstNo(CannotModifyErr, Rec."Training Session Code"));
+        if Rec."Training Session Code" <> xRec."Training Session Code" then begin
+            if TestCaseExists(xRec."Training Session Code") then
+                Error('You cannot change the Training Session Code because it is already used in Test Cases.');
+        end;
     end;
+
+
 
     trigger OnDelete()
     var
@@ -121,6 +127,16 @@ table 77259 "ADC Detailed Traning Plan"
     begin
         if CheckWhetherTestCaseExists() then
             Error(StrSubstNo(CannotDeleteErr, Rec."Training Session Code"));
+        if TestCaseExists(Rec."Training Session Code") then
+            Error('You cannot delete this Training Plan because its Training Session Code is already used in Test Cases.');
+    end;
+
+    local procedure TestCaseExists(TrainingCode: Code[20]): Boolean
+    var
+        TestCaseHeader: Record "ADC Test Case Header";
+    begin
+        TestCaseHeader.SetRange("Training Session Code", TrainingCode);
+        exit(not TestCaseHeader.IsEmpty());
     end;
 
     local procedure CheckWhetherTestCaseExists(): Boolean

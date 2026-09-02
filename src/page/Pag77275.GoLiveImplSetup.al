@@ -48,7 +48,31 @@ page 77275 "ADC Go Live Impl. Setup"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Last Task No. field.', Comment = '%';
                 }
+                field("Test Steps Line Separator"; Rec."Test Steps Line Separator")
+                {
+                    ToolTip = 'Specifies the value of the Test Steps Line Separator field.', Comment = '%';
+                }
+                field("Specific Separator"; Rec."Specific Separator")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Specific Separator field.', Comment = '%';
+                    Editable = ShowSpecificSeparator;
+                    Visible = ShowSpecificSeparator;
+
+                }
             }
         }
     }
+    var
+        ShowSpecificSeparator: Boolean;
+
+    trigger OnAfterGetRecord()
+    begin
+        ShowSpecificSeparator := (Rec."Test Steps Line Separator" = Rec."Test Steps Line Separator"::Other);
+    end;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        ShowSpecificSeparator := (Rec."Test Steps Line Separator" = Rec."Test Steps Line Separator"::Other);
+    end;
 }

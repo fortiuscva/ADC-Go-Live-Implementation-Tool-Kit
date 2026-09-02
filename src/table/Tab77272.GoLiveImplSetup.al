@@ -41,6 +41,15 @@ table 77272 "ADC Go Live Impl. Setup"
         {
             Caption = 'Last Task No.';
         }
+        field(13; "Test Steps Line Separator"; Enum "ADC Test Steps Line Separator")
+        {
+            DataClassification = CustomerContent;
+        }
+        field(14; "Specific Separator"; text[50])
+        {
+            Caption = 'Specific Separator';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
