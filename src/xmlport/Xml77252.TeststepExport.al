@@ -5,7 +5,7 @@ xmlport 77252 "ADC Test step Export"
     FormatEvaluate = Legacy;
     FieldDelimiter = '"';
     FieldSeparator = ',';
-    RecordSeparator = '<NewLine>';
+    RecordSeparator = '<CR/LF>';
     UseRequestPage = false;
     Format = VariableText;
     FileName = 'TestSteps.csv';
@@ -27,40 +27,60 @@ xmlport 77252 "ADC Test step Export"
                 textelement(TestSteps)
                 {
                     Width = 0;
-                    trigger OnBeforePassVariable()
-                    begin
-                        TestSteps := GetMergedTestSteps(TestStepHeader."No.");
-                    end;
                 }
+                trigger OnAfterGetRecord()
+                begin
+                    GetMergedTestSteps(TestStepHeader."No.");
+                end;
             }
         }
     }
 
+    trigger OnPreXmlPort()
+    begin
+        GoLiveImplSetupRecGbl.Get();
+        GoLiveImplSetupRecGbl.TestField("Test Steps Line Separator");
+    end;
+
     local procedure GetMergedTestSteps(StepNoPar: Code[20]): Text
     var
         TestStepLineRec: Record "ADC Test Step Line";
-        TypeHelper: Codeunit "Type Helper";
-        Seperator: Text[2];
+        Seperator: Text[1];
     begin
-        MergedTestSteps := '';
-        Seperator := TypeHelper.CRLFSeparator();
+        TestSteps := '';
+        Seperator := GetActualSeperator(GoLiveImplSetupRecGbl."Test Steps Line Separator");
 
         TestStepLineRec.Reset();
         TestStepLineRec.SetRange("Document No.", StepNoPar);
         TestStepLineRec.SetCurrentKey("Document No.", "Line No.");
 
-        if TestStepLineRec.FindSet() then
+        if TestStepLineRec.FindSet() then begin
             repeat
-                if MergedTestSteps <> '' then
-                    MergedTestSteps += Seperator;
+                if TestSteps <> '' then
+                    TestSteps += Seperator;
 
-                MergedTestSteps += TestStepLineRec."Test Step Description";
+                TestSteps += TestStepLineRec."Test Step Description";
 
             until TestStepLineRec.Next() = 0;
-        exit(MergedTestSteps);
+        end;
+
+        exit(TestSteps);
+    end;
+
+    local procedure GetActualSeperator(TestStepLineSeperatorPar: Enum "ADC Test Steps Line Separator"): Text[1];
+    var
+        TypeHelper: Codeunit "Type Helper";
+        CRLF: Text[2];
+    begin
+        CRLF := TypeHelper.CRLFSeparator();
+        Case TestStepLineSeperatorPar of
+            TestStepLineSeperatorPar::CR:
+                exit(CRLF[1]);
+            TestStepLineSeperatorPar::LF:
+                exit(CRLF[2]);
+        end;
     end;
 
     var
         GoLiveImplSetupRecGbl: Record "ADC Go Live Impl. Setup";
-        MergedTestSteps: Text;
 }

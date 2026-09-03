@@ -6,11 +6,15 @@ enum 77250 "ADC Test Steps Line Separator"
     {
         Caption = ' ';
     }
-    value(1; CRLF)
+    value(1; CR)
     {
-        Caption = 'CRLF';
+        Caption = 'CR';
     }
-    value(2; Other)
+    value(2; LF)
+    {
+        Caption = 'LF';
+    }
+    value(3; Other)
     {
         Caption = 'Other';
     }
