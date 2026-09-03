@@ -24,18 +24,6 @@ xmlport 77252 "ADC Test step Export"
                 fieldelement(No; TestStepHeader."No.")
                 {
                 }
-                // fieldelement(DefaultTestCaseNo; TestStepHeader."Default Test Case No.")
-                // {
-                // }
-                // fieldelement(Description; TestStepHeader.Description)
-                // {
-                // }
-                // fieldelement(DataPoints; TestStepHeader."Data Points")
-                // {
-                // }
-                // fieldelement(ExpectedResult; TestStepHeader."Expected Result")
-                // {
-                // }
                 textelement(TestSteps)
                 {
                     Width = 0;
