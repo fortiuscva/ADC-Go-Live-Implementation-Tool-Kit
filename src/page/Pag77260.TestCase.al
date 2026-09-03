@@ -4,7 +4,7 @@ page 77260 "ADC Test Case"
     Caption = 'Test Case';
     PageType = Document;
     SourceTable = "ADC Test Case Header";
-    UsageCategory = None;
+    UsageCategory = Lists;
 
     layout
     {

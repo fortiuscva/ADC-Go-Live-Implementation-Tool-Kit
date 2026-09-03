@@ -38,52 +38,38 @@ xmlport 77252 "ADC Test step Export"
                 // }
                 textelement(TestSteps)
                 {
+                    Width = 0;
                     trigger OnBeforePassVariable()
                     begin
-                        TestSteps := MergedTestSteps;
+                        TestSteps := GetMergedTestSteps(TestStepHeader."No.");
                     end;
                 }
-
-                trigger OnAfterGetRecord()
-                var
-                    TestStepLineRec: Record "ADC Test Step Line";
-                    Seperator: Text;
-                begin
-                    MergedTestSteps := '';
-                    Seperator := GetActualSeperator(Format(GoLiveImplSetupRecGbl."Test Steps Line Separator"));
-
-                    TestStepLineRec.Reset();
-                    TestStepLineRec.SetRange("Document No.", TestStepHeader."No.");
-
-                    if TestStepLineRec.FindSet() then
-                        repeat
-                            if MergedTestSteps <> '' then
-                                MergedTestSteps += Seperator;
-
-                            MergedTestSteps += TestStepLineRec."Test Step Description";
-
-                        until TestStepLineRec.Next() = 0;
-                end;
             }
         }
     }
-    trigger OnPreXmlPort()
-    begin
-        GoLiveImplSetupRecGbl.Get();
-        GoLiveImplSetupRecGbl.TestField("Test Steps Line Separator");
-    end;
 
-    local procedure GetActualSeperator(ConfiguredSeperator: Text): Text
+    local procedure GetMergedTestSteps(StepNoPar: Code[20]): Text
     var
-        CRLF: Text[2];
+        TestStepLineRec: Record "ADC Test Step Line";
+        TypeHelper: Codeunit "Type Helper";
+        Seperator: Text[2];
     begin
-        CRLF[1] := 13; // Carriage Return
-        CRLF[2] := 10; // Line Feed
+        MergedTestSteps := '';
+        Seperator := TypeHelper.CRLFSeparator();
 
-        Case UpperCase(ConfiguredSeperator) of
-            'CRLF':
-                exit(Format(CRLF[1]) + Format(CRLF[2]));
-        End;
+        TestStepLineRec.Reset();
+        TestStepLineRec.SetRange("Document No.", StepNoPar);
+        TestStepLineRec.SetCurrentKey("Document No.", "Line No.");
+
+        if TestStepLineRec.FindSet() then
+            repeat
+                if MergedTestSteps <> '' then
+                    MergedTestSteps += Seperator;
+
+                MergedTestSteps += TestStepLineRec."Test Step Description";
+
+            until TestStepLineRec.Next() = 0;
+        exit(MergedTestSteps);
     end;
 
     var

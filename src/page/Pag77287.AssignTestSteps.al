@@ -167,7 +167,8 @@ page 77287 "ADC Assign Test Steps"
                 Image = Refresh;
                 trigger OnAction()
                 begin
-                    CurrPage.Update(True);
+                    CurrPage.Update(false);
+                    Message('Page refreshed');
                 end;
 
             }

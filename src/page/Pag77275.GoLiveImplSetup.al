@@ -50,29 +50,20 @@ page 77275 "ADC Go Live Impl. Setup"
                 }
                 field("Test Steps Line Separator"; Rec."Test Steps Line Separator")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Steps Line Separator field.', Comment = '%';
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(false);
+                    end;
                 }
                 field("Specific Separator"; Rec."Specific Separator")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Specific Separator field.', Comment = '%';
-                    Editable = ShowSpecificSeparator;
-                    Visible = ShowSpecificSeparator;
-
+                    Editable = Rec."Test Steps Line Separator" = Rec."Test Steps Line Separator"::Other;
                 }
             }
         }
     }
-    var
-        ShowSpecificSeparator: Boolean;
-
-    trigger OnAfterGetRecord()
-    begin
-        ShowSpecificSeparator := (Rec."Test Steps Line Separator" = Rec."Test Steps Line Separator"::Other);
-    end;
-
-    trigger OnAfterGetCurrRecord()
-    begin
-        ShowSpecificSeparator := (Rec."Test Steps Line Separator" = Rec."Test Steps Line Separator"::Other);
-    end;
 }

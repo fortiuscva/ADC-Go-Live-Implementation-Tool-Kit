@@ -108,49 +108,31 @@ table 77259 "ADC Detailed Traning Plan"
         }
     }
     trigger OnModify()
-    var
-        CannotModifyErr: Label 'Detailed training plan with training session code %1 cannot be changed as it is associated with one or more test cases.';
     begin
-        if CheckWhetherTestCaseExists() then
-            Error(StrSubstNo(CannotModifyErr, Rec."Training Session Code"));
-        if Rec."Training Session Code" <> xRec."Training Session Code" then begin
-            if TestCaseExists(xRec."Training Session Code") then
-                Error('You cannot change the Training Session Code because it is already used in Test Cases.');
-        end;
+        if (Rec."Training Session Code" <> xRec."Training Session Code") AND (xRec."Training Session Code" <> '') then
+            CheckWhetherTestCaseExists(xRec."Training Session Code", false);
     end;
-
-
 
     trigger OnDelete()
-    var
-        CannotDeleteErr: Label 'Detailed training plan with training session code %1 cannot be deleted as it is associated with one or more test cases.';
     begin
-        if CheckWhetherTestCaseExists() then
-            Error(StrSubstNo(CannotDeleteErr, Rec."Training Session Code"));
-        if TestCaseExists(Rec."Training Session Code") then
-            Error('You cannot delete this Training Plan because its Training Session Code is already used in Test Cases.');
+        CheckWhetherTestCaseExists(xRec."Training Session Code", true);
     end;
 
-    local procedure TestCaseExists(TrainingCode: Code[20]): Boolean
-    var
-        TestCaseHeader: Record "ADC Test Case Header";
+    local procedure CheckWhetherTestCaseExists(TrainingSessionCodePar: Code[30]; OnDelete: Boolean): Boolean
     begin
-        TestCaseHeader.SetRange("Training Session Code", TrainingCode);
-        exit(not TestCaseHeader.IsEmpty());
-    end;
-
-    local procedure CheckWhetherTestCaseExists(): Boolean
-    begin
-        if (xRec."Training Session Code" <> '') then begin
-            TestCaseHeaderRecGbl.Reset();
-            TestCaseHeaderRecGbl.SetRange("Training Session Code", Rec."Training Session Code");
-            if not TestCaseHeaderRecGbl.IsEmpty() then
-                exit(true);
-
-            exit(false);
-        end;
+        TestCaseHeaderRecGbl.Reset();
+        TestCaseHeaderRecGbl.SetRange("Training Session Code", TrainingSessionCodePar);
+        if not TestCaseHeaderRecGbl.IsEmpty() then
+            if not OnDelete then
+                Error(StrSubstNo(CannotChangeTrainingSessionCodeErr, TrainingSessionCodePar))
+            else
+                Error(StrSubstNo(CannotDeleteErr, TrainingSessionCodePar));
+        exit(false);
     end;
 
     var
         TestCaseHeaderRecGbl: Record "ADC Test Case Header";
+        CannotModifyErr: Label 'Detailed training plan with training session code %1 cannot be changed as it is associated with one or more test cases.';
+        CannotChangeTrainingSessionCodeErr: Label 'Training session code %1 cannot be changed as it is associated with one or more test cases.';
+        CannotDeleteErr: Label 'Detailed training plan with training session code %1 cannot be deleted as it is associated with one or more test cases.';
 }

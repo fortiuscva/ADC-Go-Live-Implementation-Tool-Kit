@@ -43,6 +43,7 @@ table 77272 "ADC Go Live Impl. Setup"
         }
         field(13; "Test Steps Line Separator"; Enum "ADC Test Steps Line Separator")
         {
+            Caption = 'Test Steps Line Separator';
             DataClassification = CustomerContent;
         }
         field(14; "Specific Separator"; text[50])
