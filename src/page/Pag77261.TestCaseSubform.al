@@ -77,7 +77,12 @@ page 77261 "ADC Test Case Subform"
                     ShowMandatory = true;
                     ToolTip = 'Specifies the value of the Executed Date Time field.', Comment = '%';
                 }
-
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = True;
+                    ToolTip = 'Specifies the value of the Status field.', Comment = '%';
+                }
             }
         }
     }
