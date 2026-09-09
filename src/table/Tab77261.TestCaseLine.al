@@ -125,6 +125,12 @@ table 77261 "ADC Test Case Line"
             DataClassification = CustomerContent;
             TableRelation = Company.Name;
         }
+        field(21; Status; Code[100])
+        {
+            Caption = 'Status';
+            TableRelation = "ADC UAT Execution Status";
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
