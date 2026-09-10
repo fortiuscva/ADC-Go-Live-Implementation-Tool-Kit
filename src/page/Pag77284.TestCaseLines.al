@@ -85,6 +85,11 @@ page 77284 "ADC Test Case Lines"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Executed Date Time field.', Comment = '%';
                 }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Status field.', Comment = '%';
+                }
             }
         }
         area(FactBoxes)
