@@ -25,6 +25,10 @@ page 77260 "ADC Test Case"
                     //         CurrPage.Update();
                     // end;
                 }
+                field(Sequence; Rec.Sequence)
+                {
+                    ToolTip = 'Specifies the value of the Sequence field.', Comment = '%';
+                }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
