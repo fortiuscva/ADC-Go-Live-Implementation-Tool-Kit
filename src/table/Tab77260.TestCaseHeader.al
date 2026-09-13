@@ -154,6 +154,11 @@ table 77260 "ADC Test Case Header"
             Editable = false;
             FieldClass = FlowField;
         }
+        field(33; Sequence; Integer)
+        {
+            Caption = 'Sequence';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
