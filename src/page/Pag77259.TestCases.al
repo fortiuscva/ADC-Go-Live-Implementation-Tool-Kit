@@ -19,6 +19,10 @@ page 77259 "ADC Test Cases"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Test Case ID field.', Comment = '%';
                 }
+                field(Sequence; Rec.Sequence)
+                {
+                    ToolTip = 'Specifies the value of the Sequence field.', Comment = '%';
+                }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;

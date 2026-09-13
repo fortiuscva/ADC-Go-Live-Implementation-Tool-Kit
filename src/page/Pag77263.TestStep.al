@@ -24,11 +24,16 @@ page 77263 "ADC Test Step"
                     //         CurrPage.Update();
                     // end;
                 }
-                field("Default Test Case No."; Rec."Default Test Case No.")
+                group(CreatedFrom)
                 {
-                    ApplicationArea = All;
-                    Editable = true;
-                    ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
+                    Caption = 'Created From';
+                    field("Default Test Case No."; Rec."Default Test Case No.")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Test Case No.';
+                        Editable = true;
+                        ToolTip = 'Specifies the value of the Default Test Case No. field.', Comment = '%';
+                    }
                 }
 
                 field(Description; Rec.Description)

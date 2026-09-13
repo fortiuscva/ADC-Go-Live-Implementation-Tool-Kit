@@ -46,7 +46,7 @@ table 77262 "ADC Test Step Header"
         }
         field(22; "Default Test Case No."; Code[20])
         {
-            Caption = 'Default Test Case No.';
+            Caption = 'Test Case No.';
             DataClassification = CustomerContent;
             TableRelation = "ADC Test Case Header"."No.";
         }
