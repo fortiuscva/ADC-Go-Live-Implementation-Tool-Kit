@@ -31,6 +31,7 @@ report 77259 "ADC Delete Table Data"
                     field(RunForAllCompanies; RunForAllCompanies)
                     {
                         Caption = 'Run For All Companies';
+                        ApplicationArea = All;
                     }
                 }
             }
