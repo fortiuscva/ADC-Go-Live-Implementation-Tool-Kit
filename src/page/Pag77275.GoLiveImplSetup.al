@@ -51,4 +51,28 @@ page 77275 "ADC Go Live Impl. Setup"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            group(AdminOptions)
+            {
+                Caption = 'Admin Options';
+                Image = Administration;
+
+                action(DeleteTableData)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete Table Data';
+                    ToolTip = 'Delete data from selected custom tables.';
+                    Image = Delete;
+
+                    trigger OnAction()
+                    begin
+                        Report.RunModal(Report::"ADC Delete Table Data");
+                    end;
+                }
+            }
+        }
+    }
 }
