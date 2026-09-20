@@ -1,8 +1,9 @@
 report 77259 "ADC Delete Table Data"
 {
+    Caption = 'Delete Table Data';
     ProcessingOnly = true;
     ApplicationArea = All;
-    UsageCategory = Tasks;
+    UsageCategory = None;
 
     requestpage
     {
@@ -15,7 +16,9 @@ report 77259 "ADC Delete Table Data"
                     field(TableID; TableID)
                     {
                         Caption = 'Table ID';
-                        TableRelation = AllObjWithCaption where("Object Type" = const(Table));
+                        TableRelation = AllObjWithCaption."Object ID" where("Object Type" = const(Table));
+
+
                         ApplicationArea = All;
                     }
 
