@@ -13,5 +13,6 @@ codeunit 77260 "ADC Item Journal Posting Mgt."
             exit;
 
         ItemJnlPostBatch.Run(ItemJnlLine);
+
     end;
 }
