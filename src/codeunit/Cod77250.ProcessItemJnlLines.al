@@ -29,7 +29,7 @@ codeunit 77250 "ADC Process Item Jnl. Lines"
         ItemJnlLineRecLcl.Validate(Quantity, Rec.Quantity);
 
         ItemJnlLineRecLcl.Validate("Location Code", Rec."Location Code");
-        ItemJnlLineRecLcl.Validate("Unit Cost", UnitCostLcl);
+        ItemJnlLineRecLcl.Validate("Unit Cost", Rec."Unit Cost");
 
         if Rec."Bin Code" <> '' then
             ItemJnlLineRecLcl.Validate("Bin Code", Rec."Bin Code");
