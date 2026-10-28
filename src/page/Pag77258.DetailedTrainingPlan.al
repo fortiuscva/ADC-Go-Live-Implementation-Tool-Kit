@@ -103,32 +103,36 @@ page 77258 "ADC Detailed Training Plan"
     {
         area(Processing)
         {
-            action(ShowAssociatedTestCases)
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = all;
-                Caption = 'Show Associated Test Cases';
-                Ellipsis = true;
-                Image = EditLines;
-                trigger OnAction()
-                var
-                    TestCaseHeader: Record "ADC Test Case Header";
-                begin
-                    TestCaseHeader.Reset();
-                    TestCaseHeader.FilterGroup := 8;
-                    TestCaseHeader.SetRange("Training Session Code", Rec."Training Session Code");
-                    Page.Run(Page::"ADC Test Cases", TestCaseHeader);
-                end;
-            }
-            action(ShowAllTestCases)
-            {
-                ApplicationArea = all;
-                Caption = 'Show All Test Cases';
-                Ellipsis = true;
-                Image = EditLines;
-                trigger OnAction()
-                begin
-                    Page.Run(Page::"ADC Test Cases");
-                end;
+                Caption = 'Go Live Implementation Tool Kit';
+                action(ShowAssociatedTestCases)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Show Associated Test Cases';
+                    Ellipsis = true;
+                    Image = EditLines;
+                    trigger OnAction()
+                    var
+                        TestCaseHeader: Record "ADC Test Case Header";
+                    begin
+                        TestCaseHeader.Reset();
+                        TestCaseHeader.FilterGroup := 8;
+                        TestCaseHeader.SetRange("Training Session Code", Rec."Training Session Code");
+                        Page.Run(Page::"ADC Test Cases", TestCaseHeader);
+                    end;
+                }
+                action(ShowAllTestCases)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Show All Test Cases';
+                    Ellipsis = true;
+                    Image = EditLines;
+                    trigger OnAction()
+                    begin
+                        Page.Run(Page::"ADC Test Cases");
+                    end;
+                }
             }
         }
         area(Promoted)

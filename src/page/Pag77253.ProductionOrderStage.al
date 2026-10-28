@@ -73,64 +73,66 @@ page 77253 "ADC Production Order Stage"
     {
         area(processing)
         {
-
-            action("Import Production Orders")
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = All;
-                Caption = 'Import Production Orders';
-                Image = Import;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                begin
-                    ReadExcelSheet();
-                    ImportProdOrderStaging();
-                end;
-            }
-            action(CreateProductionOrders)
-            {
-                Caption = 'Process Production Orders';
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = Process;
-                ToolTip = 'This action will create Production Orders';
-                RunObject = report "ADC Create Production Order";
-            }
-            action(DeleteSourceAndUnflagSelected)
-            {
-                ApplicationArea = All;
-                Caption = 'Delete Source and Unflag Processed Lines';
-                Image = Delete;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                var
-                    ProdOrderStageRecLcl: Record "ADC Production Order Stage";
-                    ProdOrderRecLcl: Record "Production Order";
-                begin
-                    CurrPage.SetSelectionFilter(ProdOrderStageRecLcl);
-                    if ProdOrderStageRecLcl.FindSet() then begin
-                        repeat
-                            if ProdOrderStageRecLcl.Processed then begin
+                Caption = 'Go Live Implementation Tool Kit';
+                action("Import Production Orders")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Import Production Orders';
+                    Image = Import;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    begin
+                        ReadExcelSheet();
+                        ImportProdOrderStaging();
+                    end;
+                }
+                action(CreateProductionOrders)
+                {
+                    Caption = 'Process Production Orders';
+                    ApplicationArea = All;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    Image = Process;
+                    ToolTip = 'This action will create Production Orders';
+                    RunObject = report "ADC Create Production Order";
+                }
+                action(DeleteSourceAndUnflagSelected)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete Source and Unflag Processed Lines';
+                    Image = Delete;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    var
+                        ProdOrderStageRecLcl: Record "ADC Production Order Stage";
+                        ProdOrderRecLcl: Record "Production Order";
+                    begin
+                        CurrPage.SetSelectionFilter(ProdOrderStageRecLcl);
+                        if ProdOrderStageRecLcl.FindSet() then begin
+                            repeat
+                                if ProdOrderStageRecLcl.Processed then begin
 
-                                ProdOrderRecLcl.Reset();
-                                ProdOrderRecLcl.SetRange("No.", ProdOrderStageRecLcl."Prod. Order No.");
-                                if ProdOrderRecLcl.FindFirst() then
-                                    ProdOrderRecLcl.Delete();
-                                ProdOrderStageRecLcl.Processed := false;
-                                ProdOrderStageRecLcl.Modify();
-                            end;
-                        until ProdOrderStageRecLcl.Next() = 0;
-                        Message('Selected processed lines unflagged and Production Order(s) are deleted.');
-                    end else
-                        Message('No records selected.');
-                end;
+                                    ProdOrderRecLcl.Reset();
+                                    ProdOrderRecLcl.SetRange("No.", ProdOrderStageRecLcl."Prod. Order No.");
+                                    if ProdOrderRecLcl.FindFirst() then
+                                        ProdOrderRecLcl.Delete();
+                                    ProdOrderStageRecLcl.Processed := false;
+                                    ProdOrderStageRecLcl.Modify();
+                                end;
+                            until ProdOrderStageRecLcl.Next() = 0;
+                            Message('Selected processed lines unflagged and Production Order(s) are deleted.');
+                        end else
+                            Message('No records selected.');
+                    end;
+                }
             }
-
         }
         area(Navigation)
         {

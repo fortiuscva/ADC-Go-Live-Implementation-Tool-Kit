@@ -84,20 +84,23 @@ page 77255 "ADC Prod. Order Comp. Stage"
     {
         area(processing)
         {
-
-            action("Import Prod. Order Components")
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = All;
-                Caption = 'Import Prod. Order Components';
-                Image = Import;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                begin
-                    ReadExcelSheet();
-                    ImportProdOrderCompStaging();
-                end;
+                Caption = 'Go Live Implementation Tool Kit';
+                action("Import Prod. Order Components")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Import Prod. Order Components';
+                    Image = Import;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    begin
+                        ReadExcelSheet();
+                        ImportProdOrderCompStaging();
+                    end;
+                }
             }
         }
     }
