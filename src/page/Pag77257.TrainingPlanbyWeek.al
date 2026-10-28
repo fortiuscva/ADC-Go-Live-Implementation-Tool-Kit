@@ -89,16 +89,20 @@ page 77257 "ADC Training Plan by Week"
     {
         area(Processing)
         {
-            action(DetailedTrainingPlan)
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = all;
-                Caption = 'Detailed Training Plan';
-                Ellipsis = true;
-                Image = ViewDetails;
-                trigger OnAction()
-                begin
-                    Page.Run(Page::"ADC Detailed Training Plan");
-                end;
+                Caption = 'Go Live Implementation Tool Kit';
+                action(DetailedTrainingPlan)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Detailed Training Plan';
+                    Ellipsis = true;
+                    Image = ViewDetails;
+                    trigger OnAction()
+                    begin
+                        Page.Run(Page::"ADC Detailed Training Plan");
+                    end;
+                }
             }
         }
         area(Promoted)

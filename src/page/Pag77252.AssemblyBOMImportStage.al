@@ -64,51 +64,55 @@ page 77252 "ADC Assembly BOM Import Stage"
     {
         area(Processing)
         {
-            action("ADC NTS ImportBOMComponents")
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = All;
-                Caption = 'Import Assembly BOM Components';
-                Image = Import;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                begin
-                    ReadExcelSheet();
-                    ImportAssBOMStaging();
-                end;
-            }
-            action(CreateBOMComponents)
-            {
-                Caption = 'Process BOM Components';
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = Process;
-                ToolTip = 'This action will create Assembly BOM';
-                RunObject = report "ADC Create BOM Components";
-            }
-            action(UnflagProcessedFlag)
-            {
-                Caption = 'Unflag Processed Lines';
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = Process;
-                ToolTip = 'This action will unflag processed flag value on Staging Assembly BOM Lines';
-                trigger OnAction()
+                Caption = 'Go Live Implementation Tool Kit';
+                action("ADC NTS ImportBOMComponents")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Import Assembly BOM Components';
+                    Image = Import;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    begin
+                        ReadExcelSheet();
+                        ImportAssBOMStaging();
+                    end;
+                }
+                action(CreateBOMComponents)
+                {
+                    Caption = 'Process BOM Components';
+                    ApplicationArea = All;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    Image = Process;
+                    ToolTip = 'This action will create Assembly BOM';
+                    RunObject = report "ADC Create BOM Components";
+                }
+                action(UnflagProcessedFlag)
+                {
+                    Caption = 'Unflag Processed Lines';
+                    ApplicationArea = All;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    Image = Process;
+                    ToolTip = 'This action will unflag processed flag value on Staging Assembly BOM Lines';
+                    trigger OnAction()
 
-                begin
-                    if not Confirm(UnProcessedConfirmFlagMsg, false) then
-                        Error(ProcessInterruptedMsg);
+                    begin
+                        if not Confirm(UnProcessedConfirmFlagMsg, false) then
+                            Error(ProcessInterruptedMsg);
 
-                    ADCBOMComponentStagingRecGbl.RESET;
-                    ADCBOMComponentStagingRecGbl.ModifyAll(Processed, false);
-                    ADCBOMComponentStagingRecGbl.ModifyAll("Error Text", '');
-                end;
+                        ADCBOMComponentStagingRecGbl.RESET;
+                        ADCBOMComponentStagingRecGbl.ModifyAll(Processed, false);
+                        ADCBOMComponentStagingRecGbl.ModifyAll("Error Text", '');
+                    end;
 
+                }
             }
 
         }
