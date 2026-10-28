@@ -94,45 +94,49 @@ page 77254 "ADC Prod. Order Line Stage"
         }
         area(Navigation)
         {
-            action(ShowComponents)
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = All;
-                Caption = 'Show Prod. Order Components';
-                Image = Navigate;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                var
-                    ProdOrderComponentRec: Record "ADC Prod. Order Comp. Stage";
-                    ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
-                begin
-                    CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
-                    if ProdOrderLineStagingRecLcl.FindFirst() then begin
-                        ProdOrderComponentRec.SetRange("Prod. Order No.", ProdOrderLineStagingRecLcl."Prod. Order No.");
-                        PAGE.Run(PAGE::"ADC Prod. Order Comp. Stage", ProdOrderComponentRec);
+                Caption = 'Go Live Implementation Tool Kit';
+                action(ShowComponents)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Show Prod. Order Components';
+                    Image = Navigate;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    var
+                        ProdOrderComponentRec: Record "ADC Prod. Order Comp. Stage";
+                        ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
+                    begin
+                        CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
+                        if ProdOrderLineStagingRecLcl.FindFirst() then begin
+                            ProdOrderComponentRec.SetRange("Prod. Order No.", ProdOrderLineStagingRecLcl."Prod. Order No.");
+                            PAGE.Run(PAGE::"ADC Prod. Order Comp. Stage", ProdOrderComponentRec);
+                        end;
                     end;
-                end;
-            }
-            action(ShowRoutingLines)
-            {
-                ApplicationArea = All;
-                Caption = 'Show Prod. Order Routing Lines';
-                Image = Navigate;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                var
-                    RoutingLineRec: Record "Prod. Order Routing Line Stage";
-                    ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
-                begin
-                    CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
-                    if ProdOrderLineStagingRecLcl.FindFirst() then begin
-                        RoutingLineRec.SetRange("Prod. Order No.", ProdOrderLineStagingRecLcl."Prod. Order No.");
-                        PAGE.Run(PAGE::"Prod. Order Routing Line Stage", RoutingLineRec);
+                }
+                action(ShowRoutingLines)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Show Prod. Order Routing Lines';
+                    Image = Navigate;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    var
+                        RoutingLineRec: Record "Prod. Order Routing Line Stage";
+                        ProdOrderLineStagingRecLcl: Record "ADC Prod. Order Line Stage";
+                    begin
+                        CurrPage.SetSelectionFilter(ProdOrderLineStagingRecLcl);
+                        if ProdOrderLineStagingRecLcl.FindFirst() then begin
+                            RoutingLineRec.SetRange("Prod. Order No.", ProdOrderLineStagingRecLcl."Prod. Order No.");
+                            PAGE.Run(PAGE::"Prod. Order Routing Line Stage", RoutingLineRec);
+                        end;
                     end;
-                end;
+                }
             }
         }
     }
