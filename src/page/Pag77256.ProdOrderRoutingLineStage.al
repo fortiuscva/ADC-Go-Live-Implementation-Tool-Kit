@@ -83,20 +83,23 @@ page 77256 "Prod. Order Routing Line Stage"
     {
         area(processing)
         {
-
-            action("Import Prod. Order Routing Lines")
+            group(GoLiveImplementationToolKit)
             {
-                ApplicationArea = All;
-                Caption = 'Import Prod. Order Routing Lines';
-                Image = Import;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                trigger OnAction()
-                begin
-                    ReadExcelSheet();
-                    ImportProdOrderRoutingLinesStaging();
-                end;
+                Caption = 'Go Live Implementation Tool Kit';
+                action("Import Prod. Order Routing Lines")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Import Prod. Order Routing Lines';
+                    Image = Import;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    trigger OnAction()
+                    begin
+                        ReadExcelSheet();
+                        ImportProdOrderRoutingLinesStaging();
+                    end;
+                }
             }
         }
     }
